@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Serif', serif;
+}
+
+body{
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(180deg, #6bc2ff, #0037fa);
+    padding: 0 10px;
+}
+
+nav{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 8vh;
+    background-color: #6bc2ff;
+}
+
+
+p.one {
+    border-style: solid;
+    border-color: yellow;
+}
+
+.container{
+    max-width:700px;
+    width:100%;
+    background:#fff;
+    padding: 10px;
+    border-radius:5px;
+}
+
+.container form .user-details
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 50%;
+}
+
+form .user-details .input-box
+{
+    margin: 40px 0 12px 0;
+    width: cal(100% / 2 - 100px);
+}
+
+.user-details .input-box input{
+    height: 45px;
+    width: 100%;
+}
+user-details .input-box .details{
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.flexbox-container{
+    display: flex;
+    justify-content: space-between;
+}
+

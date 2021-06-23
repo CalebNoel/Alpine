@@ -4,7 +4,7 @@
 function makeInvisible(id)
 {
     document.getElementById("student_status").style.visibility = 'hidden'
-    document.getElementById("student_status").style.height = 'auto'
+    document.getElementById("student_status").style.height = '0px'
 }
 
 function viewStudentStats(id, toggle)

@@ -14,20 +14,243 @@
     <!--Icons-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
-    <title>About Me</title>
+    <link rel="stylesheet" href="../resources/css/chatStyle.css">
+
+    <!-- Test Script-->
+    <script>
+      function selectChat(){
+        window.open("https://www.google.com")
+      }
+    </script>
+    <title>Chat</title>
   </head>
   <body>
-    <!--Navbar-->
+    <!--Navigation bar-->
+       <div id="nav-placeholder">
 
+       </div>
+
+       <script>
+       $(function(){
+         $("#nav-placeholder").load("nav.html");
+       });
+       </script>
+       <!--end of Navigation bar-->
+       <!--Navbar-->
+       <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+           <div class="container-fluid">
+             <div class="container">
+               <a class="navbar-brand" href="href="HomeMain.html"">
+                 <img src="../resources/img/logo.jpg" alt="" width="100" height="90">
+               </a>
+             </div>
+             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span>
+             </button>
+             <div class="collapse navbar-collapse nav-fill w-100" id="navbarSupportedContent nav-fill w-100">
+               <ul class="navbar-nav w-100">
+                 <li class="nav-item fs-4 fw-bold me">
+                   <a class="nav-link active" aria-current="page" href="HomeMain.html">Home</a>
+                 </li>
+                 <li class="nav-item fs-4 fw-bold">
+                   <a class="nav-link" href="map.html">Map</a>
+                 </li>
+                 <li class="nav-item fs-4 fw-bold">
+                   <a class="nav-link" href="log-in.html">Register</a>
+                 </li>
+                 <li class="nav-item dropdown fs-4 fw-bold">
+                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                   Choose a Ride
+                   </a>
+                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                     <li><a class="dropdown-item" href="#">Passenger</a></li>
+                     <li><a class="dropdown-item" href="#">Driver</a></li>
+                     <li><hr class="dropdown-divider"></li>
+                     <li><a class="dropdown-item" href="#">Chat</a></li>
+                   </ul>
+                 </li>
+                 <li class="nav-item fs-4 fw-bold">
+                   <a class="nav-link" href="about.html" tabindex="-1" aria-disabled="true">About</a>
+                 </li>
+                 <li class="nav-item fs-4 fw-bold">
+                   <a href="Account.html" class="btn btn-dark btn-lg active" role="button" aria-pressed="true">Log In</a>
+                 </li>
+
+               </ul>
+               <!-- <form class="d-flex">
+                 <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search">
+                 <button class="btn btn-outline-success" type="submit">Search</button>
+               </form> -->
+             </div>
+           </div>
+         </nav>
+       <!--NavBar-->
 
     <!--Body of Website-->
-    <div class="conatiner">
-      <div class="row">
-        <div class=chat-search>
-          <input type="text" placeholder="Search">
-          <button class="btn btn-light" onclick="search()"> Search </button>
+        <div class="conatiner">
+          <div class="row">
+            <div class="col-3" id="chat-select-container">
+              <div class="row">
+                <div class=chat-search>
+                  <input type="text" placeholder="Search">
+                  <button class="btn btn-light" onclick="search()"> Search </button>
+                </div>
+              </div>
+              <div class="chat-select-scroll-box">
+                <ul class="chat-select">
+                  <!--Placeholder chat until javascript is working-->
+                  <li class="chats">
+                    <div class="chat-pic">
+                      <img src="../resources/img/default_profile_pic.jpg" alt "Profile Pic" onclick="selectChat();">
+                    </div>
+                    <p class="name">
+                      <span onclick="selectChat();">Test User 1</span>
+                    </p>
+                  </li>
+                  <li class="chats">
+                    <div class="chat-pic">
+                      <img src="../resources/img/default_profile_pic.jpg" alt "Profile Pic">
+                    </div>
+                    <p class="name">
+                      <span>Test User 2</span>
+                    </p>
+                  </li>
+                  <li class="chats">
+                    <div class="chat-pic">
+                      <img src="../resources/img/default_profile_pic.jpg" alt "Profile Pic">
+                    </div>
+                    <p class="name">
+                      <span>Test User 3</span>
+                    </p>
+                  </li>
+                  <li class="chats">
+                    <div class="chat-pic">
+                      <img src="../resources/img/default_profile_pic.jpg" alt "Profile Pic">
+                    </div>
+                    <p class="name">
+                      <span>Test User 4</span>
+                    </p>
+                  </li>
+                  <li class="chats">
+                    <div class="chat-pic">
+                      <img src="../resources/img/default_profile_pic.jpg" alt "Profile Pic">
+                    </div>
+                    <p class="name">
+                      <span>Test User 5</span>
+                    </p>
+                  </li>
+                  <li class="chats">
+                    <div class="chat-pic">
+                      <img src="../resources/img/default_profile_pic.jpg" alt "Profile Pic">
+                    </div>
+                    <p class="name">
+                      <span>Test User 6</span>
+                    </p>
+                  </li>
+                  <li class="chats">
+                    <div class="chat-pic">
+                      <img src="../resources/img/default_profile_pic.jpg" alt "Profile Pic">
+                    </div>
+                    <p class="name">
+                      <span>Test User 7</span>
+                    </p>
+                  </li>
+                  <li class="chats">
+                    <div class="chat-pic">
+                      <img src="../resources/img/default_profile_pic.jpg" alt "Profile Pic" onclick="selectChat();">
+                    </div>
+                    <p class="name">
+                      <span>Test User 8</span>
+                    </p>
+                  </li>
+                  <li class="chats">
+                    <div class="chat-pic">
+                      <img src="../resources/img/default_profile_pic.jpg" alt "Profile Pic">
+                    </div>
+                    <p class="name">
+                      <span>Test User 9</span>
+                    </p>
+                  </li>
+                  <li class="chats">
+                    <div class="chat-pic">
+                      <img src="../resources/img/default_profile_pic.jpg" alt "Profile Pic">
+                    </div>
+                    <p class="name">
+                      <span>Test User 10</span>
+                    </p>
+                  </li>
+                  <li class="chats">
+                    <div class="chat-pic">
+                      <img src="../resources/img/default_profile_pic.jpg" alt "Profile Pic">
+                    </div>
+                    <p class="name">
+                      <span>Test User 11</span>
+                    </p>
+                  </li>
+                  <li class="chats">
+                    <div class="chat-pic">
+                      <img src="../resources/img/default_profile_pic.jpg" alt "Profile Pic">
+                    </div>
+                    <p class="name">
+                      <span>Test User 12</span>
+                    </p>
+                  </li>
+                  <li class="chats">
+                    <div class="chat-pic">
+                      <img src="../resources/img/default_profile_pic.jpg" alt "Profile Pic">
+                    </div>
+                    <p class="name">
+                      <span>Test User 13</span>
+                    </p>
+                  </li>
+                  <li class="chats">
+                    <div class="chat-pic">
+                      <img src="../resources/img/default_profile_pic.jpg" alt "Profile Pic">
+                    </div>
+                    <p class="name">
+                      <span>Test User 14</span>
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!--End of chat-select-->
+            <!--Start of chatbox-->
+            <div class="col-8">
+              <div class="row">
+                <div class="selected-chat">
+                  <span>To: <span class="name">Test User 1</span></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="chat-scroll-box">
+                    <ul class="chat-box" >
+                      <!--Received message template-->
+                      <li class="chat-received">
+                        <div class="user-pic">
+                          <img src="../resources/img/default_profile_pic.jpg" alt "Profile Pic" onclick="openProfile();">
+                        </div>
+                        <div class="chat-text"> Sample text </div>
+                        <div class="chat-time"> 1:06 AM, June 25</div>
+                      </li>
+                      <li class="chat-sent">
+                        <div class="user-pic">
+                          <img src="../resources/img/default_profile_pic.jpg" alt "Profile Pic" onclick="openProfile();">
+                        </div>
+                        <div class="chat-text"> This is another sample text </div>
+                        <div class="chat-time"> 1:17 AM, June 25</div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="chat-input mt-auto mb-0">
+                    <textarea class="form-control" rows="3" placeholder="Type your message here..."></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--End of chatbox-->
+          </div>
         </div>
-      </div>
-    </div>
   </body>
 </html>

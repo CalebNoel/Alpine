@@ -1,186 +1,72 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-	  <title>Main Registration</title>
     <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<style>
+		p.inset {border-style: inset;}
+	</style>
+    <title>Login Page</title>
+	
+    <!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	<link href="style.css" rel="stylesheet">
+  </head>
 
-    <!--NavBar-->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-		<div class="container-fluid">
-		  <div class="container">
-			<a class="navbar-brand" href="HomeMain.html">
-			  <img src="../resources/img/logo.jpg" alt="" width="100" height="90">
-			</a>
-		  </div>
-		  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		  </button>
-		  <div class="collapse navbar-collapse nav-fill w-100" id="navbarSupportedContent nav-fill w-100">
-			<ul class="navbar-nav w-100">
-			  <li class="nav-item fs-4 fw-bold me">
-				<a class="nav-link active" aria-current="page" href="HomeMain.html">Home</a>
-			  </li>
-			  <li class="nav-item fs-4 fw-bold">
-				<a class="nav-link" href="map.html">Map</a>
-			  </li>
-			  <li class="nav-item fs-4 fw-bold">
-				<a class="nav-link" href="log-in.html">Register</a>
-			  </li>
-			  <li class="nav-item dropdown fs-4 fw-bold">
-				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-				Choose a Ride
-				</a>
-				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-				  <li><a class="dropdown-item" href="#">Passenger</a></li>
-				  <li><a class="dropdown-item" href="#">Driver</a></li>
-				  <li><hr class="dropdown-divider"></li>
-				  <li><a class="dropdown-item" href="#">Chat</a></li>
-				</ul>
-			  </li>
-			  <li class="nav-item fs-4 fw-bold">
-				<a class="nav-link" href="about.html" tabindex="-1" aria-disabled="true">About</a>
-			  </li>
-			  <li class="nav-item fs-4 fw-bold">
-				<a href="Account.html" class="btn btn-dark btn-lg active" role="button" aria-pressed="true">Log In</a>
-			  </li>
-			</ul>
-			<!-- <form class="d-flex">
-			  <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search">
-			  <button class="btn btn-outline-success" type="submit">Search</button>
-			</form> -->
-		  </div>
-		</div>
-	  </nav>
-	  <!--NavBar-->
-</head>
-  <body onload="makeInvisible(student_status)">
+  <body>
+		
+    <div class="nav">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand" href="home.html">
+                  <img class="rounded-circle" src="../resources/img/cu_boulder_logo.jpg" alt="" width="30" height="30">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarText">
+                  <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="home.html">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="team_stats.html">Find a ride</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="player_info.html">Find new friends</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="player_info.html">View map</a>
+                      </li>
+                  </ul>
+                  <div class="form-inline my-2 my-lg-0">
+                      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Logout</button>
+                  </div>
+                </div>
+              </nav>
+        </div>
+    </div>
+	<div class="container" align="center">
+		
+		<div class="title" align="center"></div>
+		<h1>Login</h1>
     <br>
-	<br>
-	<div class="container">
-		<form action="home.html">
-			<div class="form-group row">
-				<label class="col-sm-2 col-form-label" for="fullName">Full Name</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" name="fullName" id="fullName"  placeholder="Enter Name">
-				</div>
-			</div>
-			<div class="form-group row">
-				<label class="col-sm-2 col-form-label"  for="emailAddress">Email address</label>
-				<div class="col-sm-10">
-					<input type="email" class="form-control" name="emailAddress" id="emailAddress" placeholder="Enter email">
-				</div>
-			</div>
-			<div class="form-group row">
-				<label  class="col-sm-2 col-form-label" for="passwordFirst">Password</label>
-				<div class="col-sm-10">
-					<input type="password" class="form-control" id="passwordFirst" name="passwordFirst" placeholder="Password">
-				</div>
-			</div>
-			<div class="form-group row">
-				<label  class="col-sm-2 col-form-label" for="passwordConfirm">Confirm Password</label>
-				<div class="col-sm-10">
-					<input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm" placeholder="Confirm Password">
-				</div>
-			</div>
-			<div class="form-group row">
-				<label  class="col-sm-2 col-form-label" for="PhoneConfirm">Phone Number</label>
-				<div class="col-sm-10">
-					<input type="number" class="form-control" id="phoneNum" name="PhoneNumber" placeholder="Phone Number">
-				</div>
-			</div>
-			<div class="form-group row">
-				<label  class="col-sm-2 col-form-label" for="PhoneConfirm">Date of Birth</label>
-				<div class="col-sm-10">
-					<input type="number" class="form-control" id="phoneNum" name="PhoneNumber" placeholder="Enter as MM/DD/YYYY">
-				</div>
-			</div>
-			<br>
-			<div class= "form-group row">
-				<label  class="col-sm-2 col-form-label" for="Gender">Gender</label>
-				<select name="Gender" id="Gender" class="custom-select custom-select-sm">
-				<option value="0">Choose a Gender</option>
-				<option value="1">Male</option>
-				<option value="2">Female</option>
-			  	</select>
-			</div>
-			
-			<br>
+    </br>
+    <br>
+    </br>
 
-			 <fieldset class="form-group">
-				<div class="row">
-				  <legend class="col-form-label col-sm-2 pt-0">CU Boulder Alumni</legend>
-				  <div class="col-sm-10">
-					<div class="form-check">
-					  <input class="form-check-input" type="radio" name="alumniStatus" id="alumniStatusYes" value="Yes" required>
-					  <label class="form-check-label" for="alumniStatusYes">
-						Yes
-					  </label>
-					</div>
-					<div class="form-check">
-					  <input class="form-check-input" type="radio" name="alumniStatus" id="alumniStatusNo" value="No">
-					  <label class="form-check-label" for="alumniStatusNo">
-						No
-					  </label>
-					</div>
-				  </div>
-				</div>
-			  </fieldset>
-			<fieldset class="form-group">
-				<div class="row">
-				  <legend class="col-form-label col-sm-2 pt-0">CU Boulder Student</legend>
-				  <div class="col-sm-10">
-					<div class="form-check">
-					  <input class="form-check-input" onclick="viewStudentStats('student_status', 1)" type="radio" name="studentStatus" id="studentStatusYes" value="Yes" required>
-					  <label class="form-check-label" for="studentStatusYes">
-						Yes
-					  </label>
-					</div>
-					<div class="form-check">
-					  <input class="form-check-input" onclick="viewStudentStats('student_status', 0)" type="radio" name="studentStatus" id="studentStatusNo" value="No">
-					  <label class="form-check-label" for="studentStatusNo">
-						No
-					  </label>
-					</div>
-				  </div>
-				</div>
-				<div class="row" id="student_status">
-				  <legend class="col-form-label col-sm-2 pt-0">Student Status</legend>
-				  <div class="col-sm-10">
-					<div class="form-check">
-					  <input class="form-check-input" onclick="viewStudentStats('undergrad_select', 1);viewStudentStats('grad_select', 0);" type="radio" name="student_type" id="undergrad" value="U">
-					  <label class="form-check-label" for="undergrad">
-						Undergrad
-					  </label>
-					</div>
-					<select name="undergrad_level" id="undergrad_select" class="custom-select custom-select-sm">
-					  <option selected>Select Student Status</option>
-					  <option value="1">Freshman</option>
-					  <option value="2">Sophomore</option>
-					  <option value="3">Junior</option>
-					  <option value="4">Senior</option>
-					</select>
-					<div class="form-check">
-					  <input class="form-check-input" onclick="viewStudentStats('undergrad_select', 0);viewStudentStats('grad_select', 1);" type="radio" name="student_type" id="graduate" value="G">
-					  <label class="form-check-label" for="graduate">
-						Grad
-					  </label>
-					</div>
-					<select name="grad_level" id="grad_select" class="custom-select custom-select-sm">
-					  <option selected>Select Student Status</option>
-					  <option value="1">Masters</option>
-					  <option value="2">MBA</option>
-					  <option value="3">PhD</option>
-					</select>
-				  </div>
-				</div>
-			  </fieldset>
-			<input type="submit" value="Submit" class="btn btn-primary btn-block" style="height: fit-content;">
-		</form>
-		<br>
+		<form action="/action_page.php">
+            <label for="email">Email or username:</label>
+            <input type="email" id="email" name="email" required><br><br>
+            <label for="pwd">Password:</label>
+            <input type="password" id="pwd" name="pwd" minlength="8" required><br><br>
+            <input type="submit">
+          </form>
+        
 	</div>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-	<script src="../resources/js/scriptFeatures.js"></script>
-</body>
+	
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+	</body>
 </html>

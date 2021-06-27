@@ -8,10 +8,16 @@ $(document).ready(function(){
 function submitRideSearch() {
   let start = new Date(document.getElementById('start_date').value);
   let end = new Date(document.getElementById('end_date').value);
-  if( start <= end) {
-    //Proceed with search
+  let today = new Date();
+
+  if(!isNaN(start.getDate()) && !isNaN(end.getDate()) && start > end) { // start after end
+      alert('Start date cannot follow end date.');
   }
-  else if (!isNaN(start.getDate()) && !isNaN(end.getDate())) {
-    alert('Start date cannot follow end date.');
+  else if((!isNaN(start.getDate()) && start < today) ||
+   (!isNaN(end.getDate()) && end < today)) { // date in past
+      alert('Date cannot be in the past');
+  }
+  else {
+    //Proceed with Search
   }
 }

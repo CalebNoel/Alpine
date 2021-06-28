@@ -4,9 +4,8 @@
   "description": "App to allow user to ride share",
   "main": "app.js",
   "scripts": {
-    "start": "cross-env NORE_ENV=production node app",
-    "dev": "cross-env NORE_ENV=development nodemon app"
-
+    "start": "cross-env NODE_ENV=production node app",
+    "dev": "cross-env NODE_ENV=development nodemon app"
   },
   "author": "Erica Shivers",
   "license": "MIT",
@@ -18,7 +17,9 @@
     "method-override": "^3.0.0",
     "moment": "^2.29.1",
     "morgan": "^1.10.0",
-    "pg-promise": "^10.10.2"
+    "pg-promise": "^10.10.2",
+    "sequelize": "^6.6.4",
+    "sqlite3": "^5.0.2"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

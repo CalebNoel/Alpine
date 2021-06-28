@@ -1,14 +1,26 @@
 const express = require('express')
-const connectDB = require('./config/db')
 const exphbs = require('express-handlebars')
-const session = require('express-session')
 const path = require('path')
+const morgan = require('morgan')
+const dotenv = require('dotenv')
+
+const db = require('./models/index.js')
+
 
 dotenv.config({ path: './config/config.env'})
 
+const app = express()
+
+
+app.use(express.urlencoded({ extended: false }))
+app.use(express.json())
+
 //Routes
 app.use('/',require('./routes/index'))
-app.use('/auth',require('./routes/auth'))
+
+if(process.env.NODE_ENV === 'development'){
+    app.use(morgan('dev'))
+}
 
 
 const PORT = process.env.PORT || 3000

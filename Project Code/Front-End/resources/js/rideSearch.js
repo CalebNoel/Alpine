@@ -13,11 +13,10 @@ function submitRideSearch() {
   if(!isNaN(start.getDate()) && !isNaN(end.getDate()) && start > end) { // start after end
       alert('Start date cannot follow end date.');
   }
-  else if((!isNaN(start.getDate()) && start < today) ||
-   (!isNaN(end.getDate()) && end < today)) { // date in past
+  else if((!isNaN(start.getDate()) && start < today)) { // date in past
       alert('Date cannot be in the past');
   }
   else {
-    //Proceed with Search
+    document.getElementById('results').style.visibility = "visible";
   }
 }

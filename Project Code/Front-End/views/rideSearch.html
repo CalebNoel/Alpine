@@ -10,13 +10,50 @@
   </head>
   <body>
     <div style="position: absolute;  top: 25vh; left: 29vw;">
-      <h1 class="text-center" style="padding: 20px">Ride Search</h1>
-      <div class="row" id="field_labels">
+      <div id="search_ui">
+        <h1 class="text-center" style="padding: 20px">Ride Search</h1>
+        <div class="row" id="field_labels">
+            <div class="col">
+              Trip start date
+            </div>
+            <div class="col">
+              Trip end date
+            </div>
+            <div class="col">
+              Origin
+            </div>
+            <div class="col">
+              Destination
+            </div>
+        </div>
+        <div class="row" id="fields">
           <div class="col">
-            Trip start date
+            <input type='date' class="form-control" id='start_date' style='width: 10vw;'>
           </div>
           <div class="col">
-            Trip end date
+            <input type='date' class="form-control" id='end_date' style='width: 10vw;'>
+          </div>
+          <div class="col">
+            <input type='text' class="form-control" style='width: 10vw;'>
+          </div>
+          <div class="col">
+            <input type='text' class="form-control" style='width: 10vw;'>
+          </div>
+        </div>
+        <div class="row text-center">
+          <div class="col">
+            <button type="button" name="button" onclick="submitRideSearch()" style="margin: 20px 0px; width: 20vw">Submit</button>
+          </div>
+        </div>
+      </div>
+      <div id="results" style="visibility: hidden">
+        <h2 class="text-center" style="padding: 0px">Groups</h2>
+        <div id="group_results" class="row">
+          <div class="col">
+            Start
+          </div>
+          <div class="col">
+            End
           </div>
           <div class="col">
             Origin
@@ -24,27 +61,28 @@
           <div class="col">
             Destination
           </div>
-      </div>
-      <div class="row" id="fields">
-        <div class="col">
-          <input type='date' class="form-control" id='start_date' style='width: 10vw;'>
+          <div class="col">
+            # Travellers
+          </div>
         </div>
-        <div class="col">
-          <input type='date' class="form-control" id='end_date' style='width: 10vw;'>
-        </div>
-        <div class="col">
-          <input type='text' class="form-control" style='width: 10vw;'>
-        </div>
-        <div class="col">
-          <input type='text' class="form-control" style='width: 10vw;'>
-        </div>
-      </div>
-      <div class="row text-center">
-        <div class="col">
-          <button type="button" name="button" onclick="submitRideSearch()" style="margin: 20px 0px; width: 20vw">Submit</button>
+        <h2 class="text-center" style="padding: 20px">Individuals</h3>
+        <div id="individual_results" class="row">
+          <div class="col">
+            Start
+          </div>
+          <div class="col">
+            End
+          </div>
+          <div class="col">
+            Origin
+          </div>
+          <div class="col">
+            Destination
+          </div>
         </div>
       </div>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script> -->
 	  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>

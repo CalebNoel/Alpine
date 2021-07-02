@@ -11,7 +11,7 @@ router.get('/map',async (req,res) => {
 })
 
 router.get('/about',async (req,res)=>{
-    res.render(path.join(__dirname+ "/../../Front-End/views/about.html"));
+    res.sendFile(path.join(__dirname+ "/../../Front-End/views/about.html"));
 })
 // router.get('/dashboard',(req,res)=>{
     // res.render('dashboard')

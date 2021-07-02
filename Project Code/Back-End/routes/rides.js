@@ -2,14 +2,14 @@ const express = require('express');
 const router = express.Router();
 const { Ride } = require('../models/ride');
 const { body,check, validationResult } = require('express-validator');
-
+var path = require('path')
 
 // router.get('/create',async(req,res) => {
 //     res.render('')
 // });
 
 router.get('/search',async (req,res) => {
-    res.render('/../../Front-End/views/Register.html')
+    res.sendFile(path.join(__dirname+ "/../../Front-End/views/rideSearch.html"))
 });
 
 router.post('/search',[

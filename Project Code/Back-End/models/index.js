@@ -1,43 +1,31 @@
-const fs        = require("fs");
-const path      = require("path");
-const { Sequelize, Op, Model, DataTypes } = require("sequelize");
-const dotenv = require('dotenv')
-const { DB_FORCE_RESTART } = process.env;
+'use strict';
 
+const fs = require('fs');
+const path = require('path');
+const Sequelize = require('sequelize');
+const basename = path.basename(__filename);
+const env = process.env.NODE_ENV || 'development';
+const config = require(__dirname + '/../config/config.json')[env];
+const db = {};
 
-dotenv.config({ path: '../config/config.env'})
-
-const filebasename = path.basename(__filename);
-const sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: './dev.sqlite'
-});
-
-try {
-    sequelize.authenticate();
-    console.log('Connection has been established successfully.');
-} catch (error) {
-    console.error('Unable to connect to the database:', error);
+let sequelize;
+if (config.use_env_variable) {
+  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+} else {
+  sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
-
- 
-var db = {}
 
 fs
   .readdirSync(__dirname)
-  .filter((file) => {
-    const returnFile = (file.indexOf('.') !== 0)
-      && (file !== filebasename)
-      && (file.slice(-3) === '.js');
-    return returnFile;
+  .filter(file => {
+    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
   })
-  .forEach((file) => {
-    const model = require(path.join(__dirname, file))(sequelize, DataTypes)
+  .forEach(file => {
+    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
     db[model.name] = model;
   });
 
-
-Object.keys(db).forEach((modelName) => {
+Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }
@@ -45,17 +33,5 @@ Object.keys(db).forEach((modelName) => {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
-
-const sequelizeOptions = { logging: console.log, };
-
-if (DB_FORCE_RESTART === 'true' && process.env.ENV !== 'production') {
-  sequelizeOptions.force = true;
-}
-
-sequelize.sync(sequelizeOptions)
-  .catch((err) => {
-    console.log(err);
-    process.exit();
-  });
 
 module.exports = db;

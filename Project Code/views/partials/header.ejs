@@ -1,0 +1,52 @@
+<html lang="en" dir="ltr">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+        <div class="container">
+          <a class="navbar-brand" href="/">
+            <img src="/img/logo.jpg" alt="logo" width="100" height="90">
+          </a>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse nav-fill w-100" id="navbarSupportedContent nav-fill w-100">
+          <ul class="navbar-nav w-100">
+            <li class="nav-item fs-4 fw-bold me">
+              <a class="nav-link active" aria-current="page" href="/">Home</a>
+            </li>
+            <li class="nav-item fs-4 fw-bold">
+              <a class="nav-link" href="/map">Map</a>
+            </li>
+            <li class="nav-item fs-4 fw-bold">
+              <a class="nav-link" href="/users/register">Register</a>
+            </li>
+            <li class="nav-item dropdown fs-4 fw-bold">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Plan trip
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/rides/search">Ride Search</a>
+                <a class="dropdown-item" href="/chat/">Chat</a>
+              </div>
+            </li>
+            <li class="nav-item fs-4 fw-bold">
+              <a class="nav-link" href="/about" tabindex="-1" aria-disabled="true">About</a>
+            </li>
+            <li class="nav-item fs-4 fw-bold">
+              <a href="/users/login" class="btn btn-dark btn-lg active" role="button" aria-pressed="true">Log In</a>
+            </li>
+          </ul>
+          <!-- <form class="d-flex">
+            <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form> -->
+        </div>
+      </div>
+    </nav>
+    <!--NavBar-->

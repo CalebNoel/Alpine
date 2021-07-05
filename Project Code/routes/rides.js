@@ -9,7 +9,7 @@ var path = require('path')
 // });
 
 router.get('/search',async (req,res) => {
-    res.sendFile(path.join(__dirname+ "/../../Front-End/views/rideSearch.html"))
+    res.render('pages/rideSearch');
 });
 
 router.post('/search',[
@@ -24,7 +24,7 @@ router.post('/search',[
                 alert
             })
         } else {
-          
+
         }
     });
 

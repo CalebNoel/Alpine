@@ -1,0 +1,18 @@
+    <%- include ('../partials/header'); %>
+    <title>Login</title>
+  </head>
+  <body>
+    <div class="container" align="center">
+      <div class="content"></div>
+		  <h1>Login</h1>
+      <br></br>
+      <br></br>
+      <form action="/action_page.php">
+        <label for="email">Email or username:</label>
+        <input type="text" id="email" name="email" required><br><br>
+        <label for="pwd">Password:</label>
+        <input type="text" id="pwd" name="pwd" minlength="8" required><br><br>
+        <input type="submit">
+      </form>
+    </div>
+    <%- include ('../partials/footer'); %>

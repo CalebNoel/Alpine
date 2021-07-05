@@ -3,16 +3,16 @@ const router = express.Router()
 const path = require('path')
 
 router.get('/',async (req,res)=>{
-    res.sendFile(path.join(__dirname+ "/../../Front-End/views/HomeMain.html"))
-})
+    res.render('pages/HomeMain');
+});
 
 router.get('/map',async (req,res) => {
-    res.sendFile(path.join(__dirname+ "/../../Front-End/views/map.html"))
-})
+    res.render('pages/map');
+});
 
 router.get('/about',async (req,res)=>{
-    res.sendFile(path.join(__dirname+ "/../../Front-End/views/about.html"));
-})
+    res.render('pages/about')
+});
 // router.get('/dashboard',(req,res)=>{
     // res.render('dashboard')
 // })

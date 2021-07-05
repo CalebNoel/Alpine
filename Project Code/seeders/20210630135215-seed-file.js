@@ -1,4 +1,5 @@
 'use strict';
+const bcrypt = require("bcrypt")
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -11,11 +12,13 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
+    const salt = await bcrypt.genSalt(10);
+
     await queryInterface.bulkInsert('Users', [
       {
         name: 'John Doe',
         email:'john@example.com',
-        password: '$2y$10$WiMMv9erWdLM4G11zpHGA.QvB9NzWgHeK78jtzw5nW8Q46FBfuybO',
+        password: await bcrypt.hash('patientlyWait', salt),
         phone_no: '14155550132',
         dob: Date.parse('01 Jan 1970'),
         gender:'male',
@@ -25,7 +28,7 @@ module.exports = {
       {
         name: 'Jane Doe',
         email:'jane@example.com',
-        password: '$2y$10$WiMMv9erWdLM4G11zpHGA.QvB9NzWgHeK78jtzw5nW8Q46FBfuybO',
+        password: await bcrypt.hash('patientlyWait', salt),
         phone_no: '14155556132',
         dob: Date.parse('25 Jan 1970'),
         gender:'female',
@@ -35,7 +38,7 @@ module.exports = {
       {
         name: 'Slasher Doe',
         email:'slash@example.com',
-        password: '$2y$10$WiMMv9erWdLM4G11zpHGA.QvB9NzWgHeK78jtzw5nW8Q46FBfuybO',
+        password: await bcrypt.hash('patientlyWait', salt),
         phone_no: '14155550135',
         dob: Date.parse('31 Mar 1992'),
         gender:'other',
@@ -212,13 +215,15 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+     await queryInterface.bulkDelete('ChatLines', null, {});
+     await queryInterface.bulkDelete('RideUsers', null, {});
+     await queryInterface.bulkDelete('UserFavs', null, {});
+     await queryInterface.bulkDelete('Chats', null, {});
+     await queryInterface.bulkDelete('Rides', null, {});
      await queryInterface.bulkDelete('Users', null, {});
      await queryInterface.bulkDelete('Destinations', null, {});
-     await queryInterface.bulkDelete('UserFavs', null, {});
-     await queryInterface.bulkDelete('Rides', null, {});
-     await queryInterface.bulkDelete('RideUsers', null, {});
-     await queryInterface.bulkDelete('Chats', null, {});
-     await queryInterface.bulkDelete('ChatLines', null, {});
+
+
 
   }
 };

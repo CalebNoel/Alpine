@@ -1,5 +1,5 @@
 const LocalStrategy = require('passport-local').Strategy
-const User = require('../models/user')
+var User = require('../models').User;
 const bcrypt = require("bcrypt")
 const { Op } = require("sequelize")
 
@@ -7,7 +7,7 @@ module.exports = function(passport){
     passport.use(new LocalStrategy(function(username,password,done){
         User.findOne({
             where: {
-                name: {
+                email: {
                     [Op.eq]: username
                 }
             }
@@ -15,16 +15,16 @@ module.exports = function(passport){
             if (!user) {
                 return done(null, false, { message: 'No user found' });
             }
-    
             // Match Password
-            bcrypt.compare(password, user.password, function (err, isMatch) {
-            if (err) throw err;
-            if (isMatch) {
-                return done(null, user);
-            } else {
-                return done(null, false, { message: 'Wrong password' });
-            }
-            });
+            console.log(password);
+            console.log(user.dataValues.password);
+            bcrypt.compare(password,user.dataValues.password).then((result)=>{
+                if (result) {
+                    return done(null, user);
+                } else {
+                    return done(null, false, { message: 'Wrong password' });
+                }
+            }).catch((err)=>console.error(err))
         }).catch(err => {
             if(err) throw err;
         })
@@ -34,9 +34,13 @@ module.exports = function(passport){
         done(null,user.id)
     })
 
-    passport.deserializeUser(function(id,done){
-        User.findById(id,function(err,user){
-            done(err,user)
-        })
-    })
+    passport.deserializeUser(function(id, done) {
+        User.findByPk(id).then(function(user) {
+            if (user) {
+                done(null, user.get());
+            } else {
+                done(user.errors, null);
+            } 
+        });
+    });
 }

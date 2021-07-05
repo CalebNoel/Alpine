@@ -9,12 +9,15 @@ const session = require('express-session');
 
 const db = require('./models/index.js')
 
+
 // dotenv.config({ path: './config/config.env'})
 
 const app = express()
 let users = require('./routes/users');
 let rides = require('./routes/rides');
 let chat = require('./routes/chat');
+
+app.use( express.static('../Front-End')); 
 
 app.set('view engine', 'ejs')
 
@@ -27,7 +30,6 @@ app.use(session({
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
-app.use(express.static(__dirname + '/resources'));
 
 require('./middleware/passport')(passport);
 app.use(passport.initialize());
@@ -38,6 +40,8 @@ app.use('/',require('./routes/index'))
 app.use('/users', users);
 app.use('/rides', rides);
 app.use('/chat', chat);
+
+
 
 if(process.env.NODE_ENV === 'development'){
     app.use(morgan('dev'))

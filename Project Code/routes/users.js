@@ -8,7 +8,7 @@ const { body,check, validationResult } = require('express-validator');
 
 // Register Form
 router.get('/register', async (req, res) => {
-    res.render('pages/Register');
+    res.sendFile(path.join(__dirname+ "/../../Front-End/views/Register.html"))
 });
 
 // Register Proccess
@@ -58,15 +58,14 @@ router.post('/register', [
 
 // Login Form
 router.get('/login', async (req, res) => {
-    res.render('pages/User_Login');
+    res.sendFile(path.join(__dirname+ "/../../Front-End/views/User_Login.html"))
 });
 
 // Login Process
 router.post('/login', async (req, res, next) => {
   passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/users/login',
-    failureFlash: true
+    failureRedirect: '/users/login'
   })(req, res, next);
 });
 

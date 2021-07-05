@@ -27,6 +27,7 @@ app.use(session({
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
+app.use(express.static(__dirname + '/resources'));
 
 require('./middleware/passport')(passport);
 app.use(passport.initialize());

@@ -17,8 +17,6 @@ let users = require('./routes/users');
 let rides = require('./routes/rides');
 let chat = require('./routes/chat');
 
-app.use( express.static('../Front-End')); 
-
 app.set('view engine', 'ejs')
 
 app.use(session({

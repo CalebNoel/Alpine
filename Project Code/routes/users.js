@@ -8,7 +8,7 @@ const { body,check, validationResult } = require('express-validator');
 
 // Register Form
 router.get('/register', async (req, res) => {
-    res.sendFile(path.join(__dirname+ "/../../Front-End/views/Register.html"))
+    res.render('pages/Register');
 });
 
 // Register Proccess
@@ -58,7 +58,7 @@ router.post('/register', [
 
 // Login Form
 router.get('/login', async (req, res) => {
-    res.sendFile(path.join(__dirname+ "/../../Front-End/views/User_Login.html"))
+    res.render('pages/User_Login');
 });
 
 // Login Process

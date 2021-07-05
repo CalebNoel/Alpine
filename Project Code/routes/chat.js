@@ -10,7 +10,7 @@ const path = require('path')
 // });
 
 router.get('/', async (req,res) => {
-    res.sendFile(path.join(__dirname+ "views/chat.html"))
+    res.sendFile(path.join(__dirname+ "/../../Front-End/views/chat.html"))
 })
 
 module.exports = router;

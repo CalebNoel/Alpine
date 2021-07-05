@@ -9,7 +9,6 @@ const session = require('express-session');
 
 const db = require('./models/index.js')
 
-
 // dotenv.config({ path: './config/config.env'})
 
 const app = express()
@@ -38,8 +37,6 @@ app.use('/',require('./routes/index'))
 app.use('/users', users);
 app.use('/rides', rides);
 app.use('/chat', chat);
-
-
 
 if(process.env.NODE_ENV === 'development'){
     app.use(morgan('dev'))

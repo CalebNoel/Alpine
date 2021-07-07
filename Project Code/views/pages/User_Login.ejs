@@ -7,11 +7,11 @@
 		  <h1>Login</h1>
       <br></br>
       <br></br>
-      <form action="/action_page.php">
-        <label for="email">Email or username:</label>
-        <input type="text" id="email" name="email" required><br><br>
-        <label for="pwd">Password:</label>
-        <input type="text" id="pwd" name="pwd" minlength="8" required><br><br>
+      <form action="/users/login" method="POST">
+        <label for="username">Email:</label>
+        <input type="text" id="username" name="username" required><br><br>
+        <label for="password">Password:</label>
+        <input type="passowrd" id="password" name="password" minlength="8" required><br><br>
         <input type="submit">
       </form>
     </div>

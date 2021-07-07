@@ -6,9 +6,7 @@ var User = require('../models').User;
 var Chat = require('../models').Chat;
 var ChatLine = require('../models').ChatLine;
 const { Op } = require("sequelize")
-
-
-
+const ensureAuthenticated = require("./auth")
 const path = require('path')
 
 // router.get('/create',async(req,res) => {
@@ -36,18 +34,14 @@ router.get('/',ensureAuthenticated, async (req,res) => {
             }
         },
         order: [['createdAt','DESC']]
-    })
-    console.log(chat_messages)
-    res.sendFile(path.join(__dirname+ "/../../Front-End/views/chat.html"))
+    });
+    res.render('pages/chat',{
+        chats: user_chats,
+        curr_chat: open_chat,
+        chat_messages: chat_messages
+    });
 })
 
-// Access Control
-function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-      return next();
-    } else {
-        res.redirect('/users/login');
-    }
-}
+
 
 module.exports = router;

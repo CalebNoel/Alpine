@@ -5,10 +5,11 @@ const passport = require('passport');
 const { User } = require('../models/user');
 const path = require('path')
 const { body,check, validationResult } = require('express-validator');
+const ensureAuthenticated = require("./auth")
 
 // Register Form
 router.get('/register', async (req, res) => {
-    res.sendFile(path.join(__dirname+ "/../../Project Code/views/pages/Register.ejs"))
+    res.render('pages/Register')
 });
 
 // Register Proccess
@@ -31,9 +32,8 @@ router.post('/register', [
   async (req, res) => {
     const errors = validationResult(req)
     if(!errors.isEmpty()) {
-        // return res.status(422).jsonp(errors.array())
         const alert = errors.array()
-        res.render('users/register', {
+        res.render('pages/Register', {
             alert
         })
     } else {
@@ -58,7 +58,7 @@ router.post('/register', [
 
 // Login Form
 router.get('/login', async (req, res) => {
-    res.sendFile(path.join(__dirname+ "/../../Project Code/views/pages/User_Login.ejs"))
+    res.render('pages/User_Login');
 });
 
 // Login Process

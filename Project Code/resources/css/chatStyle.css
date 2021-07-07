@@ -1,6 +1,9 @@
 .body{
   margin:0;
 }
+#chat-body{
+    overflow: hidden;
+}
 /********************************************************************
 CHAT SELECT ************************************************
 ********************************************************************/
@@ -50,9 +53,18 @@ CHAT SELECT ************************************************
 /********************************************************************
 CHAT BOX ****************************************************
 ********************************************************************/
-.selected-user .span{
-
+.selected-chat{
+  margin-top: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border:2px solid black;
+  background-color: lightgrey;
+  width:100%;
 }
+.selected-chat .name{
+  font-weight: bold;
+}
+
 .chat-box{
     list-style-type: none;
 }
@@ -61,6 +73,7 @@ CHAT BOX ****************************************************
   width:100%;
   border:1px;
   overflow-y:scroll;
+  padding-top:20px;
 }
 .chat-box .user-pic img{
   width: 48px;

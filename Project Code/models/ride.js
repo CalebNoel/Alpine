@@ -44,6 +44,9 @@ module.exports = (sequelize, DataTypes) => {
             key: 'id'
         }
     },
+    driver_rating: {
+      type: DataTypes.INTEGER, 
+    },
     dest_id: {
         type: DataTypes.INTEGER,
         references: {

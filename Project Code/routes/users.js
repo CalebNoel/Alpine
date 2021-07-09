@@ -7,12 +7,18 @@ const path = require('path')
 const { body,check, validationResult } = require('express-validator');
 const ensureAuthenticated = require("./auth")
 
+
+
+// Show Profile
+router.get('/register', async (req, res) => {
+  res.render('pages/Register')
+});
+
 // Register Form
 router.get('/register', async (req, res) => {
     res.render('pages/Register')
 });
 
-// Register Proccess
 router.post('/register', [
   check('fullName','This username must me 3+ characters long').not().isEmpty().isLength({ min: 3 }),
   check('emailAddress','Please enter a validate email')
@@ -47,6 +53,7 @@ router.post('/register', [
         phone_no: req.body.PhoneNumber,
         dob : req.body.dob ? req.body.dob : dob,
         gender: req.body.gender ? req.body.gender : gender,
+        user_rating: 0.0,
       });
       newUser.save();
       res.redirect('/users/login',{

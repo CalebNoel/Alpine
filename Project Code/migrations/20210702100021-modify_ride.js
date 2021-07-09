@@ -8,12 +8,6 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-
-    await queryInterface.addColumn('Rides','end_date',
-    {
-      type:Sequelize.DATE,
-      allowNull:false
-    });
     await queryInterface.addColumn('Rides','start_point',
     {
       type:Sequelize.STRING,

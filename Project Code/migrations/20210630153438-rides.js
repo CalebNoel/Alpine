@@ -18,6 +18,10 @@ module.exports = {
       departure: {
         type: Sequelize.DATE
       },
+      end_date: {
+        type: Sequelize.DATE
+      },
+      
       fare_share:{
           type: Sequelize.FLOAT,
           allowNull: false,

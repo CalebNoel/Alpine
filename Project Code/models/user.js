@@ -29,6 +29,10 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       allowNull: false 
     },
+    user_rating: {
+      type: DataTypes.DECIMAL,
+      allowNull: false,
+    },
     password: {
         type: DataTypes.STRING,
         allowNull: false

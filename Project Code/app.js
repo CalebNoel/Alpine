@@ -18,6 +18,8 @@ let rides = require('./routes/rides');
 let chat = require('./routes/chat');
 
 app.use(express.static(path.join(__dirname, 'resources')));
+
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs')
 
 app.use(session({

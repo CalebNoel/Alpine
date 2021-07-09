@@ -29,6 +29,9 @@ module.exports = (sequelize, DataTypes) => {
               model: 'Users',
               key: 'id'
           }
+    },
+    rider_rating:{
+      type: DataTypes.INTEGER
     }
   }, {
     sequelize,

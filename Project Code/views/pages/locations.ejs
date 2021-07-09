@@ -1,14 +1,17 @@
 <%- include ('../partials/header'); %>
 <title>Location Finder</title>
 <body>
-    <div class="col" style="width:1200x; margin: 0 auto;">
-        <input class="form-control" type="text" id="tag">
+
+    <div class="row" style="width:500x; margin: 0 auto;">
+        <input class="form-control" type="text" id="tag" placeholder="Enter your address to see nearby locations">
       </div>
-      <div class="col">
+      <div class="row">
         <input class="btn btn-light" type="submit" id="Submit" value = "Submit" onclick="makeApiCall()">
       </div>
     </div>
+    <br>
+    <div class="card-columns" id="locations-stack">
 
-
+    </div>
 
 <%- include ('../partials/footer'); %>

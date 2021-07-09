@@ -19,6 +19,13 @@ router.get('/about',async (req,res)=>{
     res.render('pages/about')
 })
 
+router.get('/locations',async (req,res)=>{
+    res.render('pages/locations')
+})
+
+router.get('/MyAccount',async (req,res)=>{
+    res.render('pages/MyAccount')
+})
 
 // router.get('/dashboard',(req,res)=>{
     // res.render('dashboard')

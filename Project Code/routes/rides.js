@@ -151,7 +151,6 @@ router.post('/add',[
 );
 
 
-// Edit Ride
 router.get('/:id',ensureAuthenticated,async (req,res) => {
     const ride = await Ride.findAll({
         where: {
@@ -166,6 +165,7 @@ router.get('/:id',ensureAuthenticated,async (req,res) => {
     });
 });
 
+// Edit Ride
 router.put('/edit/:id',[
     check('start_date').not().isEmpty(),
     check('end_date').not().isEmpty(),
@@ -210,7 +210,7 @@ router.put('/edit/:id',[
 
 // Delete Ride
 router.delete('/delete/:id',ensureAuthenticated,async (req,res) => {
-    let rows_deleted = await RideUser.destroy({
+    let cascade_delete = await RideUser.destroy({
         where: {
             ride_id: req.params.id
         }
@@ -226,5 +226,29 @@ router.delete('/delete/:id',ensureAuthenticated,async (req,res) => {
 });
 
 // Add Rating Routes
+router.get('/:id/rate/:user_id',ensureAuthenticated,async(req,res) => {
+    if(req.query.rating){
+        const rating = req.query.rating;
+        const newRide = await RideUser.update({
+            
+        },{
+            where:{
+                ride_id: {
+                    [Op.eq] : parseInt(req.params.id)
+                },
+                user_id: {
+                    [Op.eq] : parseInt(req.params.user_id)
+                }
+            }
+        });
+        newRide.save();
+        res.redirect(`/rides/${newRide.id}`,{
+            message : 'Updated ride successfully'
+        });
+    } else{
+
+    }
+});
+
 
 module.exports = router;

@@ -3,6 +3,7 @@ const router = express.Router();
 var Chat = require('../models').Chat;
 var ChatLine = require('../models').ChatLine;
 const { Op } = require("sequelize")
+const { check, validationResult } = require('express-validator');
 const ensureAuthenticated = require("./auth")
 
 router.get('/',ensureAuthenticated, async (req,res) => {

@@ -34,10 +34,6 @@ module.exports = {
       dob: {
           type: Sequelize.DATEONLY,
       },
-      gender: {
-          type: Sequelize.ENUM,
-          values: ['male', 'female', 'other']
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

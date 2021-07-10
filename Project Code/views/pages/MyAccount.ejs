@@ -3,55 +3,67 @@
   <body style = "text-align:center;">
     <br>
 	<br>
-		<h1>*****'s Account</h1>
-    <br>
-    </br>
-	<div class = "image">
-		<img src = "../../../../../Desktop/AllenMountain.jpg">
+		<h1>My Profile</h1>
+	<div class = "image" align="left" style="margin-left: 100px">
+		<img src = "https://upload.wikimedia.org/wikipedia/commons/6/68/Joe_Biden_presidential_portrait.jpg" class="rounded-circle" style= "width:150px; height:150px; object-fit:cover;">
 	</div>
-	<form action="/action_page.php">
-		<div class="form-group row">
-			<label class="col-sm-2 col-form-label" for="fullName">Full Name</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" name="fullName" id="fullName"  placeholder="Enter Name">
+	<br>
+	<br>
+
+	<form action="/users/profile" method="POST">
+		
+		<div class="d-flex justify-content-center">
+			<label class="col-sm-2 col-form-label" for="fullName">Full Name:</label>
+			<div class="col-sm-6">
+				<input type="text" class="form-control" name="fullName" id="fullName"  placeholder="Enter Name" >
 			</div>
 		</div>
-		<div class="form-group row">
-			<label class="col-sm-2 col-form-label"  for="emailAddress">Email address</label>
-			<div class="col-sm-10">
+		<br>
+
+		<div class="d-flex justify-content-center">
+			<label class="col-sm-2 col-form-label"  for="emailAddress">Email address:</label>
+			<div class="col-sm-6">
 				<input type="email" class="form-control" name="emailAddress" id="emailAddress" placeholder="Enter email">
 			</div>
 		</div>
-		<div class="form-group row">
-			<label  class="col-sm-2 col-form-label" for="passwordFirst">Password</label>
-			<div class="col-sm-10">
+		<br>
+
+		<div class="d-flex justify-content-center">
+			<label  class="col-sm-2 col-form-label" for="passwordFirst">Password:</label>
+			<div class="col-sm-6">
 				<input type="password" class="form-control" id="passwordFirst" name="passwordFirst" placeholder="Password">
 			</div>
 		</div>
-		<div class="form-group row">
-			<label  class="col-sm-2 col-form-label" for="passwordConfirm">Confirm Password</label>
-			<div class="col-sm-10">
+		<br>
+
+		<div class="d-flex justify-content-center">
+			<label  class="col-sm-2 col-form-label" for="passwordConfirm">Confirm Password:</label>
+			<div class="col-sm-6">
 				<input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm" placeholder="Confirm Password">
 			</div>
 		</div>
-		<div class="form-group row">
-			<label  class="col-sm-2 col-form-label" for="PhoneConfirm">Phone Number</label>
-			<div class="col-sm-10">
+		<br>
+
+		<div class="d-flex justify-content-center">
+			<label  class="col-sm-2 col-form-label" for="PhoneConfirm">Phone Number:</label>
+			<div class="col-sm-6">
 				<input type="number" class="form-control" id="phoneNum" name="PhoneNumber" placeholder="Phone Number">
 			</div>
 		</div>
-		<div class="form-group row">
-			<label  class="col-sm-2 col-form-label" for="PhoneConfirm">Date of Birth</label>
-			<div class="col-sm-10">
-				<input type="number" class="form-control" id="phoneNum" name="PhoneNumber" placeholder="Enter as MM/DD/YYYY">
+		<br>
+
+		<div class="d-flex justify-content-center">
+			<label  class="col-sm-2 col-form-label" for="dob">Date of Birth:</label>
+			<div class="col-sm-6">
+				<input type="date" class="form-control" id="dob" name="dob" placeholder="Enter as MM/DD/YYYY">
 			</div>
 		</div>
 		<br>
 		
 		<br>
 		
-		<input type="submit" value="edit" onclick="edit()" class="btn btn-primary btn-block" style="height: fit-content;">
-		<input type="submit" value="save" onclick="save()" class="btn btn-primary btn-block" style="height: fit-content;">
+		<input type="submit" value="Save" class="btn btn-primary btn-block" style="height: fit-content;">
+	</div>
 	</form>
 		 
 	<script>

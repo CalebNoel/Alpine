@@ -11,12 +11,6 @@ module.exports = {
     await queryInterface.addColumn('Users', 'user_rating', {
       type: Sequelize.DECIMAL
     });
-    await queryInterface.addColumn('Rides', 'driver_rating', {
-      type: Sequelize.INTEGER
-    });
-    await queryInterface.addColumn('RideUsers', 'rider_rating', {
-      type: Sequelize.INTEGER
-    });
   },
 
   down: async (queryInterface, Sequelize) => {
@@ -26,16 +20,9 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.dropColumn('Users', 'user_rating', {
+    await queryInterface.removeColumn('Users', 'user_rating', {
       type: Sequelize.DECIMAL
     });
 
-    await queryInterface.dropColumn('Rides', 'driver_rating', {
-      type: Sequelize.INTEGER
-    });
-
-    await queryInterface.dropColumn('RideUsers', 'rider_rating', {
-      type: Sequelize.INTEGER
-    });
   }
 };

@@ -52,6 +52,7 @@ router.post('/register', [
     const errors = validationResult(req)
     if(!errors.isEmpty()) {
         alert = errors.errors;
+        console.log(alert);
         res.render('pages/Register', {
             alert
         })
@@ -69,9 +70,8 @@ router.post('/register', [
         user_rating: 0.0,
       });
       newUser.save();
-      res.redirect({
-        message : 'You have successfully registered, Please log in'
-      },'/users/login',);
+      req.session.message = 'Registered Successfully, please login';
+      res.redirect('/users/login');
   }
 });
 

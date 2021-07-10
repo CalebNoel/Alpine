@@ -6,8 +6,8 @@ const { Op } = require("sequelize")
 const { check, validationResult } = require('express-validator');
 const ensureAuthenticated = require("./auth")
 
-router.get('/',ensureAuthenticated, async (req,res) => {
-    const curr_user_id = req.user.id;
+router.get('/', async (req,res) => {
+    const curr_user_id = 1;
     const user_chats = await ChatLine.findAll({
         where: {
             user_id: {
@@ -35,8 +35,8 @@ router.get('/',ensureAuthenticated, async (req,res) => {
     });
 })
 
-router.get('/:id',ensureAuthenticated, async (req,res) => {
-    const curr_user_id = req.user.id;
+router.get('/:id', async (req,res) => {
+    const curr_user_id = 1;
     const user_chats = await ChatLine.findAll({
         where: {
             user_id: {
@@ -74,8 +74,8 @@ router.get('/:id',ensureAuthenticated, async (req,res) => {
 
 router.post('/:id/send',[
     check('message').not().isEmpty()
-],ensureAuthenticated, async (req,res) => {
-    const curr_user_id = req.user.id;
+], async (req,res) => {
+    const curr_user_id = 1;
     const message = req.body.message
     const user_chats = await ChatLine.findAll({
         where: {
@@ -94,7 +94,7 @@ router.post('/:id/send',[
     });
 
     const chat_message = await ChatLine.create({
-        user_id: req.user.id,
+        user_id: 1,
         chat_id: req.params.id,
         line_text: message,
     });

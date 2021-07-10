@@ -10,7 +10,7 @@ var path = require('path')
 const { Op } = require("sequelize")
 const moment = require("moment")
 
-router.get('/search',ensureAuthenticated,async (req,res) => {
+router.get('/search',async (req,res) => {
     let destinations = await Destination.findAll();
     destinations = destinations.map(element => element.dataValues);
     res.render('pages/rideSearch',{
@@ -24,7 +24,7 @@ router.post('/search',[
     check('end_date').not().isEmpty(),
     check('origin'),
     check('destination'),
-],ensureAuthenticated,
+],
     async (req,res) => {
         const errors = validationResult(req)
         if(!errors.isEmpty()) {
@@ -80,15 +80,15 @@ router.post('/search',[
 );
 
 // Ride Dashboard
-router.get('/',ensureAuthenticated,async (req,res) => {
+router.get('/',async (req,res) => {
     const driven_rides = await Ride.findAll({
         where: {
-            driver_id: req.user.id,
+            driver_id: 1, //replace with req.user.id
         }
     });
     const rides = await RideUser.findAll({
         where: {
-            user_id: req.user.id
+            user_id: 1 //replace with req.user.id
         },
         include: [
             {model:Ride,as: 'ride'},
@@ -103,7 +103,7 @@ router.get('/',ensureAuthenticated,async (req,res) => {
 
 
 // Add Ride
-router.get('/add',ensureAuthenticated,async (req,res) => {
+router.get('/add',async (req,res) => {
     let destinations = await Destination.findAll();
     destinations = destinations.map(element => element.dataValues);
     res.render('pages/add_ride',{
@@ -121,7 +121,7 @@ router.post('/add',[
     check('seats'),
     check('car_model'),
     check('fare_share'),
-],ensureAuthenticated,
+],
     async (req,res) => {
         const errors = validationResult(req)
         if(!errors.isEmpty()) {
@@ -138,7 +138,7 @@ router.post('/add',[
                 fare_share: parseFloat(req.body.fare_share),
                 car_model: req.body.car_model,
                 seats_available : parseInt(req.body.seats),
-                driver_id: req.user.id,
+                driver_id: 1, //replace with req.user.id
                 dest_id: parseInt(req.body.destination),
                 driver_rating: 0,
             });
@@ -151,7 +151,7 @@ router.post('/add',[
 );
 
 
-router.get('/:id',ensureAuthenticated,async (req,res) => {
+router.get('/:id',async (req,res) => {
     const ride = await Ride.findAll({
         where: {
             id: req.params.id,
@@ -175,7 +175,7 @@ router.put('/edit/:id',[
     check('car_model'),
     check('fare_share'),
     check('driver_rating')
-],ensureAuthenticated,
+],
     async (req,res) => {
         const errors = validationResult(req)
         if(!errors.isEmpty()) {
@@ -192,7 +192,7 @@ router.put('/edit/:id',[
                 fare_share: parseFloat(req.body.fare_share),
                 car_model: req.body.car_model,
                 seats_available : parseInt(req.body.seats),
-                driver_id: req.user.id,
+                driver_id: 1, //replace with req.user.id
                 dest_id: parseInt(req.body.destination),
                 driver_rating: parseInt(req.body.driver_rating),
             },{
@@ -209,7 +209,7 @@ router.put('/edit/:id',[
 );
 
 // Delete Ride
-router.delete('/delete/:id',ensureAuthenticated,async (req,res) => {
+router.delete('/delete/:id',async (req,res) => {
     let cascade_delete = await RideUser.destroy({
         where: {
             ride_id: req.params.id
@@ -226,7 +226,7 @@ router.delete('/delete/:id',ensureAuthenticated,async (req,res) => {
 });
 
 // Add Rating Routes
-router.get('/:id/rate/:user_id',ensureAuthenticated,async(req,res) => {
+router.get('/:id/rate/:user_id',async(req,res) => {
     if(req.query.rating){
         const rating = req.query.rating;
         const newRide = await RideUser.update({

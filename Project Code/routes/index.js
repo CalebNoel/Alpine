@@ -3,11 +3,11 @@ const router = express.Router()
 const ensureAuthenticated = require("./auth")
 const path = require('path')
 
-router.get('/',ensureAuthenticated,async (req,res)=>{
+router.get('/',async (req,res)=>{
     res.render('pages/HomeMain')
 })
 
-router.get('/map',ensureAuthenticated,async (req,res) => {
+router.get('/map',async (req,res) => {
     res.render('pages/map')
 })
 
@@ -23,9 +23,7 @@ router.get('/locations',async (req,res)=>{
     res.render('pages/locations')
 })
 
-router.get('/MyAccount',async (req,res)=>{
-    res.render('pages/MyAccount')
-})
+
 
 // router.get('/dashboard',(req,res)=>{
     // res.render('dashboard')

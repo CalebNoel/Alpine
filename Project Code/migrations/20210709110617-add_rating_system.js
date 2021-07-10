@@ -26,15 +26,15 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.dropColumn('Users', 'user_rating', {
+    await queryInterface.removeColumn('Users', 'user_rating', {
       type: Sequelize.DECIMAL
     });
 
-    await queryInterface.dropColumn('Rides', 'driver_rating', {
+    await queryInterface.removeColumn('Rides', 'driver_rating', {
       type: Sequelize.INTEGER
     });
 
-    await queryInterface.dropColumn('RideUsers', 'rider_rating', {
+    await queryInterface.removeColumn('RideUsers', 'rider_rating', {
       type: Sequelize.INTEGER
     });
   }

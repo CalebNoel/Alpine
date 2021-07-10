@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 var Ride = require('../models').Ride;
 var RideUser = require('../models').RideUser;
+var RideRate = require('../models').RideRate;
 var User = require('../models').User;
 var Destination = require('../models').Destination;
 const { check, validationResult } = require('express-validator');
@@ -29,46 +30,53 @@ router.post('/search',[
         const errors = validationResult(req)
         if(!errors.isEmpty()) {
             const alert = errors.array()
-            res.render('/rides/rideSearch', {
+            console.log(alert);
+            res.render('pages/rideSearch', {
                 alert
             })
         } else {
-            var searchTerm = req.body.origin;
-            // Tokenize the search terms and remove empty spaces
-            var tokens = searchTerm
-                        .toLowerCase()
-                        .split(' ')
-                        .filter(function(token){
-                            return token.trim() !== '';
-                        });
-            var searchTermRegex = null;
-            if(tokens.length) {
-                searchTermRegex = new RegExp(tokens.join('|'), 'gim');
-            }
-            console.log(req.body.start_date,req.body.end_date);
+            
             var start_date = moment(req.body.start_date);
             var end_date = moment(req.body.end_date);
             var dest_id = parseInt(req.body.destination);
-            console.log(start_date,end_date);
-            const rides = await Ride.findAll({
-                where: {
-                    departure: {
-                        [Op.gte] : start_date.format(),
-                        [Op.lt] : end_date.format(),
-                    },
-                    end_date: {
-                        [Op.gt] : start_date.format(),
-                        [Op.lte] : end_date.format(),
-                    },
-                    dest_id: {
-                        [Op.eq] : dest_id
-                    }
+            const where_clause = {
+                departure: {
+                    [Op.gte] : start_date.toDate(),
+                    [Op.lt] : end_date.toDate(),
                 },
+                end_date: {
+                    [Op.gt] : start_date.toDate(),
+                    [Op.lte] : end_date.toDate(),
+                },
+            };
+            console.log(req.body.origin);
+            console.log(req.body.destination);
+            if(req.body.origin != ''){
+                var searchTerm = req.body.origin;
+                // Tokenize the search terms and remove empty spaces
+                var tokens = searchTerm
+                            .toLowerCase()
+                            .split(' ')
+                            .filter(function(token){
+                                return token.trim() !== '';
+                            });
+                var searchTermRegex = null;
+                if(tokens.length) {
+                    searchTermRegex = new RegExp(tokens.join('|'), 'gim');
+                }
+                where_clause.start_point = {[Op.regexp] : searchTermRegex};
+            }
+            if(req.body.destination != ''){
+                where_clause.dest_id = {[Op.eq] : parseInt(req.body.destination)};
+            }
+            const rides = await Ride.findAll({
+                where: where_clause,
                 include: [
-                    {model: User, as: 'user',}, 
-                    {model: Destination, as: 'dest'}
+                    {model: User}, 
+                    {model: Destination}
                 ], 
             });
+            console.log(rides);
             let destinations = await Destination.findAll();
             destinations = destinations.map(element => element.dataValues);
             res.render('pages/rideSearch',{
@@ -91,10 +99,10 @@ router.get('/',async (req,res) => {
             user_id: 1 //replace with req.user.id
         },
         include: [
-            {model:Ride,as: 'ride'},
-            {model:Destination,as: 'dest'}
+            {model:Ride},
         ]
     });
+    console.log(driven_rides,rides)
     res.render('pages/rides',{
         driven_rides: driven_rides,
         rides: rides,
@@ -157,7 +165,7 @@ router.get('/:id',async (req,res) => {
             id: req.params.id,
         },
         include: [
-            {model:Destination,as: 'dest'}
+            {model:Destination}
         ]
     });
     res.render('pages/ride',{
@@ -229,24 +237,45 @@ router.delete('/delete/:id',async (req,res) => {
 router.get('/:id/rate/:user_id',async(req,res) => {
     if(req.query.rating){
         const rating = req.query.rating;
-        const newRide = await RideUser.update({
-            
-        },{
+        const ride_rating = await RideRate.findOne({
             where:{
                 ride_id: {
                     [Op.eq] : parseInt(req.params.id)
                 },
-                user_id: {
+                ratee_id: {
                     [Op.eq] : parseInt(req.params.user_id)
+                },
+                rater_id: {
+                    [Op.eq] : parseInt(1) // replace with req.user.id
                 }
             }
         });
-        newRide.save();
-        res.redirect(`/rides/${newRide.id}`,{
+        if(!ride_rating){
+            const new_rating = await RideRate.create({
+                rating: rating,
+                rater_id: 1, //replace with req.user.id
+                ratee_id: req.params.user_id,
+                ride_id: req.params.id
+            });
+            new_rating.save();
+        } else {
+            const new_rating = await RideRate.update({
+                rating: rating
+            },{
+                where: {
+                    id: {
+                        [Op.eq] : ride_rating.id
+                    }
+                }
+            });
+        }
+        res.redirect({
             message : 'Updated ride successfully'
-        });
+        },`/rides/${req.params.id}`);
     } else{
-
+        res.redirect({
+            alter : { user_id: req.params.user_id, message:'Please assign a rating'}
+        },`/rides/${req.params.id}`);
     }
 });
 

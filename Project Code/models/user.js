@@ -13,7 +13,9 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       User.hasMany(models.Ride,{foreignKey: 'driver_id'})
       User.hasMany(models.ChatLine,{foreignKey: 'user_id'})
-      User.hasMany(models.RideUser,{foreignKey: 'rider_id'})
+      User.hasMany(models.RideUser,{foreignKey: 'user_id'})
+      User.hasMany(models.RideRate,{foreignKey: 'ratee_id'})
+      User.hasMany(models.RideRate,{foreignKey: 'rater_id'})
       User.hasMany(models.UserFav,{foreignKey: 'user_id'})
       User.hasMany(models.GroupLine,{foreignKey: 'user_id'})
     }
@@ -44,10 +46,6 @@ module.exports = (sequelize, DataTypes) => {
     dob: {
         type: DataTypes.DATEONLY,
     },
-    gender: {
-        type: DataTypes.ENUM,
-        values: ['male', 'female', 'other']
-    }
   }, {
     sequelize,
     modelName: 'User',

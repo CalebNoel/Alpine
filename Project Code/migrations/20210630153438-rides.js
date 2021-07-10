@@ -21,7 +21,6 @@ module.exports = {
       end_date: {
         type: Sequelize.DATE
       },
-      
       fare_share:{
           type: Sequelize.FLOAT,
           allowNull: false,

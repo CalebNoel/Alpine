@@ -10,7 +10,7 @@
 	<br>
 	<br>
 
-	<form action="/action_page.php">
+	<form action="/users/profile" method="POST">
 		
 		<div class="d-flex justify-content-center">
 			<label class="col-sm-2 col-form-label" for="fullName">Full Name:</label>
@@ -53,17 +53,16 @@
 		<br>
 
 		<div class="d-flex justify-content-center">
-			<label  class="col-sm-2 col-form-label" for="DOB">Date of Birth:</label>
+			<label  class="col-sm-2 col-form-label" for="dob">Date of Birth:</label>
 			<div class="col-sm-6">
-				<input type="number" class="form-control" id="DOB" name="Date of Birth" placeholder="Enter as MM/DD/YYYY">
+				<input type="date" class="form-control" id="dob" name="dob" placeholder="Enter as MM/DD/YYYY">
 			</div>
 		</div>
 		<br>
 		
 		<br>
 		
-		<input type="submit" value="Edit" onclick="edit()" class="btn btn-primary btn-block" style="height: fit-content;">
-		<input type="submit" value="Save" onclick="save()" class="btn btn-primary btn-block" style="height: fit-content;">
+		<input type="submit" value="Save" class="btn btn-primary btn-block" style="height: fit-content;">
 	</div>
 	</form>
 		 

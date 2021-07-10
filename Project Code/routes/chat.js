@@ -23,11 +23,12 @@ router.get('/', async (req,res) => {
                 [Op.eq] : open_chat.id
             },
             line_text: {
-                [Op.ne] : "::"
+                [Op.ne] : '::'
             }
         },
         order: [['createdAt','DESC']]
     });
+    console.log(user_chats,open_chat,chat_messages);
     res.render('pages/chat',{
         chats: user_chats,
         curr_chat: open_chat,

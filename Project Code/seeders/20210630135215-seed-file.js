@@ -21,8 +21,7 @@ module.exports = {
         password: await bcrypt.hash('patientlyWait', salt),
         phone_no: '14155550132',
         user_rating: 0.0,
-        dob: Date.parse('01 Jan 1970'),
-        gender:'male',
+        dob: new Date('01 Jan 1970'),
         createdAt:new Date(),
         updatedAt: new Date()
       },
@@ -32,8 +31,7 @@ module.exports = {
         password: await bcrypt.hash('patientlyWait', salt),
         phone_no: '14155556132',
         user_rating: 0.0,
-        dob: Date.parse('25 Jan 1970'),
-        gender:'female',
+        dob: new Date('25 Jan 1970'),
         createdAt:new Date(),
         updatedAt: new Date()
       },
@@ -43,8 +41,7 @@ module.exports = {
         password: await bcrypt.hash('patientlyWait', salt),
         phone_no: '14155550135',
         user_rating: 0.0,
-        dob: Date.parse('31 Mar 1992'),
-        gender:'other',
+        dob: new Date('31 Mar 1992'),
         createdAt:new Date(),
         updatedAt: new Date()
       }
@@ -100,36 +97,33 @@ module.exports = {
 
     await queryInterface.bulkInsert('Rides',[
       {
-        departure: Date.parse('08 Jul 2021'),
-        end_date: Date.parse('11 Jul 2021'),
+        departure: new Date('08 Jul 2021'),
+        end_date: new Date('11 Jul 2021'),
         start_point: 'Somewhere',
         fare_share: 300,
         car_model: 'Toyota Camry',
         seats_available: 3,
-        driver_rating: 0,
         driver_id: 1,
         dest_id: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        departure: Date.parse('05 Jul 2021'),
+        departure: new Date('05 Jul 2021'),
         fare_share: 150,
-        end_date: Date.parse('7 Jul 2021'),
+        end_date: new Date('7 Jul 2021'),
         start_point: 'Nowhere',
         car_model: 'Toyota Camry',
         seats_available: 1,
         driver_id: 3,
-        driver_rating: 0,
         dest_id: 2,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        departure: Date.parse('10 Jul 2021'),
+        departure: new Date('10 Jul 2021'),
         fare_share: 250,
-        driver_rating: 0,
-        end_date: Date.parse('11 Jul 2021'),
+        end_date: new Date('11 Jul 2021'),
         start_point: 'Anywhere',
         car_model: 'Honda Accord',
         seats_available: 4,
@@ -144,31 +138,55 @@ module.exports = {
       {
         ride_id: 1,
         user_id: 2,
-        rider_rating: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         ride_id: 1,
         user_id: 3,
-        rider_rating: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         ride_id: 3,
         user_id: 1,
-        rider_rating: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         ride_id: 3,
         user_id: 2,
-        rider_rating: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       }
+    ]);
+
+    await queryInterface.bulkInsert('RideRates',[
+      {
+        ride_id: 1,
+        ratee_id: 2,
+        rater_id: 1,
+        rating: 5,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        ride_id: 1,
+        ratee_id: 3,
+        rater_id: 1,
+        rating: 4,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        ride_id: 1,
+        ratee_id: 1,
+        rater_id: 2,
+        rating: 4,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      
     ]);
 
     await queryInterface.bulkInsert('Chats',[
@@ -211,9 +229,9 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       }
-    ])
+    ]);
 
-
+    
 
 
   },
@@ -226,6 +244,7 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
      await queryInterface.bulkDelete('ChatLines', null, {});
+     await queryInterface.bulkDelete('RideRates', null, {});
      await queryInterface.bulkDelete('RideUsers', null, {});
      await queryInterface.bulkDelete('UserFavs', null, {});
      await queryInterface.bulkDelete('Chats', null, {});

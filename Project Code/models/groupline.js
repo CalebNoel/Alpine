@@ -12,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
 
-      GroupLine.belongsTo(models.User);
-      GroupLine.belongsTo(models.Group);
+      GroupLine.belongsTo(models.User,{foreignKey: 'user_id' });
+      GroupLine.belongsTo(models.Group,{foreignKey: 'group_id' });
     }
   };
   GroupLine.init({

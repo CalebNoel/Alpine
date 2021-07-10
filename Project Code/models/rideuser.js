@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      RideUser.belongsTo(models.User);
-      RideUser.belongsTo(models.Ride);
+      RideUser.belongsTo(models.User,{foreignKey: 'user_id' });
+      RideUser.belongsTo(models.Ride,{foreignKey: 'ride_id' });
     }
   };
   RideUser.init({
@@ -29,9 +29,6 @@ module.exports = (sequelize, DataTypes) => {
               model: 'Users',
               key: 'id'
           }
-    },
-    rider_rating:{
-      type: DataTypes.INTEGER
     }
   }, {
     sequelize,

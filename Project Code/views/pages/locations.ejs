@@ -1,14 +1,15 @@
 <%- include ('../partials/header'); %>
 <title>Location Finder</title>
+
 <body>
+  <script src="../../resources/js/locations.js"></script>
     <br>
     <form class="" action="/get_locations" method="post">
         <div class="row">
           <div class="col-3">
-
           </div>
           <div class="col-5">
-            <input class="form-control" type="text" name="address" placeholder="Enter an address to search for nearby locations">
+            <input class="form-control" type="text" name="address" placeholder="Enter a place in Colorado">
           </div>
           <div class="col-1">
             <input class="btn btn-dark" type="submit" name="Submit" value = "Submit">
@@ -16,9 +17,7 @@
         </div>
       </form>
     </div>
-    <br>
     <div class="card-columns" id="locations-stack">
 
     </div>
-
 <%- include ('../partials/footer'); %>

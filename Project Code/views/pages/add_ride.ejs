@@ -1,0 +1,55 @@
+<%- include ('../partials/header'); %>
+                <title>Create Ride</title>
+        </head>
+        <body>
+                <div class="container">
+                        &nbsp;
+                        &nbsp;
+                        <form action="/rides/add" method="POST">
+                                <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label" for="destination">Destination</label>
+                                        <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="destination" id="destination"  placeholder="Enter destination" required>
+                                        </div>
+                                </div>
+                                <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label" for="destination">Origin</label>
+                                        <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="origin" id="origin"  placeholder="Enter origin" required>
+                                        </div>
+                                </div>
+                                <div class="form-group row">
+                                        <label  class="col-sm-2 col-form-label" for="numSeats">Number of Seats</label>
+                                        <div class="col-sm-10">
+                                                <input type="number" class="form-control" id="numSeats" name="numSeats" placeholder="Enter number" required>
+                                        </div>
+                                </div>
+                                <div class="form-group row">
+                                        <label  class="col-sm-2 col-form-label" for="departDate">Departure Date</label>
+                                        <div class="col-sm-10">
+                                                <input type="date" class="form-control" id="departDate" name="departDate" placeholder="Enter as MM/DD/YYYY" required>
+                                        </div>
+                                </div>
+                                <div class="form-group row">
+                                        <label  class="col-sm-2 col-form-label" for="returnDate">Return Date</label>
+                                        <div class="col-sm-10">
+                                                <input type="date" class="form-control" id="returnDate" name="returnDate" placeholder="Enter as MM/DD/YYYY">
+                                        </div>
+                                </div>
+                                <div class="form-group row">
+                                        <label  class="col-sm-2 col-form-label" for="carMake">Vehicle Make</label>
+                                        <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="carMake" name="carMake" placeholder="Enter make" required>
+                                        </div>
+                                </div>
+                                <div class="form-group row">
+                                        <label  class="col-sm-2 col-form-label" for="carModel">Vehicle Model</label>
+                                        <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="carModel" name="carModel" placeholder="Enter model" required>
+                                        </div>
+                                </div>
+                                <input type="submit" value="Create New Ride" class="btn btn-primary btn-block" style="height: fit-content;">
+                        </form>
+                </div>
+        </body>
+<%- include ('../partials/footer'); %>

@@ -171,29 +171,41 @@ router.post('/add',[
 
 
 router.get('/:id',async (req,res) => {
-    const ride = await Ride.findAll({
+    const ride = await Ride.findOne({
         where: {
-            id: req.params.id,
+            id: {
+                [Op.eq]:req.params.id
+
+            }
         },
         include: [
             {model:Destination}
         ]
     });
+    let destinations = await Destination.findAll();
+    destinations = destinations.map(element => element.dataValues);
+    console.log(ride)
     res.render('pages/ride',{
-        ride: ride
+        ride: ride.dataValues,
+        destinations: destinations
     });
 });
 
 // Edit Ride
 router.post('/edit/:id',[
-    check('start_date').not().isEmpty(),
-    check('end_date').not().isEmpty(),
-    check('origin'),
-    check('destination'),
-    check('seats'),
+    check('depart_date').not().isEmpty().isAfter(),
+    check('return_date').not().isEmpty().custom((value, { req }) => {
+        if (moment(value).toDate() <= moment(req.body.depart_date).toDate()) {
+          throw new Error('Return Date can\'t be before departure');
+        }
+        return true;
+      }),
+    check('origin').not().isEmpty(),
+    check('destination').not().isEmpty(),
+    check('seats').not().isEmpty().isInt(),
+    check('car_make'),
     check('car_model'),
     check('fare_share'),
-    check('driver_rating')
 ],
     async (req,res) => {
         const errors = validationResult(req)

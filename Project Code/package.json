@@ -10,6 +10,7 @@
   "author": "Erica Shivers",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.21.1",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "dotenv": "^10.0.0",
@@ -24,6 +25,7 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "pg-promise": "^10.10.2",
+    "query-string": "^7.0.1",
     "sequelize": "^6.6.4",
     "sequelize-auto-migrations": "^1.0.3",
     "sqlite3": "^5.0.2"

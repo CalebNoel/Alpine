@@ -160,9 +160,8 @@ router.post('/profile',[
           id: 1 //replace with req.user.id
         }
       });
-      res.redirect({
-        message : 'Profile edited'
-      },'/users/profile',);
+      req.session.message = 'Edited Successfully, please login';
+      res.redirect('/users/profile',);
     }
 })
 

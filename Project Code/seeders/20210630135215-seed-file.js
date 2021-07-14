@@ -244,7 +244,7 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
      await queryInterface.bulkDelete('ChatLines', null, {});
-     await queryInterface.bulkDelete('RideRates', null, {});
+     //await queryInterface.bulkDelete('RideRates', null, {});
      await queryInterface.bulkDelete('RideUsers', null, {});
      await queryInterface.bulkDelete('UserFavs', null, {});
      await queryInterface.bulkDelete('Chats', null, {});

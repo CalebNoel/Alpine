@@ -16,27 +16,38 @@ const qs = require('query-string');
 const { Op } = require("sequelize")
 
 
+var bodyParser = require('body-parser'); // Body-parser -- a library that provides functions for parsing incoming requests
+router.use(bodyParser.json());              // Support json encoded bodies
+router.use(bodyParser.urlencoded({ extended: true })); // Support encoded bodies
+
+// Set the view engine to ejs
+router.set('view engine', 'ejs');
+router.use(express.static(__dirname + '/'));// Set the relative path; makes accessing the resource directory easier
+
+router.get('/', function(req, res) {
+  res.render('pages/locations', {
+  });
+});
 
 router.post('/get_locations', function(req, res) {
-    var address = req.body.address; 
-    var api_key = 'AIzaSyBc_Gve26-zN7gZ5vyexxdSROceiVKvaas'; 
+    var address = req.body.place; 
+    var api_key = 'AIzaSyDPSOpMS_xDzRDg50J8ee34DTdmHQOkUj0'; 
     if(address) {
       axios({
-        url: `https://maps.googleapis.com/maps/api/js?key=${api_key}&callback=initMap`,
+        url: `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${address}&inputtype=textquery&fields=photos,formatted_address,name,opening_hours,rating&locationbias=circle:6254@39.635757,-106.362984&key=${api_key}`,
           method: 'GET',
           dataType:'json',
         })
           .then(locations => {
-            res.render('/locations', {
-              locations: '',
+            console.log(locations.candidates)
+            res.render('pages/locations', {
+              places: locations.candidates,
               numLoc: 0
             });
           })
           .catch(error => {
-            res.render('/locations',{
-              locations: '',
-              numLoc : 0,
-              message: 'Error'
+            res.render('pages/locations',{
+              message: 'Error',
             })
           });
   

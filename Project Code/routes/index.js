@@ -19,9 +19,6 @@ router.get('/about',async (req,res)=>{
     res.render('pages/about')
 })
 
-router.get('/locations',async (req,res)=>{
-    res.render('pages/locations')
-})
 
 
 

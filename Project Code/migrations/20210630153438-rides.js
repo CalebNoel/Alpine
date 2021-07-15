@@ -16,16 +16,19 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       departure: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        allowNull: false,
       },
       end_date: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        allowNull: false,
+
       },
       fare_share:{
           type: Sequelize.FLOAT,
-          allowNull: false,
+          allowNull: true,
       },
-      car_model: {
+      vehicle_model: {
           type: Sequelize.STRING,
       },
       seats_available:{

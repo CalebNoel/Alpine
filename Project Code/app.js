@@ -14,6 +14,7 @@ const db = require('./models/index.js')
 
 const app = express()
 let users = require('./routes/users');
+let locations = require('./routes/locations');
 let rides = require('./routes/rides');
 let chat = require('./routes/chat');
 
@@ -41,6 +42,8 @@ app.use('/',require('./routes/index'))
 app.use('/users', users);
 app.use('/rides', rides);
 app.use('/chat', chat);
+app.use('/locations', locations);
+
 
 
 

@@ -102,7 +102,6 @@ router.get('/',async (req,res) => {
             {model:Ride},
         ]
     });
-    console.log(driven_rides,rides)
     res.render('pages/rides',{
         driven_rides: driven_rides,
         rides: rides,
@@ -122,11 +121,17 @@ router.get('/add',async (req,res) => {
 
 
 router.post('/add',[
-    check('start_date').not().isEmpty(),
-    check('end_date').not().isEmpty(),
-    check('origin'),
-    check('destination'),
-    check('seats'),
+    check('depart_date').not().isEmpty().isAfter(),
+    check('return_date').not().isEmpty().custom((value, { req }) => {
+        if (moment(value).toDate() <= moment(req.body.depart_date).toDate()) {
+          throw new Error('Return Date can\'t be before departure');
+        }
+        return true;
+      }),
+    check('origin').not().isEmpty(),
+    check('destination').not().isEmpty(),
+    check('seats').not().isEmpty().isInt(),
+    check('car_make'),
     check('car_model'),
     check('fare_share'),
 ],
@@ -134,55 +139,73 @@ router.post('/add',[
         const errors = validationResult(req)
         if(!errors.isEmpty()) {
             const alert = errors.array()
-            res.render('/rides/add', {
-                alert
-            })
+            console.log(alert);
+            let destinations = await Destination.findAll();
+            destinations = destinations.map(element => element.dataValues);
+            res.render('/pages/add_ride', {
+                destinations: destinations,
+                error: alert
+            });
         } else {
-            const start_date = moment(req.body.start_date).format();
-            const end_date = moment(req.body.end_date).format();
+            
+            const start_date = moment(req.body.start_date);
+            const end_date = moment(req.body.end_date);
             const newRide = await Ride.create({
-                departure: start_date,
-                end_date: end_date,
-                fare_share: parseFloat(req.body.fare_share),
-                car_model: req.body.car_model,
+                departure: start_date.toDate(),
+                start_point: req.body.origin,
+                end_date: end_date.toDate(),
+                fare_share: req.body.fare_share != '' ? req.body.fare_share : null,
+                vehicle_make: req.body.vehicle_make != '' ? req.body.vehicle_make : null,
+                vehicle_model: req.body.vehicle_model != '' ? req.body.vehicle_model : null,
                 seats_available : parseInt(req.body.seats),
                 driver_id: 1, //replace with req.user.id
                 dest_id: parseInt(req.body.destination),
-                driver_rating: 0,
+                
             });
             newRide.save();
-            res.redirect(`/rides/${newRide.id}`,{
-                message : 'Added ride successfully'
-            });
+            req.session.message = 'Added ride successfully';
+            res.redirect(`/rides/${newRide.id}`);
         }
     }
 );
 
 
 router.get('/:id',async (req,res) => {
-    const ride = await Ride.findAll({
+    const ride = await Ride.findOne({
         where: {
-            id: req.params.id,
+            id: {
+                [Op.eq]:req.params.id
+
+            }
         },
         include: [
             {model:Destination}
         ]
     });
+    let destinations = await Destination.findAll();
+    destinations = destinations.map(element => element.dataValues);
+    console.log(ride)
     res.render('pages/ride',{
-        ride
+        ride: ride.dataValues,
+        destinations: destinations
     });
 });
 
 // Edit Ride
-router.put('/edit/:id',[
-    check('start_date').not().isEmpty(),
-    check('end_date').not().isEmpty(),
-    check('origin'),
-    check('destination'),
-    check('seats'),
+router.post('/edit/:id',[
+    check('depart_date').not().isEmpty().isAfter(),
+    check('return_date').not().isEmpty().custom((value, { req }) => {
+        if (moment(value).toDate() <= moment(req.body.depart_date).toDate()) {
+          throw new Error('Return Date can\'t be before departure');
+        }
+        return true;
+      }),
+    check('origin').not().isEmpty(),
+    check('destination').not().isEmpty(),
+    check('seats').not().isEmpty().isInt(),
+    check('car_make'),
     check('car_model'),
     check('fare_share'),
-    check('driver_rating')
 ],
     async (req,res) => {
         const errors = validationResult(req)
@@ -192,18 +215,26 @@ router.put('/edit/:id',[
                 alert
             });
         } else {
+
             const start_date = moment(req.body.start_date).format();
             const end_date = moment(req.body.end_date).format();
-            const newRide = await Ride.update({
-                departure: start_date,
-                end_date: end_date,
-                fare_share: parseFloat(req.body.fare_share),
-                car_model: req.body.car_model,
+            let update_object = {
+                departure: start_date.toDate(),
+                start_point: req.body.origin,
+                end_date: end_date.toDate(),
                 seats_available : parseInt(req.body.seats),
-                driver_id: 1, //replace with req.user.id
                 dest_id: parseInt(req.body.destination),
-                driver_rating: parseInt(req.body.driver_rating),
-            },{
+            }
+            if(req.body.fare_share != ''){
+                update_object.push({fare_share: req.body.fare_share})
+            }
+            if(req.body.vehicle_model != ''){
+                update_object.push({vehicle_model: req.body.vehicle_model})
+            }
+            if(req.body.vehicle_make != ''){
+                update_object.push({vehicle_make: req.body.vehicle_make})
+            }
+            const newRide = await Ride.update(update_object,{
                 where:{
                     id: req.params.id
                 }
@@ -219,6 +250,11 @@ router.put('/edit/:id',[
 // Delete Ride
 router.delete('/delete/:id',async (req,res) => {
     let cascade_delete = await RideUser.destroy({
+        where: {
+            ride_id: req.params.id
+        }
+    });
+    let ride_rate_delete = await RideRate.destroy({
         where: {
             ride_id: req.params.id
         }

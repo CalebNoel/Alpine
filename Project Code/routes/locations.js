@@ -1,6 +1,5 @@
 /*
 ***********LOCATIONS ROUTE**********
-
 TO DO:
 1. Import Google Cloud Locations API using axios
 2. Parse JSON return message and explicitly define parameters
@@ -8,21 +7,14 @@ TO DO:
 
 ***********************************
 */
-
+const express = require('express');
 const router = express.Router()
 const ensureAuthenticated = require("./auth")
 const path = require('path')
-
-var express = require('express'); 
-var app = express();
-var bodyParser = require('body-parser');
-app.use(bodyParser.json());              
-app.use(bodyParser.urlencoded({ extended: true }));  
 const axios = require('axios');
 const qs = require('query-string');
+const { Op } = require("sequelize")
 
-app.set('view engine', 'ejs');
-app.use(express.static(__dirname + '/'));
 
 
 app.post('/get_locations', function(req, res) {
@@ -43,7 +35,7 @@ app.post('/get_locations', function(req, res) {
           .catch(error => {
             res.render('/locations',{
               locations: '',
-              numLoc = 0,
+              numLoc : 0,
               message: 'Error'
             })
           });
@@ -56,3 +48,5 @@ app.post('/get_locations', function(req, res) {
       });
     }
   });
+
+  module.exports = router;

@@ -101,7 +101,8 @@ module.exports = {
         end_date: new Date('11 Jul 2021'),
         start_point: 'Somewhere',
         fare_share: 300,
-        car_model: 'Toyota Camry',
+        vehicle_make: 'Toyota',
+        vehicle_model: 'Camry',
         seats_available: 3,
         driver_id: 1,
         dest_id: 1,
@@ -113,7 +114,8 @@ module.exports = {
         fare_share: 150,
         end_date: new Date('7 Jul 2021'),
         start_point: 'Nowhere',
-        car_model: 'Toyota Camry',
+        vehicle_make: 'Toyota',
+        vehicle_model: 'Camry',
         seats_available: 1,
         driver_id: 3,
         dest_id: 2,
@@ -125,7 +127,8 @@ module.exports = {
         fare_share: 250,
         end_date: new Date('11 Jul 2021'),
         start_point: 'Anywhere',
-        car_model: 'Honda Accord',
+        vehicle_make: 'Honda',
+        vehicle_model: 'Accord',
         seats_available: 4,
         driver_id: 3,
         dest_id: 1,
@@ -186,7 +189,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
-      
+
     ]);
 
     await queryInterface.bulkInsert('Chats',[
@@ -231,7 +234,7 @@ module.exports = {
       }
     ]);
 
-    
+
 
 
   },
@@ -244,7 +247,7 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
      await queryInterface.bulkDelete('ChatLines', null, {});
-     //await queryInterface.bulkDelete('RideRates', null, {});
+     await queryInterface.bulkDelete('RideRates', null, {});
      await queryInterface.bulkDelete('RideUsers', null, {});
      await queryInterface.bulkDelete('UserFavs', null, {});
      await queryInterface.bulkDelete('Chats', null, {});

@@ -28,10 +28,13 @@ module.exports = (sequelize, DataTypes) => {
     },
     fare_share:{
         type: DataTypes.FLOAT,
-        allowNull: false,
+        allowNull: true,
     },
-    car_model: {
+    vehicle_model: {
         type: DataTypes.STRING,
+    },
+    vehicle_make:{
+      type: DataTypes.STRING,
     },
     seats_available:{
         type: DataTypes.INTEGER,

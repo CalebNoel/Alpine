@@ -89,11 +89,16 @@
         <br>
         <br>
       </div>
-      <div class="row" style="margin-left: auto; margin-right: auto;">
-        <input class="form-control" type="text" id="pac-input" placeholder="Enter a place in Colorado">
-      </div>
-      <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPSOpMS_xDzRDg50J8ee34DTdmHQOkUj0&callback=initAutocomplete&libraries=places&v=weekly"
-      async
-    ></script>
+      <form method="POST" action="/locations/get_locations">
+        <div class="row" style="margin-left: auto; margin-right: auto;">
+          <input class="form-control" type="text" name="address" placeholder="Enter a place in Colorado">
+        </div>
+        <div class="row">
+          <input class="btn btn-dark" type="submit" name="Submit" value = "Submit" onclick="convertGeo()">
+        </div>
+      </form>
+        <script
+        src= "https://maps.googleapis.com/maps/api/js?key=AIzaSyDPSOpMS_xDzRDg50J8ee34DTdmHQOkUj0&callback=initMap&libraries=&v=weekly"
+        async
+        ></script>
         <%- include ('../partials/footer'); %>

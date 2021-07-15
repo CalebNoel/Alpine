@@ -24,6 +24,7 @@ const qs = require('query-string');
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/'));
 
+
 app.post('/get_locations', function(req, res) {
     var address = req.body.address; 
     var api_key = 'AIzaSyBc_Gve26-zN7gZ5vyexxdSROceiVKvaas'; 

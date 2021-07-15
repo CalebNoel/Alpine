@@ -8,7 +8,7 @@ TO DO:
 ***********************************
 */
 const express = require('express');
-const router = express.Router()
+const router = express();
 const ensureAuthenticated = require("./auth")
 const path = require('path')
 const axios = require('axios');
@@ -17,7 +17,7 @@ const { Op } = require("sequelize")
 
 
 
-app.post('/get_locations', function(req, res) {
+router.post('/get_locations', function(req, res) {
     var address = req.body.address; 
     var api_key = 'AIzaSyBc_Gve26-zN7gZ5vyexxdSROceiVKvaas'; 
     if(address) {

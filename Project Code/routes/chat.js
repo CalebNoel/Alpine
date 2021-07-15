@@ -16,7 +16,13 @@ router.get('/', async (req,res) => {
         },
         group: 'chat_id'
     });
-    const open_chat = user_chats[0].dataValues;
+    const open_chat = await Chat.findAll({
+        where: {
+            id: {
+                [Op.eq] : req.params.id
+            }
+        }
+    })
     const chat_messages = await ChatLine.findAll({
         where:{
             chat_id:{

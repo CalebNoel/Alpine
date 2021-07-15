@@ -5,6 +5,7 @@ const { Op } = require("sequelize")
 
 module.exports = function(passport){
     passport.use(new LocalStrategy(function(username,password,done){
+        console.log("Running passport auth function!");
         User.findOne({
             where: {
                 email: {
@@ -13,16 +14,29 @@ module.exports = function(passport){
             }
         }).then(user => {
             if (!user) {
+                console.log('No user found!');
                 return done(null, false, { message: 'No user found' });
             }
             // Match Password
-            bcrypt.compare(password,user.dataValues.password).then((result)=>{
-                if (result) {
-                    return done(null, user);
-                } else {
-                    return done(null, false, { message: 'Wrong password' });
-                }
-            }).catch((err)=>console.error(err))
+            console.log('User found!');
+            // bcrypt.compare(password,user.dataValues.password).then((result)=>{
+            //     if (result) {
+            //         console.log('Correct pw!');
+            //         return done(null, user);
+            //     } else {
+            //         console.log('Wrong pw!');
+            //         return done(null, false, { message: 'Wrong password' });
+            //     }
+            // }).catch((err)=>console.error(err))
+            if(password==user.dataValues.password) {
+                console.log("plaintext password match!")
+                return done(null, user);
+            }
+            else {
+                console.log("plaintext password does not match!")
+                return done(null, false, { message: 'Wrong password' });
+            }
+            
         }).catch(err => {
             if(err) throw err;
         })

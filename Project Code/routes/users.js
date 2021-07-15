@@ -11,14 +11,11 @@ const { Op } = require("sequelize")
 
 var authUser;
 
-// Show Profile
+// Register form
 router.get('/register', async (req, res) => {
-  res.render('pages/Register')
-});
-
-// Register Form
-router.get('/register', async (req, res) => {
-    res.render('pages/Register')
+  res.render('pages/Register', {
+    loggedIn: false
+  })
 });
 
 router.post('/register', [
@@ -54,7 +51,8 @@ router.post('/register', [
         alert = errors.errors;
         console.log(alert);
         res.render('pages/Register', {
-            alert
+            alert,
+            loggedIn: true
         })
     } else {
       const gender = null;
@@ -79,36 +77,37 @@ router.post('/register', [
 // Login Form
 router.get('/login', async (req, res) => {
     res.render('pages/User_Login', {
-      loginError: ''
+      loginError: '',
+      loggedIn: false
     });
 });
 
 // Login Process
 router.post('/login', async (req, res, next) => {
-  // passport.authenticate('local', {
-  //   successRedirect: '/',
-  //   failureRedirect: '/users/login'
-  // })(req, res, next);
-  targetUser = await User.findOne({where:{email: req.body.username}});
-  if (targetUser != null) {
-    if (req.body.password == targetUser.password) {
-      authUser = req.body.username;
-      console.log(req.body.username, " is logged in");
-      res.redirect('/');
-    }
-    else {
-      res.render('pages/User_Login', {
-        loginError: 'Incorrect password!'
-      })
-    }
-  }
-  else {
-    res.render('pages/User_Login', {
-      loginError: 'Incorrect username!'
-    })
-  }
-  
-
+  console.log("Login attempt!");
+  passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/users/login'
+  })(req, res, next);
+  // Legacy Non-Passport Login
+  // targetUser = await User.findOne({where:{email: req.body.username}});
+  // if (targetUser != null) {
+  //   if (req.body.password == targetUser.password) {
+  //     authUser = req.body.username;
+  //     console.log(req.body.username, " is logged in");
+  //     res.redirect('/');
+  //   }
+  //   else {
+  //     res.render('pages/User_Login', {
+  //       loginError: 'Incorrect password!'
+  //     })
+  //   }
+  // }
+  // else {
+  //   res.render('pages/User_Login', {
+  //     loginError: 'Incorrect username!'
+  //   })
+  // }
 });
 
 // logout
@@ -127,6 +126,7 @@ router.get('/profile',async (req,res)=>{
   });
   res.render('pages/MyAccount',{
     user: curr_user, //replace with req.user
+    loggedIn: true
   })
 })
 
@@ -166,15 +166,16 @@ router.post('/profile',[
         alert = errors.errors;
         console.log(alert)
         res.render('pages/MyAccount', {
-            alert
+            alert,
+            loggedIn: true
         })
     } else {
-      const salt = await bcrypt.genSalt(10);
+      //const salt = bcrypt.genSaltSync(10);
       const dob = moment(req.body.dob);
       const update_user = await User.update({
         name: req.body.fullName,
         email: req.body.emailAddress,
-        password: req.body.passwordFirst ? await bcrypt.hash(req.body.passwordFirst, salt) : '$2b$10$/VvxXqQiEMsNhLFNkVLebe2gBH9T2VnI0f8t9fjqiLGfGxMwhbpnq', //replace with req.user.password
+        password: req.body.passwordFirst, // re-encrypt at some point, replace with req.user.password
         phone_no: req.body.PhoneNumber,
         dob : dob ? dob.format() : new Date('10 Jul 1999'), //replace with req.user.dob
       },{

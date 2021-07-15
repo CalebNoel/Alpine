@@ -2,15 +2,20 @@ const express = require('express')
 const router = express.Router()
 const ensureAuthenticated = require("./auth")
 const path = require('path')
+const passport = require('passport')
 
 router.get('/',async (req,res)=>{
+    var loggedIn = req.isAuthenticated();
     res.render('pages/HomeMain', {
-        loggedIn: true
+        loggedIn: loggedIn
     })
 })
 
 router.get('/map',async (req,res) => {
-    res.render('pages/map')
+    var loggedIn = req.isAuthenticated();
+    res.render('pages/map', {
+        loggedIn: loggedIn
+    })
 })
 
 // router.get('/map',ensureAuthenticated,async (req,res) => {
@@ -18,11 +23,17 @@ router.get('/map',async (req,res) => {
 // })
 
 router.get('/about',async (req,res)=>{
-    res.render('pages/about')
+    var loggedIn = req.isAuthenticated();
+    res.render('pages/about', {
+        loggedIn: loggedIn
+    })
 })
 
 router.get('/locations',async (req,res)=>{
-    res.render('pages/locations')
+    var loggedIn = req.isAuthenticated();
+    res.render('pages/locations', {
+        loggedIn: loggedIn
+    })
 })
 
 

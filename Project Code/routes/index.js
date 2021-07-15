@@ -4,7 +4,9 @@ const ensureAuthenticated = require("./auth")
 const path = require('path')
 
 router.get('/',async (req,res)=>{
-    res.render('pages/HomeMain')
+    res.render('pages/HomeMain', {
+        loggedIn: true
+    })
 })
 
 router.get('/map',async (req,res) => {

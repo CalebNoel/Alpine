@@ -215,19 +215,26 @@ router.post('/edit/:id',[
                 alert
             });
         } else {
-            
+
             const start_date = moment(req.body.start_date).format();
             const end_date = moment(req.body.end_date).format();
-            const newRide = await Ride.update({
-                departure: start_date,
-                end_date: end_date,
-                fare_share: parseFloat(req.body.fare_share),
-                car_model: req.body.car_model,
+            let update_object = {
+                departure: start_date.toDate(),
+                start_point: req.body.origin,
+                end_date: end_date.toDate(),
                 seats_available : parseInt(req.body.seats),
-                driver_id: 1, //replace with req.user.id
                 dest_id: parseInt(req.body.destination),
-                driver_rating: parseInt(req.body.driver_rating),
-            },{
+            }
+            if(req.body.fare_share != ''){
+                update_object.push({fare_share: req.body.fare_share})
+            }
+            if(req.body.vehicle_model != ''){
+                update_object.push({vehicle_model: req.body.vehicle_model})
+            }
+            if(req.body.vehicle_make != ''){
+                update_object.push({vehicle_make: req.body.vehicle_make})
+            }
+            const newRide = await Ride.update(update_object,{
                 where:{
                     id: req.params.id
                 }
@@ -243,6 +250,11 @@ router.post('/edit/:id',[
 // Delete Ride
 router.delete('/delete/:id',async (req,res) => {
     let cascade_delete = await RideUser.destroy({
+        where: {
+            ride_id: req.params.id
+        }
+    });
+    let ride_rate_delete = await RideRate.destroy({
         where: {
             ride_id: req.params.id
         }

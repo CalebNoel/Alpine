@@ -9,7 +9,7 @@ const ensureAuthenticated = require("./auth")
 const moment = require("moment")
 const { Op } = require("sequelize")
 
-
+var authUser;
 
 // Show Profile
 router.get('/register', async (req, res) => {
@@ -64,7 +64,7 @@ router.post('/register', [
       const newUser = await User.create({
         name: req.body.fullName,
         email: req.body.emailAddress,
-        password: await bcrypt.hash(req.body.passwordFirst, salt),
+        password: req.body.passwordFirst,//await bcrypt.hash(req.body.passwordFirst, salt),
         phone_no: req.body.PhoneNumber,
         dob : dob.format(),
         user_rating: 0.0,
@@ -78,15 +78,37 @@ router.post('/register', [
 
 // Login Form
 router.get('/login', async (req, res) => {
-    res.render('pages/User_Login');
+    res.render('pages/User_Login', {
+      loginError: ''
+    });
 });
 
 // Login Process
 router.post('/login', async (req, res, next) => {
-  passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/users/login'
-  })(req, res, next);
+  // passport.authenticate('local', {
+  //   successRedirect: '/',
+  //   failureRedirect: '/users/login'
+  // })(req, res, next);
+  targetUser = await User.findOne({where:{email: req.body.username}});
+  if (targetUser != null) {
+    if (req.body.password == targetUser.password) {
+      authUser = req.body.username;
+      console.log(req.body.username, " is logged in");
+      res.redirect('/');
+    }
+    else {
+      res.render('pages/User_Login', {
+        loginError: 'Incorrect password!'
+      })
+    }
+  }
+  else {
+    res.render('pages/User_Login', {
+      loginError: 'Incorrect username!'
+    })
+  }
+  
+
 });
 
 // logout

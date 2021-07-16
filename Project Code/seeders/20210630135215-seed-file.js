@@ -200,6 +200,10 @@ module.exports = {
       {
         createdAt: new Date(),
         updatedAt: new Date(),
+      },
+      {
+        createdAt: new Date(),
+        updatedAt: new Date(),
       }
     ])
 
@@ -212,9 +216,23 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
+        user_id: 1,
+        chat_id: 1,
+        line_text: 'Took a chance',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
         user_id: 2,
         chat_id: 1,
         line_text: '::',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        user_id: 2,
+        chat_id: 1,
+        line_text: 'On the phone',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -231,9 +249,36 @@ module.exports = {
         line_text: '::',
         createdAt: new Date(),
         updatedAt: new Date(),
+      },
+      {
+        user_id: 3,
+        chat_id: 2,
+        line_text: 'Left unsaid',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        user_id: 1,
+        chat_id: 3,
+        line_text: '::',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        user_id: 2,
+        chat_id: 3,
+        line_text: '::',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        user_id: 3,
+        chat_id: 3,
+        line_text: '::',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       }
     ]);
-
 
 
 
@@ -254,8 +299,5 @@ module.exports = {
      await queryInterface.bulkDelete('Rides', null, {});
      await queryInterface.bulkDelete('Users', null, {});
      await queryInterface.bulkDelete('Destinations', null, {});
-
-
-
   }
 };

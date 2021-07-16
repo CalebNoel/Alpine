@@ -280,6 +280,26 @@ module.exports = {
       }
     ]);
 
+    await queryInterface.bulkInsert('Groups',[
+      { name: 'Soft-dev Project',createdAt: new Date(),updatedAt: new Date()},
+      { name: 'Friends',createdAt: new Date(),updatedAt: new Date()}
+    ]);
+
+    await queryInterface.bulkInsert('GroupAdmins',[
+      { user_id: 1, group_id: 1,createdAt: new Date(),updatedAt: new Date()},
+      { user_id: 2, group_id: 2,createdAt: new Date(),updatedAt: new Date()},
+      { user_id: 3, group_id: 2,createdAt: new Date(),updatedAt: new Date()},     
+    ]);
+
+    await queryInterface.bulkInsert('GroupLines',[
+      { user_id: 1,group_id: 1,line_text: '::',createdAt: new Date(),updatedAt: new Date()},
+      { user_id: 2,group_id: 1,line_text: '::',createdAt: new Date(),updatedAt: new Date()},
+      { user_id: 3,group_id: 1,line_text: '::',createdAt: new Date(),updatedAt: new Date()},
+      { user_id: 3,group_id: 1,line_text: 'Hi!',createdAt: new Date(),updatedAt: new Date()},
+      { user_id: 2,group_id: 2,line_text: '::',createdAt: new Date(),updatedAt: new Date()},
+      { user_id: 3,group_id: 2,line_text: '::',createdAt: new Date(),updatedAt: new Date()},
+      { user_id: 2,group_id: 2,line_text: 'We need to talk',createdAt: new Date(),updatedAt: new Date()},
+    ]);
 
 
   },
@@ -291,10 +311,13 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+     await queryInterface.bulkDelete('GroupLines', null, {});
+     await queryInterface.bulkDelete('GroupAdmins', null, {});
      await queryInterface.bulkDelete('ChatLines', null, {});
      await queryInterface.bulkDelete('RideRates', null, {});
      await queryInterface.bulkDelete('RideUsers', null, {});
      await queryInterface.bulkDelete('UserFavs', null, {});
+     await queryInterface.bulkDelete('Groups', null, {});
      await queryInterface.bulkDelete('Chats', null, {});
      await queryInterface.bulkDelete('Rides', null, {});
      await queryInterface.bulkDelete('Users', null, {});

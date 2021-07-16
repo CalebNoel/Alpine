@@ -1,15 +1,16 @@
 const express = require('express');
 const router = express.Router();
 var User = require('../models').User;
-var Chat = require('../models').Chat;
-var ChatLine = require('../models').ChatLine;
-const { Op,QueryTypes } = require("sequelize");
+var Group = require('../models').Group;
+var GroupLine = require('../models').GroupLine;
+var GroupAdmins = require('../models').GroupAdmins;
+const { Op,QueryTypes } = require("sequelize")
 const { check, validationResult } = require('express-validator');
 const ensureAuthenticated = require("./auth")
 
 router.get('/', async (req,res) => {
     const curr_user_id = 1;
-    const user_chats = await ChatLine.findAll({
+    const user_chats = await GroupLine.findAll({
         where: {
             user_id: {
                 [Op.eq] : curr_user_id
@@ -25,14 +26,14 @@ router.get('/', async (req,res) => {
     let open_chat = null;
     let chat_messages = null;
     if(user_chats){
-        open_chat = await Chat.findOne({
+        open_chat = await Group.findOne({
             where: {
                 id: {
                     [Op.eq] : user_chats[0].dataValues.chat_id
                 }
             }
         });
-        chat_messages = await ChatLine.findAll({
+        chat_messages = await GroupLine.findAll({
             where:{
                 chat_id:{
                     [Op.eq] : open_chat.id
@@ -57,7 +58,7 @@ router.get('/', async (req,res) => {
 
 router.get('/:id', async (req,res) => {
     const curr_user_id = 1;
-    const user_chats = await ChatLine.findAll({
+    const user_chats = await GroupLine.findAll({
         where: {
             user_id: {
                 [Op.eq] : curr_user_id
@@ -73,7 +74,7 @@ router.get('/:id', async (req,res) => {
             {model: User}
         ],
     });
-    const open_chat = await Chat.findAll({
+    const open_chat = await Group.findAll({
         where: {
             id: {
                 [Op.eq] : req.params.id
@@ -81,7 +82,7 @@ router.get('/:id', async (req,res) => {
         }
     })
 
-    const chat_messages = await ChatLine.findAll({
+    const chat_messages = await GroupLine.findAll({
         where:{
             chat_id:{
                 [Op.eq] : req.params.id,
@@ -110,7 +111,7 @@ router.post('/:id/send',[
     const curr_user_id = 1;
     const message = req.body.message
 
-    const chat_message = await ChatLine.create({
+    const chat_message = await GroupLine.create({
         user_id: curr_user_id,
         chat_id: req.params.id,
         line_text: message,
@@ -127,14 +128,14 @@ router.get('/create/:user_id', async (req,res) => {
     const curr_user_id = 1;
     const user_id = req.params.user_id;
     let check = null;
-    const curr_user_chats = await ChatLine.findAll({
+    const curr_user_chats = await GroupLine.findAll({
         where: {
             user_id: {
                 [Op.eq] : curr_user_id
             }
         }
     });
-    const other_user_chats = await ChatLine.findAll({
+    const other_user_chats = await GroupLine.findAll({
         where: {
             user_id: {
                 [Op.eq] : user_id
@@ -155,11 +156,11 @@ router.get('/create/:user_id', async (req,res) => {
     if(if_exist){
         res.redirect(`/chat/${chat_id}`);
     } else {
-        const new_chat = await Chat.create({
+        const new_chat = await Group.create({
             createdAt: new Date(),
             updatedAt: new Date(),
         });
-        const new_chat_lines = await ChatLine.bulkcreate([
+        const new_chat_lines = await GroupLine.bulkcreate([
             {
                 user_id: curr_user_id,
                 chat_id: new_chat.id,
@@ -191,14 +192,14 @@ router.post('/create',[
     const curr_user_id = 1;
     const user_id = req.params.user_id;
     let check = null;
-    const curr_user_chats = await ChatLine.findAll({
+    const curr_user_chats = await GroupLine.findAll({
         where: {
             user_id: {
                 [Op.eq] : curr_user_id
             }
         }
     });
-    const other_user_chats = await ChatLine.findAll({
+    const other_user_chats = await GroupLine.findAll({
         where: {
             user_id: {
                 [Op.eq] : user_id
@@ -219,11 +220,11 @@ router.post('/create',[
     if(if_exist){
         res.redirect(`/chat/${chat_id}`);
     } else {
-        const new_chat = await Chat.create({
+        const new_chat = await Group.create({
             createdAt: new Date(),
             updatedAt: new Date(),
         });
-        const new_chat_lines = await ChatLine.bulkcreate([
+        const new_chat_lines = await GroupLine.bulkcreate([
             {
                 user_id: curr_user_id,
                 chat_id: new_chat.id,

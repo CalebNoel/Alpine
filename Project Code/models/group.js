@@ -11,14 +11,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Group.hasMany(models.GroupAdmins,{foreignKey: 'group_id'})
       Group.hasMany(models.GroupLine,{foreignKey: 'group_id'})
 
     }
   };
   Group.init({
-    temp: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
     }
   }, {
     sequelize,

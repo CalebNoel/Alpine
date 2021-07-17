@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-
       GroupLine.belongsTo(models.User,{foreignKey: 'user_id' });
       GroupLine.belongsTo(models.Group,{foreignKey: 'group_id' });
     }
@@ -25,15 +24,15 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     group_id:{
-          type: DataTypes.INTEGER,
-          references: {
-              model: 'Groups',
-              key: 'id'
-          }
+      type: DataTypes.INTEGER,
+      references: {
+          model: 'Groups',
+          key: 'id'
+      }
     },
     line_text: {
-          type: DataTypes.STRING,
-          allowNull: false,
+      type: DataTypes.STRING,
+      allowNull: false,
     }
   }, {
     sequelize,

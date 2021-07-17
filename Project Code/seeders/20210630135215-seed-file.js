@@ -95,6 +95,28 @@ module.exports = {
       }
     ],{});
 
+
+    await queryInterface.bulkInsert('Friends',[
+      {
+        friend_id: 2,
+        user_id: 1,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        friend_id: 2,
+        user_id: 3,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        friend_id: 1,
+        user_id: 3,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+    ],{});
+
     await queryInterface.bulkInsert('Rides',[
       {
         departure: new Date('08 Jul 2021'),
@@ -281,14 +303,8 @@ module.exports = {
     ]);
 
     await queryInterface.bulkInsert('Groups',[
-      { name: 'Soft-dev Project',createdAt: new Date(),updatedAt: new Date()},
-      { name: 'Friends',createdAt: new Date(),updatedAt: new Date()}
-    ]);
-
-    await queryInterface.bulkInsert('GroupAdmins',[
-      { user_id: 1, group_id: 1,createdAt: new Date(),updatedAt: new Date()},
-      { user_id: 2, group_id: 2,createdAt: new Date(),updatedAt: new Date()},
-      { user_id: 3, group_id: 2,createdAt: new Date(),updatedAt: new Date()},     
+      { name: 'Soft-dev Project',ride_id:1,createdAt: new Date(),updatedAt: new Date()},
+      { name: 'Friends',ride_id:2,createdAt: new Date(),updatedAt: new Date()}
     ]);
 
     await queryInterface.bulkInsert('GroupLines',[
@@ -312,11 +328,11 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
      await queryInterface.bulkDelete('GroupLines', null, {});
-     await queryInterface.bulkDelete('GroupAdmins', null, {});
      await queryInterface.bulkDelete('ChatLines', null, {});
      await queryInterface.bulkDelete('RideRates', null, {});
      await queryInterface.bulkDelete('RideUsers', null, {});
      await queryInterface.bulkDelete('UserFavs', null, {});
+     await queryInterface.bulkDelete('Friends', null, {});
      await queryInterface.bulkDelete('Groups', null, {});
      await queryInterface.bulkDelete('Chats', null, {});
      await queryInterface.bulkDelete('Rides', null, {});

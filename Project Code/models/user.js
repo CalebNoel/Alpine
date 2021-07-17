@@ -17,9 +17,9 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.RideRate,{foreignKey: 'ratee_id'})
       User.hasMany(models.RideRate,{foreignKey: 'rater_id'})
       User.hasMany(models.UserFav,{foreignKey: 'user_id'})
-      User.hasMany(models.GroupAdmins,{foreignKey: 'user_id'})
+      User.hasMany(models.Friends,{foreignKey: 'user_id'})
+      User.hasMany(models.Friends,{foreignKey: 'friend_id'})
       User.hasMany(models.GroupLine,{foreignKey: 'user_id'})
-
     }
   };
   User.init({

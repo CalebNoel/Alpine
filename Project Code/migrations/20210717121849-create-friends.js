@@ -1,26 +1,24 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('GroupAdmins', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
+    await queryInterface.createTable('Friends', {
       user_id: {
         type: Sequelize.INTEGER,
         references: {
             model: 'Users',
             key: 'id'
-        }
+        },
+        primaryKey: true,
+        allowNull: false
       },
-      group_id:{
+      friend_id: {
         type: Sequelize.INTEGER,
         references: {
-            model: 'Groups',
+            model: 'Users',
             key: 'id'
-        }
+        },
+        primaryKey: true,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
@@ -33,6 +31,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('GroupAdmins');
+    await queryInterface.dropTable('Friends');
   }
 };

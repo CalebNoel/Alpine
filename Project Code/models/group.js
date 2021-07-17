@@ -11,15 +11,22 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Group.hasMany(models.GroupAdmins,{foreignKey: 'group_id'})
-      Group.hasMany(models.GroupLine,{foreignKey: 'group_id'})
-
+      Group.hasMany(models.GroupLine,{foreignKey: 'group_id'});
+      Group.belongsTo(models.Ride,{foreignKey: 'ride_id' });
     }
   };
   Group.init({
     name: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    ride_id:{
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Rides',
+        key: 'id'
+      }
     }
   }, {
     sequelize,

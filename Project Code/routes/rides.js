@@ -3,6 +3,8 @@ const router = express.Router();
 var Ride = require('../models').Ride;
 var RideUser = require('../models').RideUser;
 var RideRate = require('../models').RideRate;
+var Group = require('../models').Group;
+var GroupLine = require('../models').GroupLine;
 var User = require('../models').User;
 var Destination = require('../models').Destination;
 const { check, validationResult } = require('express-validator');
@@ -108,7 +110,6 @@ router.get('/',async (req,res) => {
     });
 });
 
-
 // Add Ride
 router.get('/add',async (req,res) => {
     let destinations = await Destination.findAll();
@@ -117,8 +118,6 @@ router.get('/add',async (req,res) => {
         destinations: destinations
     });
 });
-
-
 
 router.post('/add',[
     check('depart_date').not().isEmpty().isAfter(),
@@ -315,5 +314,9 @@ router.get('/:id/rate/:user_id',async(req,res) => {
     }
 });
 
+// Show group
+
+
+// Send Message
 
 module.exports = router;

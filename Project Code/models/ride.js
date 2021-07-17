@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       Ride.belongsTo(models.Destination,{foreignKey: 'dest_id' });
       Ride.hasMany(models.RideUser,{foreignKey:'ride_id'})
       Ride.hasMany(models.RideRate,{foreignKey:'ride_id'})
+      Ride.hasOne(models.Group,{foreignKey:'ride_id'})
     }
   };
   Ride.init({

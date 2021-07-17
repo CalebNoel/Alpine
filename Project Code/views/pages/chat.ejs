@@ -11,123 +11,29 @@
                   <button class="btn btn-light" onclick="search()"> Search </button>
                 </div>
               </div>
-              <div class="chat-select-scroll-box">
-                <ul class="chat-select">
-                  <!--Placeholder chat until javascript is working-->
-                  <li class="chats">
-                    <div class="chat-pic">
-                      <img src="/img/default_profile_pic.jpg" alt "Profile Pic" onclick="selectChat();">
-                    </div>
-                    <p class="name">
-                      <span onclick="selectChat();">Test User 1</span>
-                    </p>
-                  </li>
-                  <li class="chats">
-                    <div class="chat-pic">
-                      <img src="/img/default_profile_pic.jpg" alt "Profile Pic">
-                    </div>
-                    <p class="name">
-                      <span>Test User 2</span>
-                    </p>
-                  </li>
-                  <li class="chats">
-                    <div class="chat-pic">
-                      <img src="/img/default_profile_pic.jpg" alt "Profile Pic">
-                    </div>
-                    <p class="name">
-                      <span>Test User 3</span>
-                    </p>
-                  </li>
-                  <li class="chats">
-                    <div class="chat-pic">
-                      <img src="../resources/img/default_profile_pic.jpg" alt "Profile Pic">
-                    </div>
-                    <p class="name">
-                      <span>Test User 4</span>
-                    </p>
-                  </li>
-                  <li class="chats">
-                    <div class="chat-pic">
-                      <img src="../resources/img/default_profile_pic.jpg" alt "Profile Pic">
-                    </div>
-                    <p class="name">
-                      <span>Test User 5</span>
-                    </p>
-                  </li>
-                  <li class="chats">
-                    <div class="chat-pic">
-                      <img src="/img/default_profile_pic.jpg" alt "Profile Pic">
-                    </div>
-                    <p class="name">
-                      <span>Test User 6</span>
-                    </p>
-                  </li>
-                  <li class="chats">
-                    <div class="chat-pic">
-                      <img src="../resources/img/default_profile_pic.jpg" alt "Profile Pic">
-                    </div>
-                    <p class="name">
-                      <span>Test User 7</span>
-                    </p>
-                  </li>
-                  <li class="chats">
-                    <div class="chat-pic">
-                      <img src="../resources/img/default_profile_pic.jpg" alt "Profile Pic" onclick="selectChat();">
-                    </div>
-                    <p class="name">
-                      <span>Test User 8</span>
-                    </p>
-                  </li>
-                  <li class="chats">
-                    <div class="chat-pic">
-                      <img src="../resources/img/default_profile_pic.jpg" alt "Profile Pic">
-                    </div>
-                    <p class="name">
-                      <span>Test User 9</span>
-                    </p>
-                  </li>
-                  <li class="chats">
-                    <div class="chat-pic">
-                      <img src="../resources/img/default_profile_pic.jpg" alt "Profile Pic">
-                    </div>
-                    <p class="name">
-                      <span>Test User 10</span>
-                    </p>
-                  </li>
-                  <li class="chats">
-                    <div class="chat-pic">
-                      <img src="../resources/img/default_profile_pic.jpg" alt "Profile Pic">
-                    </div>
-                    <p class="name">
-                      <span>Test User 11</span>
-                    </p>
-                  </li>
-                  <li class="chats">
-                    <div class="chat-pic">
-                      <img src="../resources/img/default_profile_pic.jpg" alt "Profile Pic">
-                    </div>
-                    <p class="name">
-                      <span>Test User 12</span>
-                    </p>
-                  </li>
-                  <li class="chats">
-                    <div class="chat-pic">
-                      <img src="../resources/img/default_profile_pic.jpg" alt "Profile Pic">
-                    </div>
-                    <p class="name">
-                      <span>Test User 13</span>
-                    </p>
-                  </li>
-                  <li class="chats">
-                    <div class="chat-pic">
-                      <img src="../resources/img/default_profile_pic.jpg" alt "Profile Pic">
-                    </div>
-                    <p class="name">
-                      <span>Test User 14</span>
-                    </p>
-                  </li>
-                </ul>
-              </div>
+              <form action="/chat/select_chat" method="POST">
+                <div class="chat-select-scroll-box">
+                  <ul class="chat-select">
+                    <!--Placeholder chat until javascript is working-->
+                    <li class="chats">
+                      <div class="chat-pic">
+                        <input type="image" name="submit" src="/img/default_profile_pic.jpg" alt="Profile Pic"></input>
+                      </div>
+                      <p class="name">
+                        <button type="submit" name="submit" value="4">Test User 1</button>
+                      </p>
+                    </li>
+                    <li class="chats">
+                      <div class="chat-pic">
+                        <input type="image" name="submit" src="/img/default_profile_pic.jpg" alt="Profile Pic"></input>
+                      </div>
+                      <p class="name">
+                        <button type="submit" name="submit" value="5">Test User 2</button>
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+              </form>
             </div>
             <!--End of chat-select-->
             <!--Start of chatbox-->
@@ -142,20 +48,26 @@
                   <div class="chat-scroll-box">
                     <ul class="chat-box" >
                       <!--Received message template-->
-                      <li class="chat-received">
-                        <div class="user-pic">
-                          <img src="../resources/img/default_profile_pic.jpg" alt "Profile Pic" onclick="openProfile();">
-                        </div>
-                        <div class="chat-text"> Sample text </div>
-                        <div class="chat-time"> 1:06 AM, June 25</div>
-                      </li>
-                      <li class="chat-sent">
-                        <div class="user-pic">
-                          <img src="../resources/img/default_profile_pic.jpg" alt "Profile Pic" onclick="openProfile();">
-                        </div>
-                        <div class="chat-text"> This is another sample text </div>
-                        <div class="chat-time"> 1:17 AM, June 25</div>
-                      </li>
+                      <%
+                      if(chat_messages){
+                        msg = '';
+                        for(let i = 0; i < chat_messages.length; i++){
+                          if(chat_messages[i].user_id == 1){
+                            msg += '<div class="row"><li class="chat-sent"><div class="user-pic">' +
+                              '<img src="/img/default_profile_pic.jpg" alt "Profile Pic" onclick="openProfile();"></div>' +
+                              '<div class="chat-text">' + chat_messages[i].line_text + '</div>' +
+                              '<div class="chat-time">' + chat_messages[i].createdAt.toLocaleTimeString() +'</div></li></div>';
+                          }
+                          else {
+                              msg += '<li class="chat-received"><div class="user-pic">' +
+                                '<img src="/img/default_profile_pic.jpg" alt "Profile Pic" onclick="openProfile();"></div>' +
+                                '<div class="chat-text">' + chat_messages[i].line_text + '</div>' +
+                                '<div class="chat-time">' + chat_messages[i].createdAt.toLocaleTimeString() +'</div></li>';
+                          }
+                        }
+                        %>
+                      <%- msg %>
+                      <% } %>
                     </ul>
                   </div>
                   <div class="chat-input mt-auto mb-0">

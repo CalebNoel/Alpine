@@ -18,7 +18,7 @@ CHAT SELECT ************************************************
 }
 
 .chat-select-scroll-box{
-  height:100%;
+  height:75vh;
   width:350px;
   border:1px;
   overflow-y:scroll;
@@ -28,6 +28,14 @@ CHAT SELECT ************************************************
   list-style-type: none;
   min-width: 200px;
   padding-top: 40px;
+}
+.chat-select .chats .chat-pic input{
+  width: 48px;
+  height: 48px;
+  float: left;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  border-radius: 50px;
 }
 .chat-select .chats .chat-pic img{
   width: 48px;

@@ -26,6 +26,7 @@ router.use(express.static(__dirname + '/'));// Set the relative path; makes acce
 
 router.get('/', function(req, res) {
   res.render('pages/locations', {
+      places: null
   });
 });
 

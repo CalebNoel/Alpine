@@ -36,8 +36,9 @@ router.get('/', function(req, res) {
 router.post('/get_locations', function(req, res) {
     var address = req.body.place; 
     var api_key = 'AIzaSyDPSOpMS_xDzRDg50J8ee34DTdmHQOkUj0'; 
-    var api_key_ors = '5b3ce3597851110001cf62483c56b402c96e46b590b261bd900e04a5';
+    var api_key_mr = 'anrq8vQP315Q7JOrxaiDSUCewWHI59Ky';
     var api_key_owm = '4d95ccede70c9f544887073232cdc06f';
+
     var loggedIn = req.isAuthenticated();
     console.log(address);
     if(address) {
@@ -52,6 +53,7 @@ router.post('/get_locations', function(req, res) {
               let elevation = []
               locs.forEach((element,index) => {
                 weather[index] = axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${element.geometry.location.lat}&lon=${element.geometry.location.lng}&metrics=imperial&appid=${api_key_owm}`);
+                // elevation[index] = axios.get(`http://open.mapquestapi.com/elevation/v1/profile?key=${api_key_mr}&shapeFormat=raw&latLngCollection=${element.geometry.location.lat},${element.geometry.location.lng}`);
               });
               axios.all(weather).then(axios.spread((...responses) => {
                 responses = responses.map(response => response.data);
@@ -59,7 +61,6 @@ router.post('/get_locations', function(req, res) {
                 res.render('pages/locations', {
                   places: locs,
                   weather_for_places: responses,
-                  elevation_for_places: elevation,
                   numLoc: 0,
                   loggedIn: loggedIn
                 });

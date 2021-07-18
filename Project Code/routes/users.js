@@ -3,6 +3,8 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const passport = require('passport');
 var User = require('../models').User;
+var Friends = require('../models').Friends;
+
 const path = require('path')
 const { body,check, validationResult } = require('express-validator');
 const ensureAuthenticated = require("./auth")
@@ -189,6 +191,64 @@ router.post('/profile',[
       req.session.message = 'Edited Successfully, please login';
       res.redirect('/users/profile',);
     }
-})
+});
+
+router.get('/friends',async(req,res) => {
+  const curr_user_id = 1; //replace with req.user.id
+  const friends = await Friends.findAll({
+    where: {
+      [Op.or] : {
+        user_id: curr_user_id,
+        friend_id: curr_user_id
+      }
+    },
+    include: [{model: User}]
+  });
+
+  console.log(friends);
+  res.redirect('/');
+});
+
+router.get('/friends/:id/add',async(req,res) => {
+  const curr_user_id = 1; //replace with req.user.id
+  const new_friend = await Friends.create({user_id: curr_user_id,friend:req.params.id})
+  new_friend.save();
+  console.log(new_friend);
+  // res.redirect('/friends')
+  res.redirect('/');
+});
+
+router.get('/friends/:id',async(req,res) => {
+  const curr_user_id = 1; //replace with req.user.id
+  const friend = await Friends.findOne({
+    where: {
+      [Op.or] : {
+        [Op.and]: {
+          user_id: curr_user_id,
+          friend_id: req.params.id,
+        },
+        [Op.and]: {
+          user_id: req.params.id,
+          friend_id: curr_user_id,
+        },
+      }
+    },
+    include: {
+      model: User,
+      through:{
+        where: {
+           id: {
+            [Op.ne]: curr_user_id
+          }
+        }
+      }
+    }
+  });
+  if(!friend){
+    res.redirect('/friends')
+  }
+  console.log(friend.dataValues);
+  res.redirect('/');
+});
 
 module.exports = router;

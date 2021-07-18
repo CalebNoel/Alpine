@@ -11,14 +11,11 @@ const { Op } = require("sequelize")
 
 var authUser;
 
-// Show Profile
-router.get('/register', async (req, res) => {
-  res.render('pages/Register')
-});
-
 // Register Form
 router.get('/register', async (req, res) => {
-    res.render('pages/Register')
+    res.render('pages/Register', {
+      loggedIn: false
+    })
 });
 
 router.post('/register', [
@@ -79,35 +76,35 @@ router.post('/register', [
 // Login Form
 router.get('/login', async (req, res) => {
     res.render('pages/User_Login', {
-      loginError: ''
+      loginError: '',
+      loggedIn: false
     });
 });
 
 // Login Process
 router.post('/login', async (req, res, next) => {
-  // passport.authenticate('local', {
-  //   successRedirect: '/',
-  //   failureRedirect: '/users/login'
-  // })(req, res, next);
-  targetUser = await User.findOne({where:{email: req.body.username}});
-  if (targetUser != null) {
-    if (req.body.password == targetUser.password) {
-      authUser = req.body.username;
-      console.log(req.body.username, " is logged in");
-      res.redirect('/');
-    }
-    else {
-      res.render('pages/User_Login', {
-        loginError: 'Incorrect password!'
-      })
-    }
-  }
-  else {
-    res.render('pages/User_Login', {
-      loginError: 'Incorrect username!'
-    })
-  }
-  
+  passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/users/login'
+  })(req, res, next);
+  // targetUser = await User.findOne({where:{email: req.body.username}});
+  // if (targetUser != null) {
+  //   if (req.body.password == targetUser.password) {
+  //     authUser = req.body.username;
+  //     console.log(req.body.username, " is logged in");
+  //     res.redirect('/');
+  //   }
+  //   else {
+  //     res.render('pages/User_Login', {
+  //       loginError: 'Incorrect password!'
+  //     })
+  //   }
+  // }
+  // else {
+  //   res.render('pages/User_Login', {
+  //     loginError: 'Incorrect username!'
+  //   })
+  // }
 
 });
 
@@ -115,19 +112,24 @@ router.post('/login', async (req, res, next) => {
 router.get('/logout', ensureAuthenticated,async (req, res) => {
   req.logout();
   res.redirect('/users/login',{
-    message : 'You are logged out'
+    message : 'You are logged out',
+    loggedIn: false
   });
 });
 
 router.get('/profile',async (req,res)=>{
+  if(ensureAuthenticated(res, req, next)) {
+    console.log(req);
   const curr_user = await User.findOne({
     where:{
-      id: 1, //replace with req.user.id
+      id: req.user.id
     }
   });
   res.render('pages/MyAccount',{
     user: curr_user, //replace with req.user
   })
+  }
+  
 })
 
 router.post('/profile',[

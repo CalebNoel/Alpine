@@ -151,9 +151,9 @@ router.post('/add',[
             console.log(alert);
             let destinations = await Destination.findAll();
             destinations = destinations.map(element => element.dataValues);
-            res.render('/pages/add_ride', {
+            res.render('pages/add_ride', {
                 destinations: destinations,
-                error: alert,
+                error: errors,
                 loggedIn: loggedIn
             });
         } else {

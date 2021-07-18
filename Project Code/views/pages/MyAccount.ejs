@@ -4,17 +4,17 @@
     <br>
 	<br>
 	<!-- Display basic profile info statically-->
-	<div class="border border-primary" style="width:55%; margin:2% auto; padding: 1%">
-		<div style="width:40%">
+	<div class="border border-primary rounded" style="width:55%; margin:2% auto; padding: 1%">
+		<div>
 			<div class="row">
-				<div class="col">
+				<div class="col-2">
 					<img src = "https://upload.wikimedia.org/wikipedia/commons/6/68/Joe_Biden_presidential_portrait.jpg" class="rounded-circle" style= "width:150px; height:150px; object-fit:cover;">
 				</div>
 				<div class="col">
-					<div class="row">
+					<div class="row row-cols-auto">
 						<h1><%= user.name %></h1>
 					</div>
-					<div class="row">
+					<div class="row row-cols-auto">
 						<h4>User rating: <%= user.user_rating %>/5</h4>
 					</div>
 				</div>
@@ -24,7 +24,7 @@
 	<!-- End -->
 
 	<!-- Editing section-->
-	<div class="border border-secondary" style="width:55%; margin:2% auto; padding: 1%;">
+	<div class="border border-secondary rounded" style="width:55%; margin:2% auto; padding: 1%;">
 	<form action="/users/profile" method="POST">
 		
 		<div class="d-flex justify-content-center">

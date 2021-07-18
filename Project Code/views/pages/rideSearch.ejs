@@ -2,46 +2,48 @@
     <title>Ride Search</title>
   </head>
   <body>
-    <div style="position: absolute;  top: 25vh; left: 29vw;">
+    <div style="width: 55%; margin: 0 auto;">
       <div id="search_ui">
         <h1 class="text-center" style="padding: 20px">Ride Search</h1>
-        <form method="POST" action="/rides/search">
-          <div class="row" id="field_labels">
+        <div class="border border-primary rounded" style="padding: 1%;">
+          <form method="POST" action="/rides/search">
+            <div class="row" id="field_labels">
+                <div class="col">
+                  Trip start date
+                </div>
+                <div class="col">
+                  Trip end date
+                </div>
+                <div class="col">
+                  Origin
+                </div>
+                <div class="col">
+                  Destination
+                </div>
+            </div>
+            <div class="row" id="fields">
               <div class="col">
-                Trip start date
+                <input type='date' name="start_date" class="form-control" id='start_date' style='width: 10vw;'>
               </div>
               <div class="col">
-                Trip end date
+                <input type='date' name="end_date" class="form-control" id='end_date' style='width: 10vw;'>
               </div>
               <div class="col">
-                Origin
+                <input type='text' name="origin" class="form-control" style='width: 10vw;'>
               </div>
               <div class="col">
-                Destination
+                <input type='text' name="destination" class="form-control" style='width: 10vw;'>
               </div>
-          </div>
-          <div class="row" id="fields">
-            <div class="col">
-              <input type='date' name="start_date" class="form-control" id='start_date' style='width: 10vw;'>
             </div>
-            <div class="col">
-              <input type='date' name="end_date" class="form-control" id='end_date' style='width: 10vw;'>
+            <div class="row text-center">
+              <div class="col">
+                <button type="submit" name="button" style="margin: 20px 0px; width: 20vw">Submit</button>
+              </div>
             </div>
-            <div class="col">
-              <input type='text' name="origin" class="form-control" style='width: 10vw;'>
-            </div>
-            <div class="col">
-              <input type='text' name="destination" class="form-control" style='width: 10vw;'>
-            </div>
-          </div>
-          <div class="row text-center">
-            <div class="col">
-              <button type="submit" name="button" style="margin: 20px 0px; width: 20vw">Submit</button>
-            </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
-      <div id="results" style="visibility: hidden">
+      <div class="border border-secondary" id="results" style="visibility: hidden; padding: 1%;">
         <h2 class="text-center" style="padding: 0px">Groups</h2>
         <div id="group_results" class="row">
           <div class="col">

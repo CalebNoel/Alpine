@@ -29,9 +29,4 @@ router.get('/about',async (req,res)=>{
     })
 })
 
-
-
-
-
-
 module.exports = router

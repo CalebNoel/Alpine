@@ -10,7 +10,7 @@ const ensureAuthenticated = require("./auth")
 router.get('/', async (req,res) => {
     const curr_user_id = 1;
 
-    const user_chats = await ChatLine.findAll({
+    let user_chats = await ChatLine.findAll({
         where: {
             user_id: {
                 [Op.eq] : curr_user_id
@@ -18,14 +18,15 @@ router.get('/', async (req,res) => {
         },
         group: 'chat_id'
     });
-    const open_chat = await Chat.findAll({
+    user_chats = user_chats.map(element => element.dataValues);
+    const open_chat = await Chat.findOne({
         where: {
             id: {
-                [Op.eq] : req.params.id
+                [Op.eq] : user_chats[0].chat_id
             }
         }
-    })
-    const chat_messages = await ChatLine.findAll({
+    });
+    let chat_messages = await ChatLine.findAll({
         where:{
             chat_id:{
                 [Op.eq] : open_chat.id
@@ -36,7 +37,7 @@ router.get('/', async (req,res) => {
         },
         order: [['createdAt','DESC']]
     });
-    console.log(user_chats,open_chat,chat_messages);
+    chat_messages = chat_messages.map(element => element.dataValues);
     res.render('pages/chat',{
         chats: user_chats,
         curr_chat: open_chat,
@@ -61,7 +62,7 @@ router.post('/select_chat', async (req, res) =>{
 
 router.get('/:id', async (req,res) => {
     const curr_user_id = 1;
-    const user_chats = await ChatLine.findAll({
+    let user_chats = await ChatLine.findAll({
         where: {
             user_id: {
                 [Op.eq] : curr_user_id
@@ -69,7 +70,8 @@ router.get('/:id', async (req,res) => {
         },
         group: 'chat_id'
     });
-    const open_chat = await Chat.findAll({
+    user_chats = user_chats.map(element => element.dataValues);
+    const open_chat = await Chat.findOne({
         where: {
             id: {
                 [Op.eq] : req.params.id
@@ -77,7 +79,7 @@ router.get('/:id', async (req,res) => {
         }
     })
 
-    const chat_messages = await ChatLine.findAll({
+    let chat_messages = await ChatLine.findAll({
         where:{
             chat_id:{
                 [Op.eq] : req.params.id,
@@ -88,6 +90,8 @@ router.get('/:id', async (req,res) => {
         },
         order: [['createdAt','DESC']]
     });
+    chat_messages = chat_messages.map(element => element.dataValues);
+
     res.render('pages/chat',{
         chats: user_chats,
         curr_chat: open_chat,
@@ -102,7 +106,7 @@ router.post('/:id/send',[
 ], async (req,res) => {
     const curr_user_id = 1;
     const message = req.body.message
-    const user_chats = await ChatLine.findAll({
+    let user_chats = await ChatLine.findAll({
         where: {
             user_id: {
                 [Op.eq] : curr_user_id
@@ -110,6 +114,8 @@ router.post('/:id/send',[
         },
         group: 'chat_id'
     });
+    user_chats = user_chats.map(element => element.dataValues);
+
     const open_chat = await Chat.findAll({
         where: {
             id: {
@@ -120,14 +126,14 @@ router.post('/:id/send',[
 
 
     const chat_message = await ChatLine.create({
-        user_id: 1,
+        user_id: curr_user_id,
         chat_id: req.params.id,
         line_text: message,
     });
     chat_message.save();
 
 
-    const chat_messages = await ChatLine.findAll({
+    let chat_messages = await ChatLine.findAll({
         where:{
             chat_id:{
                 [Op.eq] : req.params.id,
@@ -138,13 +144,14 @@ router.post('/:id/send',[
         },
         order: [['createdAt','DESC']]
     });
+    chat_messages = chat_messages.map(element => element.dataValues);
     res.render('pages/chat',{
         chats: user_chats,
         curr_chat: open_chat,
         chat_messages: chat_messages,
         loggedIn: true
     });
-})
+});
 
 
 module.exports = router;

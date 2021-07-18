@@ -25,7 +25,9 @@
     // more details for that place.
     searchBox.addListener("places_changed", () => {
       const places = searchBox.getPlaces();
-  
+      console.log(places);
+      let form_input = document.querySelector('#submitted_place');
+      form_input.value = document.querySelector('#pac-input').value;
       if (places.length == 0) {
         return;
       }
@@ -74,12 +76,13 @@
         <br>
         <br>
       </div>
-      <form>
+      <form method="POST" action="/locations/get_locations">
         <div class="row" style="margin-left: auto; margin-right: auto;">
-          <input class="form-control" type="text" id="pac-input" placeholder="Enter a place in Colorado">
+          <input class="form-control" type="text" id="pac-input" name="place" placeholder="Enter a place in Colorado">
         </div>
+          <input type="hidden" id="submitted_place" name="submitted_place">
         <div class="row">
-          <input class="btn btn-dark" type="submit" name="Submit" value = "Submit">
+          <input class="btn btn-dark" type="submit" name="submit" value = "Submit">
         </div>
       </form>
       <script

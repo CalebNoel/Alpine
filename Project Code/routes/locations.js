@@ -43,12 +43,10 @@ router.post('/get_locations', function(req, res) {
           dataType:'json',
         })
           .then(locations => {
-            console.log(locations.candidates)
+            console.log(locations.data.candidates)
             res.render('pages/locations', {
-              places: locations.candidates,
-              numLoc: 0,
-              loggedIn: loggedIn
-              
+              places: locations.data.candidates,
+              numLoc: 0
             });
           })
           .catch(error => {
@@ -58,13 +56,10 @@ router.post('/get_locations', function(req, res) {
             })
           });
   
-  
     }
     else {
-      res.render('/', {
-        message: 'Locations API is not working right now.',
-        loggedIn: loggedIn
-      });
+      req.session.message = "The Locations API is not working right now"
+      res.redirect('/');
     }
   });
 

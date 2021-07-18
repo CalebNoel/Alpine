@@ -75,13 +75,14 @@ router.post('/search',[
             if(req.body.destination != ''){
                 where_clause.dest_id = {[Op.eq] : parseInt(req.body.destination)};
             }
-            const rides = await Ride.findAll({
+            let rides = await Ride.findAll({
                 where: where_clause,
                 include: [
                     {model: User}, 
                     {model: Destination}
                 ], 
             });
+            rides = rides.map(element => element.dataValues);
             console.log(rides);
             let destinations = await Destination.findAll();
             destinations = destinations.map(element => element.dataValues);
@@ -102,7 +103,8 @@ router.get('/',async (req,res) => {
             driver_id: 1, //replace with req.user.id
         }
     });
-    const rides = await RideUser.findAll({
+    driven_rides = driven_rides.map(element => element.dataValues);
+    let rides = await RideUser.findAll({
         where: {
             user_id: 1 //replace with req.user.id
         },
@@ -110,6 +112,7 @@ router.get('/',async (req,res) => {
             {model:Ride},
         ]
     });
+    rides = rides.map(element => element.dataValues);
     res.render('pages/rides',{
         driven_rides: driven_rides,
         rides: rides,
@@ -329,7 +332,40 @@ router.get('/:id/rate/:user_id',async(req,res) => {
 });
 
 // Show group
-
+router.get('/:id/group',async(req,res) => {
+    let group = await Group.findOne({
+        where: {
+            ride_id : {
+                [Op.eq] : req.params.id
+            }
+        },
+    });
+    console.log(group);
+    let group_members = await GroupLine.findAll({
+        where: {
+            group_id: {
+                [Op.eq]: group.id
+            }
+        },
+        include: [{model: User}], 
+        group: 'user_id'
+    });
+    group_members = group_members.map(element => element.dataValues);
+    console.log(group_members);
+    let group_messages = await GroupLine.findAll({
+        where: {
+            group_id: {
+                [Op.eq]: group.id
+            }
+        },
+    });
+    group_messages = group_messages.map(element => element.dataValues);
+    console.log(group_messages);
+    res.render('/pages/group',{
+        group_members: group_members,
+        group_messages: group_messages
+    });
+});
 
 // Send Message
 

@@ -7,6 +7,7 @@ TO DO:
 
 ***********************************
 */
+var request = require('request');
 const express = require('express');
 const router = express();
 const ensureAuthenticated = require("./auth")
@@ -35,27 +36,45 @@ router.get('/', function(req, res) {
 router.post('/get_locations', function(req, res) {
     var address = req.body.place; 
     var api_key = 'AIzaSyDPSOpMS_xDzRDg50J8ee34DTdmHQOkUj0'; 
+    var api_key_ors = '5b3ce3597851110001cf62483c56b402c96e46b590b261bd900e04a5';
+    var api_key_owm = '4d95ccede70c9f544887073232cdc06f';
     var loggedIn = req.isAuthenticated();
+    console.log(address);
     if(address) {
       axios({
-        url: `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${address}&inputtype=textquery&fields=photos,formatted_address,name,opening_hours,rating&locationbias=circle:6254@39.635757,-106.362984&key=${api_key}`,
+        url: `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${address}&inputtype=textquery&fields=photos,formatted_address,name,opening_hours,geometry,price_level,rating&locationbias=circle:6254@39.635757,-106.362984&key=${api_key}`,
           method: 'GET',
           dataType:'json',
         })
           .then(locations => {
-            console.log(locations.data.candidates)
-            res.render('pages/locations', {
-              places: locations.data.candidates,
-              numLoc: 0
-            });
+              let locs = locations.data.candidates;
+              let weather = []
+              let elevation = []
+              locs.forEach((element,index) => {
+                weather[index] = axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${element.geometry.location.lat}&lon=${element.geometry.location.lng}&metrics=imperial&appid=${api_key_owm}`);
+              });
+              axios.all(weather).then(axios.spread((...responses) => {
+                responses = responses.map(response => response.data);
+                console.log(responses);
+                res.render('pages/locations', {
+                  places: locs,
+                  weather_for_places: responses,
+                  elevation_for_places: elevation,
+                  numLoc: 0,
+                  loggedIn: loggedIn
+                });
+              }));
           })
           .catch(error => {
+            console.log(error);
             res.render('pages/locations',{
+              places:null,
+              weather_for_places: null,
+              elevation_for_places: null,
               message: 'Error',
               loggedIn: loggedIn
             })
           });
-  
     }
     else {
       req.session.message = "The Locations API is not working right now"

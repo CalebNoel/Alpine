@@ -19,8 +19,9 @@
     </form>
     <div class="card-columns" id="locations-stack">
       <% if(places) { 
-          places.forEach(function(places){ 
-            var name= places.name %>
+          places.forEach(function(places,index){ 
+            var name= places.name 
+            %>
             <div class="card card-default border-primary" style="width: 18rem;">
               <div class="card-body">
                 <h4 class="card-text"><%- name %></h4>

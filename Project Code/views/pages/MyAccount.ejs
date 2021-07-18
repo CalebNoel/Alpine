@@ -30,7 +30,7 @@
 		<div class="d-flex justify-content-center">
 			<label class="col-sm-2 col-form-label" for="fullName">Full Name:</label>
 			<div class="col-sm-6">
-				<input type="text" class="form-control" name="fullName" id="fullName"  placeholder="Enter Name" >
+				<input type="text" class="form-control" name="fullName" id="fullName" value="<%= user.name %>">
 			</div>
 		</div>
 		<br>
@@ -38,7 +38,7 @@
 		<div class="d-flex justify-content-center">
 			<label class="col-sm-2 col-form-label"  for="emailAddress">Email address:</label>
 			<div class="col-sm-6">
-				<input type="email" class="form-control" name="emailAddress" id="emailAddress" placeholder="Enter email">
+				<input type="email" class="form-control" name="emailAddress" id="emailAddress" value="<%= user.email %>">
 			</div>
 		</div>
 		<br>
@@ -46,7 +46,7 @@
 		<div class="d-flex justify-content-center">
 			<label  class="col-sm-2 col-form-label" for="passwordFirst">Password:</label>
 			<div class="col-sm-6">
-				<input type="password" class="form-control" id="passwordFirst" name="passwordFirst" placeholder="Password">
+				<input type="password" class="form-control" id="passwordFirst" name="passwordFirst" value="<%= user.password %>">
 			</div>
 		</div>
 		<br>
@@ -54,7 +54,7 @@
 		<div class="d-flex justify-content-center">
 			<label  class="col-sm-2 col-form-label" for="passwordConfirm">Confirm Password:</label>
 			<div class="col-sm-6">
-				<input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm" placeholder="Confirm Password">
+				<input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm" value="<%= user.password %>">
 			</div>
 		</div>
 		<br>
@@ -62,7 +62,7 @@
 		<div class="d-flex justify-content-center">
 			<label  class="col-sm-2 col-form-label" for="PhoneConfirm">Phone Number:</label>
 			<div class="col-sm-6">
-				<input type="number" class="form-control" id="phoneNum" name="PhoneNumber" placeholder="Phone Number">
+				<input type="number" class="form-control" id="phoneNum" name="PhoneNumber" value="<%= user.phone_no %>">
 			</div>
 		</div>
 		<br>
@@ -70,7 +70,7 @@
 		<div class="d-flex justify-content-center">
 			<label  class="col-sm-2 col-form-label" for="dob">Date of Birth:</label>
 			<div class="col-sm-6">
-				<input type="date" class="form-control" id="dob" name="dob" placeholder="Enter as MM/DD/YYYY">
+				<input type="date" class="form-control" id="dob" name="dob" value="<%= user.dob %>">
 			</div>
 		</div>
 		<br>

@@ -22,33 +22,41 @@
                   <a id="Home" class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item fs-4 fw-bold">
-                  <a id="Map" class="nav-link" href="/map">Map</a>
-                </li>
-                <li class="nav-item fs-4 fw-bold">
-                  <a id="Register" class="nav-link" href="/users/register">Register</a>
-                </li>
-                <li class="nav-item dropdown fs-4 fw-bold">
-                  <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Plan trip
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="/rides/search">Ride Search</a>
-                    <a class="dropdown-item" href="/chat/">Chat</a>
-                    <a class="dropdown-item" href="/rides/add">Create Ride</a>
-                  </div>
-                </li>
-                <li class="nav-item fs-4 fw-bold">
                   <a id="About" class="nav-link" href="/about" tabindex="-1" aria-disabled="true">About</a>
                 </li>
                 <li class="nav-item fs-4 fw-bold">
-                  <a id="Account" class="nav-link" href="/users/profile" tabindex="-1" aria-disabled="true">Account</a>
+                  <a id="Map" class="nav-link" href="/map">Map</a>
                 </li>
                 <li class="nav-item fs-4 fw-bold">
                   <a id="Locations" class="nav-link" href="/locations" tabindex="-1" aria-disabled="true">Locations</a>
                 </li>
-                <li class="nav-item fs-4 fw-bold">
-                  <a href="/users/login" class="btn btn-dark btn-lg active" role="button" aria-pressed="true">Log In</a>
-                </li>
+                
+                <% if(loggedIn) { %>
+                  <li class="nav-item dropdown fs-4 fw-bold">
+                    <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Plan trip
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="/rides/search">Ride Search</a>
+                      <a class="dropdown-item" href="/chat/">Chat</a>
+                      <a class="dropdown-item" href="/rides/add">Create Ride</a>
+                    </div>
+                  </li>
+                  <li class="nav-item fs-4 fw-bold">
+                    <a id="Account" class="nav-link" href="/users/profile" tabindex="-1" aria-disabled="true">Account</a>
+                  </li>
+                  <li class="nav-item fs-4 fw-bold">
+                    <a href="/users/logout" class="btn btn-dark btn-lg active" role="button" aria-pressed="true">Log Out</a>
+                  </li>
+                <% } else {%>
+                  <li class="nav-item fs-4 fw-bold">
+                    <a id="Register" class="nav-link" href="/users/register">Register</a>
+                  </li>
+                  <li class="nav-item fs-4 fw-bold">
+                    <a href="/users/login" class="btn btn-dark btn-lg active" role="button" aria-pressed="true">Log In</a>
+                  </li>
+                <% } %>
+                
               </ul>
               <!-- <form class="d-flex">
                 <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search">

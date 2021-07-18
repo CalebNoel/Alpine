@@ -118,19 +118,18 @@ router.get('/logout', ensureAuthenticated,async (req, res) => {
 });
 
 router.get('/profile',async (req,res)=>{
-  if(ensureAuthenticated(res, req, next)) {
-    console.log(req);
-  const curr_user = await User.findOne({
-    where:{
-      id: req.user.id
-    }
-  });
-  res.render('pages/MyAccount',{
-    user: curr_user, //replace with req.user
-  })
+  console.log(req.user)
+  var authUser = await User.findOne({where:
+  {
+    id: req.user.id
+  }})
+  if(req.isAuthenticated()) {
+    res.render('pages/MyAccount',{
+      user: authUser,
+      testVar: "hello!"
+    })
   }
-  
-})
+});
 
 router.post('/profile',[
   check('fullName','This username must me 3+ characters long').not().isEmpty().isLength({ min: 3 }),

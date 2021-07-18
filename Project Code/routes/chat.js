@@ -40,7 +40,8 @@ router.get('/', async (req,res) => {
     res.render('pages/chat',{
         chats: user_chats,
         curr_chat: open_chat,
-        chat_messages: chat_messages
+        chat_messages: chat_messages,
+        loggedIn: true
     });
 })
 
@@ -53,7 +54,8 @@ router.post('/select_chat', async (req, res) =>{
     }
   });
 	res.render('pages/chat',{
-		chat_messages: query
+		chat_messages: query,
+        loggedIn: true
 	});
 });
 
@@ -89,7 +91,8 @@ router.get('/:id', async (req,res) => {
     res.render('pages/chat',{
         chats: user_chats,
         curr_chat: open_chat,
-        chat_messages: chat_messages
+        chat_messages: chat_messages,
+        loggedIn: true
     });
 })
 
@@ -138,7 +141,8 @@ router.post('/:id/send',[
     res.render('pages/chat',{
         chats: user_chats,
         curr_chat: open_chat,
-        chat_messages: chat_messages
+        chat_messages: chat_messages,
+        loggedIn: true
     });
 })
 

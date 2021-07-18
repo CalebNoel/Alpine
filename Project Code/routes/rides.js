@@ -16,9 +16,11 @@ const moment = require("moment")
 router.get('/search',async (req,res) => {
     let destinations = await Destination.findAll();
     destinations = destinations.map(element => element.dataValues);
+    var loggedIn = req.isAuthenticated();
     res.render('pages/rideSearch',{
         rides: null,
-        destinations: destinations
+        destinations: destinations,
+        loggedIn: loggedIn
     });
 });
 
@@ -29,12 +31,14 @@ router.post('/search',[
     check('destination'),
 ],
     async (req,res) => {
-        const errors = validationResult(req)
+        const errors = validationResult(req);
+        var loggedIn = req.isAuthenticated();
         if(!errors.isEmpty()) {
             const alert = errors.array()
             console.log(alert);
             res.render('pages/rideSearch', {
-                alert
+                alert,
+                loggedIn: loggedIn
             })
         } else {
             
@@ -83,7 +87,8 @@ router.post('/search',[
             destinations = destinations.map(element => element.dataValues);
             res.render('pages/rideSearch',{
                 rides: rides,
-                destinations: destinations
+                destinations: destinations,
+                loggedIn: loggedIn
             });
         }
     }
@@ -91,6 +96,7 @@ router.post('/search',[
 
 // Ride Dashboard
 router.get('/',async (req,res) => {
+    var loggedIn = req.isAuthenticated();
     const driven_rides = await Ride.findAll({
         where: {
             driver_id: 1, //replace with req.user.id
@@ -107,15 +113,18 @@ router.get('/',async (req,res) => {
     res.render('pages/rides',{
         driven_rides: driven_rides,
         rides: rides,
+        loggedIn: loggedIn
     });
 });
 
 // Add Ride
 router.get('/add',async (req,res) => {
     let destinations = await Destination.findAll();
+    
     destinations = destinations.map(element => element.dataValues);
     res.render('pages/add_ride',{
-        destinations: destinations
+        destinations: destinations,
+        loggedIn: true
     });
 });
 
@@ -136,6 +145,7 @@ router.post('/add',[
 ],
     async (req,res) => {
         const errors = validationResult(req)
+        var loggedIn = req.isAuthenticated();
         if(!errors.isEmpty()) {
             const alert = errors.array()
             console.log(alert);
@@ -143,7 +153,8 @@ router.post('/add',[
             destinations = destinations.map(element => element.dataValues);
             res.render('/pages/add_ride', {
                 destinations: destinations,
-                error: alert
+                error: alert,
+                loggedIn: loggedIn
             });
         } else {
             
@@ -170,6 +181,7 @@ router.post('/add',[
 
 
 router.get('/:id',async (req,res) => {
+    var loggedIn = req.isAuthenticated();
     const ride = await Ride.findOne({
         where: {
             id: {
@@ -186,7 +198,8 @@ router.get('/:id',async (req,res) => {
     console.log(ride)
     res.render('pages/ride',{
         ride: ride.dataValues,
-        destinations: destinations
+        destinations: destinations,
+        loggedIn: loggedIn
     });
 });
 
@@ -211,7 +224,8 @@ router.post('/edit/:id',[
         if(!errors.isEmpty()) {
             const alert = errors.array()
             res.render('/rides/add', {
-                alert
+                alert,
+                loggedIn: true
             });
         } else {
 

@@ -25,14 +25,17 @@ router.set('view engine', 'ejs');
 router.use(express.static(__dirname + '/'));// Set the relative path; makes accessing the resource directory easier
 
 router.get('/', function(req, res) {
+  var loggedIn = req.isAuthenticated();
   res.render('pages/locations', {
-      places: null
+      places: null,
+      loggedIn: loggedIn
   });
 });
 
 router.post('/get_locations', function(req, res) {
     var address = req.body.place; 
     var api_key = 'AIzaSyDPSOpMS_xDzRDg50J8ee34DTdmHQOkUj0'; 
+    var loggedIn = req.isAuthenticated();
     if(address) {
       axios({
         url: `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${address}&inputtype=textquery&fields=photos,formatted_address,name,opening_hours,rating&locationbias=circle:6254@39.635757,-106.362984&key=${api_key}`,
@@ -43,12 +46,15 @@ router.post('/get_locations', function(req, res) {
             console.log(locations.candidates)
             res.render('pages/locations', {
               places: locations.candidates,
-              numLoc: 0
+              numLoc: 0,
+              loggedIn: loggedIn
+              
             });
           })
           .catch(error => {
             res.render('pages/locations',{
               message: 'Error',
+              loggedIn: loggedIn
             })
           });
   
@@ -56,7 +62,8 @@ router.post('/get_locations', function(req, res) {
     }
     else {
       res.render('/', {
-        message: 'Locations API is not working right now.'
+        message: 'Locations API is not working right now.',
+        loggedIn: loggedIn
       });
     }
   });

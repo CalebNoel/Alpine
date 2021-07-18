@@ -51,7 +51,8 @@ router.post('/register', [
         alert = errors.errors;
         console.log(alert);
         res.render('pages/Register', {
-            alert
+            alert,
+            loggedIn: false
         })
     } else {
       const gender = null;
@@ -126,7 +127,8 @@ router.get('/profile',async (req,res)=>{
   if(req.isAuthenticated()) {
     res.render('pages/MyAccount',{
       user: authUser,
-      testVar: "hello!"
+      testVar: "hello!",
+      loggedIn: true
     })
   }
 });
@@ -167,7 +169,8 @@ router.post('/profile',[
         alert = errors.errors;
         console.log(alert)
         res.render('pages/MyAccount', {
-            alert
+            alert,
+            loggedIn: true
         })
     } else {
       const salt = await bcrypt.genSalt(10);

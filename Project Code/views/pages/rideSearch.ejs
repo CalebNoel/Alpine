@@ -37,46 +37,57 @@
             </div>
             <div class="row text-center">
               <div class="col">
-                <button type="submit" name="button" style="margin: 20px 0px; width: 20vw">Submit</button>
+                <button class="btn btn-dark" type="submit" name="button" style="margin: 20px 0px; width: 20vw">Submit</button>
               </div>
             </div>
           </form>
         </div>
       </div>
-      <div class="border border-secondary" id="results" style="visibility: hidden; padding: 1%;">
-        <h2 class="text-center" style="padding: 0px">Groups</h2>
-        <div id="group_results" class="row">
-          <div class="col">
-            Start
-          </div>
-          <div class="col">
-            End
-          </div>
-          <div class="col">
-            Origin
-          </div>
-          <div class="col">
-            Destination
-          </div>
-          <div class="col">
-            # Travellers
-          </div>
+        <% if(rides != null) { %>
+          <div class="border border-secondary rounded" id="results" style="margin: 3% 0; padding: 1%;">
+            <div class="row">
+              <div class="col">
+                Departure Date
+              </div>
+              <div class="col">
+                Return Date
+              </div>
+              <div class="col">
+                Origin
+              </div>
+              <div class="col">
+                Destination
+              </div>
+              <div class="col">
+                # Travellers
+              </div>
+              <div class="col"></div>
+            </div>
+          <% rides.forEach(ride => { %>
+            <div class="row">
+              <div class="col" name="">
+                <%= ride.departure %>
+              </div>
+              <div class="col">
+                <%= ride.end_date %>
+              </div>
+              <div class="col">
+                <%= ride.start_point %>
+              </div>
+              <div class="col">
+                <%= ride.dest_id %>
+              </div>
+              <div class="col">
+                <%= ride.seats_available %>
+              </div>
+              <div class="col">
+                <form action="/rides/join/<%= ride.dest_id %>" method="POST">
+                  <button class="btn btn-dark" type="submit" name="joinButton">Join</button>
+                </form>
+              </div>
+            </div>
+          <% }) %>
         </div>
-        <h2 class="text-center" style="padding: 20px">Individuals</h3>
-        <div id="individual_results" class="row">
-          <div class="col">
-            Start
-          </div>
-          <div class="col">
-            End
-          </div>
-          <div class="col">
-            Origin
-          </div>
-          <div class="col">
-            Destination
-          </div>
-        </div>
-      </div>
+        <% }   %>
     </div>
     <%- include ('../partials/footer'); %>

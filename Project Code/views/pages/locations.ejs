@@ -9,17 +9,11 @@
         <div class="row">
           <div class="col">
             <input class="form-control" type="text" name="place" placeholder="Enter a place in Colorado">
-          <div class="dropdown show">
-            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Choose result prefrences
-            </a>
-            <br>
-
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item" href="#">Most Relevant</a>
-              <a class="dropdown-item" href="#">All Related</a>
-            </div>
-          </div>
+            <select name="resultPref" style="width: 400px; height: 30px">
+              <option value="1">--Search Prefrences--</option>
+              <option value="1">Show Most Relevant</option>
+              <option value="0">All Results (Best for Ambiguous Searches I.E. "Restaurants")</option>
+            </select>
           </div>
           <div class="col-1" style="margin: 0 2%">
             <input class="btn btn-dark" type="submit" name="Submit" value = "Submit"/>
@@ -32,23 +26,65 @@
       <% if(places) { 
           places.forEach(function(places){ 
             var name= places.name
-            var open = places.opening_hours.open_now
-            var rating = places.rating
-            var address = places.formatted_address
+            if(places.opening_hours != null)
+            {
+              var open = places.opening_hours.open_now
+            }
+            if(places.rating != null)
+            {
+              var rating = places.rating
+            }
+            if(places.price_level != null)
+            {
+              var price = places.price_level
+            }
+            if(places.gemoetry != null)
+            {
+              var price = places.price_level
+            }
+            if(places.formatted_address != null)
+            {
+              var address = places.formatted_address
+            }
+            if(places.vicinity != null)
+            {
+              var vicinity = places.vicinity
+            }
             var icon = places.icon  %>
             <div class="card card-default border-secondary" style="width: 18rem;">
               <img class="card-img-top" src="<%- icon %>" alt="image icon" style="width: 150px;height: 200px;">
               <div class="card-body">
                 <h4 class="card-text"><%- name %></h4>
-                <% if(open){ %>
-                <p class="card-text">Open Now: <%- open %></p>
+                <% if(open != null){ 
+                  if(open == true) { %>
+                <h6 class="card-text" style="color: green;">Open Now!</h6>
+                   <% } else{ %>
+                    <h6 class="card-text" style="color: red;">Closed Right Now.</h6>
+                <% }} %>
+                <% if(rating){ %>
+                <p class="card-text" style="font-weight: bold;">Rating: <%- rating %></p>
                 <% } %>
-                <p class="card-text">Rating: <%- rating %></p>
-                <p class="card-text">Address: <%- address %></p>
+                <% if(address){ %>
+                <p class="card-text" style="font-style:italic">Address: <%- address %></p>
+                <% } %>
+                <% if(vicinity){ %>
+                <p class="card-text" style="font-style:italic">Address: <%- vicinity %></p>
+                <% } %>
+                <% if(price){ %>
+                <p class="card-text">Price Level(0-4): <%- price %></p>
+                <% } %>
               </div>
             </div>
            <% }); %>
           <% } %>
     </div>
+    <% if(places){ %>
+    <form class="/locations/get_more" method="post" style="text-align: center;">
+            <div class="col">
+            <input class="btn btn-info" type="submit" name="loadMore" value = "Load More Locations"/>
+            </div>
+          </form>
+        <br>
+      <% } %>
 <%- include ('../partials/footer'); %>
 

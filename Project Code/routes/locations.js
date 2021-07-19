@@ -35,6 +35,7 @@ router.get('/', function(req, res) {
 
 router.post('/get_locations', function(req, res) {
     var address = req.body.place; 
+    var display = req.body.resultPref
     var api_key = 'AIzaSyDPSOpMS_xDzRDg50J8ee34DTdmHQOkUj0'; 
     var api_key_mr = 'anrq8vQP315Q7JOrxaiDSUCewWHI59Ky';
     var api_key_owm = '4d95ccede70c9f544887073232cdc06f';
@@ -42,14 +43,52 @@ router.post('/get_locations', function(req, res) {
 
     var loggedIn = req.isAuthenticated();
     console.log(address);
-    if(address) {
+    if(address && display == 1) { //option to show most relevant result. note that http call is different.
       axios({
-        url: `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${address}&inputtype=textquery&fields=photos,formatted_address,name,opening_hours,geometry,price_level,rating,icon,price_level,user_ratings_total&locationbias=circle:6254@39.635757,-106.362984&key=${api_key}`,
+        url: `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${address}&inputtype=textquery&fields=photos,formatted_address,name,opening_hours,geometry,price_level,rating,icon,price_level,user_ratings_total&locationbias=circle:49999@39.635757,-106.362984&key=${api_key}`,
           method: 'GET',
           dataType:'json',
         })
           .then(locations => {
               let locs = locations.data.candidates;
+              let weather = []
+              let elevation = []
+              locs.forEach((element,index) => {
+                weather[index] = axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${element.geometry.location.lat}&lon=${element.geometry.location.lng}&metrics=imperial&appid=${api_key_owm}`);
+                // elevation[index] = axios.get(`http://open.mapquestapi.com/elevation/v1/profile?key=${api_key_mr}&shapeFormat=raw&latLngCollection=${element.geometry.location.lat},${element.geometry.location.lng}`);
+              });
+              axios.all(weather).then(axios.spread((...responses) => {
+                responses = responses.map(response => response.data);
+                console.log(responses);
+                res.render('pages/locations', {
+                  places: locs,
+                  weather_for_places: responses,
+                  numLoc: 0,
+                  loggedIn: loggedIn
+                });
+              }));
+          })
+          .catch(error => {
+            console.log(error);
+            res.render('pages/locations',{
+              places:null,
+              weather_for_places: null,
+              elevation_for_places: null,
+              message: 'Error',
+              loggedIn: loggedIn
+            })
+          });
+    }
+    else if(address && display == 0){
+      axios({
+        url:`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=39.635757,-106.362984&radius=1500&keyword=${address}&key=${api_key}`,
+          method: 'GET',
+          dataType:'json',
+        })
+          .then(locations => {
+            console.log(locations)
+            console.log(locations.data.results)
+              let locs = locations.data.results;
               let weather = []
               let elevation = []
               locs.forEach((element,index) => {
@@ -84,4 +123,52 @@ router.post('/get_locations', function(req, res) {
     }
   });
 
+
+  // router.post('/get_more', function(req, res) {
+  //   var api_key = 'AIzaSyDPSOpMS_xDzRDg50J8ee34DTdmHQOkUj0'; 
+
+
+  //   var loggedIn = req.isAuthenticated();
+  //   console.log(address);
+  //   if(address && display == 1) { //option to show most relevant result. note that http call is different.
+  //     axios({
+  //       url: `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${address}&inputtype=textquery&fields=photos,formatted_address,name,opening_hours,geometry,price_level,rating,icon,price_level,user_ratings_total&locationbias=circle:49999@39.635757,-106.362984&key=${api_key}`,
+  //         method: 'GET',
+  //         dataType:'json',
+  //       })
+  //         .then(locations => {
+  //             let locs = locations.data.candidates;
+  //             let weather = []
+  //             let elevation = []
+  //             locs.forEach((element,index) => {
+  //               weather[index] = axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${element.geometry.location.lat}&lon=${element.geometry.location.lng}&metrics=imperial&appid=${api_key_owm}`);
+  //               // elevation[index] = axios.get(`http://open.mapquestapi.com/elevation/v1/profile?key=${api_key_mr}&shapeFormat=raw&latLngCollection=${element.geometry.location.lat},${element.geometry.location.lng}`);
+  //             });
+  //             axios.all(weather).then(axios.spread((...responses) => {
+  //               responses = responses.map(response => response.data);
+  //               console.log(responses);
+  //               res.render('pages/locations', {
+  //                 places: locs,
+  //                 weather_for_places: responses,
+  //                 numLoc: 0,
+  //                 loggedIn: loggedIn
+  //               });
+  //             }));
+  //         })
+  //         .catch(error => {
+  //           console.log(error);
+  //           res.render('pages/locations',{
+  //             places:null,
+  //             weather_for_places: null,
+  //             elevation_for_places: null,
+  //             message: 'Error',
+  //             loggedIn: loggedIn
+  //           })
+  //         });
+  //   }
+  //   else {
+  //     req.session.message = "The Locations API is not working right now"
+  //     res.redirect('/');
+  //   }
+  // });
   module.exports = router;

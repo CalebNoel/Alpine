@@ -4,25 +4,24 @@
 <body>
   <script src="../../resources/js/locations.js"></script>
     <br>
-    <form class="" action="/locations/get_locations" method="post">
-      <div class="row">
-        <div class="col-3">
-
+    <div class="border border-primary rounded" style="width: 55%; margin: 1% auto; padding: 1%">
+      <form class="" action="/locations/get_locations" method="post">
+        <div class="row">
+          <div class="col">
+            <input class="form-control" type="text" name="place" placeholder="Enter a place in Colorado">
+          </div>
+          <div class="col-1" style="margin: 0 2%">
+            <input class="btn btn-dark" type="submit" name="Submit" value = "Submit"/>
+          </div>
         </div>
-        <div class="col-5">
-          <input class="form-control" type="text" name="place" placeholder="Enter a place in Colorado">
-        </div>
-        <div class="col-1">
-          <input class="btn btn-dark" type="submit" name="Submit" value = "Submit"/>
-        </div>
-      </div>
-    </form>
-    <div class="card-columns" id="locations-stack">
+      </form>
+    </div>
+    
+    <div class="card-columns" id="locations-stack" style="width: 55%; margin: 1% auto;">
       <% if(places) { 
-          places.forEach(function(places,index){ 
-            var name= places.name 
-            %>
-            <div class="card card-default border-primary" style="width: 18rem;">
+          places.forEach(function(places){ 
+            var name= places.name %>
+            <div class="card card-default border-secondary" style="width: 18rem;">
               <div class="card-body">
                 <h4 class="card-text"><%- name %></h4>
               </div>

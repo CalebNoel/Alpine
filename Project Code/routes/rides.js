@@ -25,6 +25,7 @@ router.get('/search',async (req,res) => {
 });
 
 router.post('/search',[
+    // validate input
     check('start_date').not().isEmpty(),
     check('end_date').not().isEmpty(),
     check('origin'),
@@ -41,10 +42,11 @@ router.post('/search',[
                 loggedIn: loggedIn
             })
         } else {
-            
+            // collect search criteria
             var start_date = moment(req.body.start_date);
             var end_date = moment(req.body.end_date);
             var dest_id = parseInt(req.body.destination);
+            // build query
             const where_clause = {
                 departure: {
                     [Op.gte] : start_date.toDate(),
@@ -83,7 +85,7 @@ router.post('/search',[
                 ], 
             });
             rides = rides.map(element => element.dataValues);
-            console.log(rides);
+            console.log("results:",rides);
             let destinations = await Destination.findAll();
             destinations = destinations.map(element => element.dataValues);
             res.render('pages/rideSearch',{
@@ -132,13 +134,14 @@ router.get('/add',async (req,res) => {
 });
 
 router.post('/add',[
-    check('depart_date').not().isEmpty().isAfter(),
-    check('return_date').not().isEmpty().custom((value, { req }) => {
-        if (moment(value).toDate() <= moment(req.body.depart_date).toDate()) {
+    // Validate ride data
+    check('start_date').not().isEmpty().isAfter(),
+    check('end_date').not().isEmpty(), /*.custom((value, { req }) => {
+        if (value <= moment(req.body.end_date).toDate()) {
           throw new Error('Return Date can\'t be before departure');
         }
         return true;
-      }),
+      }),*/
     check('origin').not().isEmpty(),
     check('destination').not().isEmpty(),
     check('seats').not().isEmpty().isInt(),
@@ -148,7 +151,6 @@ router.post('/add',[
 ],
     async (req,res) => {
         const errors = validationResult(req)
-        var loggedIn = req.isAuthenticated();
         if(!errors.isEmpty()) {
             const alert = errors.array()
             console.log(alert);
@@ -157,10 +159,12 @@ router.post('/add',[
             res.render('pages/add_ride', {
                 destinations: destinations,
                 error: errors,
-                loggedIn: loggedIn
+                loggedIn: true
             });
         } else {
-            
+            // Add entry to ride table
+            console.log("the new ride starts",req.body.start_date);
+            console.log("the new ride ends",req.body.end_date);
             const start_date = moment(req.body.start_date);
             const end_date = moment(req.body.end_date);
             const newRide = await Ride.create({
@@ -175,13 +179,13 @@ router.post('/add',[
                 dest_id: parseInt(req.body.destination),
                 
             });
+            console.log("Creating ride with following parameters: ",newRide);
             newRide.save();
             req.session.message = 'Added ride successfully';
             res.redirect(`/rides/${newRide.id}`);
         }
     }
 );
-
 
 router.get('/:id',async (req,res) => {
     var loggedIn = req.isAuthenticated();

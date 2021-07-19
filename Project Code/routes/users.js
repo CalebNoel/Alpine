@@ -136,15 +136,15 @@ router.get('/profile',async (req,res)=>{
 });
 
 router.post('/profile',[
-  check('fullName','This username must me 3+ characters long').not().isEmpty().isLength({ min: 3 }),
-  check('emailAddress','Please enter a validate email')
+  check('fullName','Full name must be 3+ characters long').not().isEmpty().isLength({ min: 3 }),
+  check('emailAddress','Please enter a valid email')
     .not().isEmpty().withMessage('Email cannot be empty')
     .isEmail().withMessage('Email is not valid')
     .normalizeEmail().custom((value, { req })  => {
       return User.findOne({where:{
         email:value,
         id: {
-          [Op.ne] : 1 //replace with req.user.id
+          [Op.ne] : req.user.id
         }
       }}).then(user => {
         if (user) {
@@ -152,7 +152,7 @@ router.post('/profile',[
         }
       });
     }),
-  check('PhoneNumber','Please enter a validate email')
+  check('PhoneNumber','Please enter a valid phone')
     .not().isEmpty().withMessage('Phone number cannot be empty')
     .isMobilePhone().withMessage('Phone number not valid'),
   check('passwordFirst')
@@ -172,7 +172,8 @@ router.post('/profile',[
         console.log(alert)
         res.render('pages/MyAccount', {
             alert,
-            loggedIn: true
+            loggedIn: true,
+            user: req.user
         })
     } else {
       const salt = await bcrypt.genSalt(10);
@@ -180,15 +181,16 @@ router.post('/profile',[
       const update_user = await User.update({
         name: req.body.fullName,
         email: req.body.emailAddress,
-        password: req.body.passwordFirst ? await bcrypt.hash(req.body.passwordFirst, salt) : '$2b$10$/VvxXqQiEMsNhLFNkVLebe2gBH9T2VnI0f8t9fjqiLGfGxMwhbpnq', //replace with req.user.password
+        password: req.body.passwordFirst,// ? await bcrypt.hash(req.body.passwordFirst, salt) : '$2b$10$/VvxXqQiEMsNhLFNkVLebe2gBH9T2VnI0f8t9fjqiLGfGxMwhbpnq', //replace with req.user.password
         phone_no: req.body.PhoneNumber,
         dob : dob ? dob.format() : new Date('10 Jul 1999'), //replace with req.user.dob
       },{
         where: {
-          id: 1 //replace with req.user.id
+          id: req.user.id
         }
       });
-      req.session.message = 'Edited Successfully, please login';
+      console.log('profile updated');
+      req.session.message = 'Edited Successfully';
       res.redirect('/users/profile',);
     }
 });

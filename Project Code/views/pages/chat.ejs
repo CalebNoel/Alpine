@@ -1,6 +1,5 @@
     <%- include ('../partials/header'); %>
     <link rel="stylesheet" href="/css/chatStyle.css">
-    <script src="/resources/js/chat.js"> </script>
     <title>Chat</title>
     <!--Body of Website-->
         <div class="conatiner" id="chat-body">
@@ -15,23 +14,18 @@
               <form action="/chat/select_chat" method="POST">
                 <div class="chat-select-scroll-box">
                   <ul class="chat-select">
-                    <!--Placeholder chat until javascript is working-->
-                    <li class="chats">
-                      <div class="chat-pic">
-                        <input type="image" name="submit" src="/img/default_profile_pic.jpg" alt="Profile Pic"></input>
-                      </div>
-                      <p class="name">
-                        <button type="submit" name="submit" value="1">Test User 1</button>
-                      </p>
-                    </li>
-                    <li class="chats">
-                      <div class="chat-pic">
-                        <input type="image" name="submit" src="/img/default_profile_pic.jpg" alt="Profile Pic"></input>
-                      </div>
-                      <p class="name">
-                        <button type="submit" name="submit" value="2">Test User 2</button>
-                      </p>
-                    </li>
+                    <%
+                    if(chats){
+                      chats_html = '';
+                      for(let i = 0; i<chats.length; i++)
+                      {
+                        chats_html += '<li class="chats"><div class="chat-pic">' +
+                            '<input type="image" name="submit" src="/img/default_profile_pic.jpg" alt="Profile Pic"></input></div>' +
+                            '<p class="name"><button type="submit" name="submit" value="' + chats[i].chat_id +'">Chat with user: ' + chats[i].user_id + '</button></p></li>'
+                      }
+                    %>
+                    <%- chats_html %>
+                    <%}%>
                   </ul>
                 </div>
               </form>

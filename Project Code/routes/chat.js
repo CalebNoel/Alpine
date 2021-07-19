@@ -3,14 +3,39 @@ const router = express.Router();
 var Chat = require('../models').Chat;
 var ChatLine = require('../models').ChatLine;
 var Users = require('../models').Users;
+var SharedChat = require('../models').SharedChat;
 const { Op } = require("sequelize")
 const { check, validationResult } = require('express-validator');
 const ensureAuthenticated = require("./auth")
 
 router.get('/', async (req,res) => {
     const curr_user_id = req.user.id;
+    var chats = await SharedChat.findAll({
+      where:{
+        user_id: curr_user_id
+      }
+    });
+    /*var all_chat_ids = [];
+    for(let i = 0; i<chats.length; i++){
+      all_chat_ids.push(chats[i].chat_id);
+    }
+    var all_recievers = []
+    for(let i = 0; i<all_chat_ids.length; i++){
+      var temp = await SharedChat.findAll({
+        where:{
+          chat_id: all_chat_ids[i],
+          user_id:{[Op.ne]: curr_user_id}
+        }
+      });
+      for(let j = 0; j<temp.length; j++)
+      {
+        all_recievers.push(temp[j].user_id);
+      }
+    }
+    console.log(all_chat_ids);
+    console.log(all_recievers);*/
     res.render('pages/chat',{
-
+        chats: chats,
         chat_messages: '',
         loggedIn: true
     });
@@ -24,9 +49,16 @@ router.post('/select_chat', async (req, res) =>{
   var query = await ChatLine.findAll({
     where: {
       chat_id: selected_chat
+    },
+    logging: false
+  });
+  var chats = await SharedChat.findAll({
+    where:{
+      user_id: curr_user_id
     }
   });
 	res.render('pages/chat',{
+    chats: chats,
 		chat_messages: query,
     curr_user_id: curr_user_id,
         loggedIn: true
@@ -36,14 +68,22 @@ router.post('/select_chat', async (req, res) =>{
 //This recieves a message when the user sends one, puts in the database, and refreshes the chat
 router.post('/send_message', async (req, res) =>{
   console.log('Message submitted')
+  const curr_user_id = req.user.id;
   var new_message = await ChatLine.create({user_id:req.user.id, chat_id:req.body.chat_id, line_text:req.body.message});
   var query = await ChatLine.findAll({
     where: {
       chat_id: req.body.chat_id
+    },
+    logging: false
+  });
+  var chats = await SharedChat.findAll({
+    where:{
+      user_id: curr_user_id
     }
   });
   res.render('pages/chat',{
     chat_messages: query,
+    chats: chats,
     loggedIn: true
   })
 })

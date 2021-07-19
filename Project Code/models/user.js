@@ -20,18 +20,19 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Friends,{foreignKey: 'user_id'})
       User.hasMany(models.Friends,{foreignKey: 'friend_id'})
       User.hasMany(models.GroupLine,{foreignKey: 'user_id'})
+      User.hasMany(models.SharedChat,{foreignKey: 'user_id'})
     }
   };
   User.init({
     name: {
       type: DataTypes.STRING,
       unique: false,
-      allowNull: false 
+      allowNull: false
     },
     email: {
       type: DataTypes.STRING,
       unique: true,
-      allowNull: false 
+      allowNull: false
     },
     user_rating: {
       type: DataTypes.DECIMAL,

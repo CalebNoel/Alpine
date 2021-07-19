@@ -317,6 +317,9 @@ module.exports = {
       { user_id: 2,group_id: 2,line_text: 'We need to talk',createdAt: new Date(),updatedAt: new Date()},
     ]);
 
+    await queryInterface.bulkInsert('SharedChats',[
+      {user_id: 1, chat_id: 1},
+    ]);
 
   },
 
@@ -338,5 +341,6 @@ module.exports = {
      await queryInterface.bulkDelete('Rides', null, {});
      await queryInterface.bulkDelete('Users', null, {});
      await queryInterface.bulkDelete('Destinations', null, {});
+     await queryInterface.bulkDelete('SharedChats', null, {});
   }
 };

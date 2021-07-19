@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Chat.hasMany(models.ChatLine,{foreignKey: 'chat_id'})
+      Chat.hasMany(models.SharedChat,{foreignKey: 'chat_id'})
 
     }
   };

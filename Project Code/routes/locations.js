@@ -39,11 +39,12 @@ router.post('/get_locations', function(req, res) {
     var api_key_mr = 'anrq8vQP315Q7JOrxaiDSUCewWHI59Ky';
     var api_key_owm = '4d95ccede70c9f544887073232cdc06f';
 
+
     var loggedIn = req.isAuthenticated();
     console.log(address);
     if(address) {
       axios({
-        url: `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${address}&inputtype=textquery&fields=photos,formatted_address,name,opening_hours,geometry,price_level,rating&locationbias=circle:6254@39.635757,-106.362984&key=${api_key}`,
+        url: `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${address}&inputtype=textquery&fields=photos,formatted_address,name,opening_hours,geometry,price_level,rating,icon,price_level,user_ratings_total&locationbias=circle:6254@39.635757,-106.362984&key=${api_key}`,
           method: 'GET',
           dataType:'json',
         })

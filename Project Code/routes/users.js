@@ -1,8 +1,9 @@
+
 const express = require('express');
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const passport = require('passport');
-var User = require('../models').User;
+var MyAccount = require('../models').MyAccount;
 const path = require('path')
 const { body,check, validationResult } = require('express-validator');
 const ensureAuthenticated = require("./auth")
@@ -187,4 +188,14 @@ router.post('/profile',[
     }
 })
 
+//templating engine
+router.engine('hbs', exphbs({extname: '.hbs'}));
+router.set('view engine', 'hbs');
+
+router.get('',(req,res)=>
+{
+    res.render('user/');
+});
+
 module.exports = router;
+

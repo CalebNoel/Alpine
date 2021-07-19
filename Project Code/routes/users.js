@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const passport = require('passport');
 var User = require('../models').User;
 var Friends = require('../models').Friends;
-
+const db = require('../models');
 const path = require('path')
 const { body,check, validationResult } = require('express-validator');
 const ensureAuthenticated = require("./auth")
@@ -193,6 +193,7 @@ router.post('/profile',[
     }
 });
 
+// Set appropriate redirects
 router.get('/friends',async(req,res) => {
   const curr_user_id = 1; //replace with req.user.id
   const friends = await Friends.findAll({
@@ -220,34 +221,18 @@ router.get('/friends/:id/add',async(req,res) => {
 
 router.get('/friends/:id',async(req,res) => {
   const curr_user_id = 1; //replace with req.user.id
-  const friend = await Friends.findOne({
-    where: {
-      [Op.or] : {
-        [Op.and]: {
-          user_id: curr_user_id,
-          friend_id: req.params.id,
-        },
-        [Op.and]: {
-          user_id: req.params.id,
-          friend_id: curr_user_id,
-        },
-      }
-    },
-    include: {
-      model: User,
-      through:{
-        where: {
-           id: {
-            [Op.ne]: curr_user_id
-          }
-        }
-      }
-    }
-  });
+  const friend = await db.sequelize.query("SELECT * FROM `Friends` WHERE (friend_id = 3 and user_id = 1) OR (friend_id = 1 and user_id = 3)");
   if(!friend){
     res.redirect('/friends')
   }
-  console.log(friend.dataValues);
+  console.log(friend[0][0]);
+  let friend_info = null;
+  if(friend[0][0].friend_id != curr_user_id){
+    friend_info = await User.findByPk(friend[0][0].friend_id)
+  } else {
+    friend_info = await User.findByPk(friend[0][0].user_id)
+  }
+  console.log(friend_info.dataValues)
   res.redirect('/');
 });
 

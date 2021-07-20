@@ -47,7 +47,7 @@ router.post('/search',[
             // collect search criteria
             var start_date = moment(req.body.start_date);
             var end_date = moment(req.body.end_date);
-            var dest_id = parseInt(req.body.destination);
+            //var dest_id = parseInt(req.body.destination);
             // build query
             const where_clause = {
                 departure: {
@@ -59,26 +59,28 @@ router.post('/search',[
                     [Op.lte] : end_date.toDate(),
                 },
             };
-            console.log(req.body.origin);
-            console.log(req.body.destination);
-            if(req.body.origin != ''){
-                var searchTerm = req.body.origin;
-                // Tokenize the search terms and remove empty spaces
-                var tokens = searchTerm
-                            .toLowerCase()
-                            .split(' ')
-                            .filter(function(token){
-                                return token.trim() !== '';
-                            });
-                var searchTermRegex = null;
-                if(tokens.length) {
-                    searchTermRegex = new RegExp(tokens.join('|'), 'gim');
-                }
-                where_clause.start_point = {[Op.regexp] : searchTermRegex};
-            }
-            if(req.body.destination != ''){
-                where_clause.dest_id = {[Op.eq] : parseInt(req.body.destination)};
-            }
+            // console.log(req.body.origin);
+            // console.log(req.body.destination);
+            // if(req.body.origin != ''){
+            //     var searchTerm = req.body.origin;
+            //     // Tokenize the search terms and remove empty spaces
+            //     var tokens = searchTerm
+            //                 .toLowerCase()
+            //                 .split(' ')
+            //                 .filter(function(token){
+            //                     return token.trim() !== '';
+            //                 });
+            //     var searchTermRegex = null;
+            //     if(tokens.length) {
+            //         searchTermRegex = new RegExp(tokens.join('|'), 'gim');
+            //     }
+            // }
+            // if(req.body.destination != ''){
+            //     where_clause.dest_id = {[Op.eq] : parseInt(req.body.destination)};
+            // }
+            // if(req.body.origin != ''){
+            //     where_clause.start_point = {[Op.regexp] : searchTermRegex};
+            //}
             let rides = await Ride.findAll({
                 where: where_clause,
                 include: [
@@ -88,11 +90,11 @@ router.post('/search',[
             });
             rides = rides.map(element => element.dataValues);
             console.log("results:",rides);
-            let destinations = await Destination.findAll();
-            destinations = destinations.map(element => element.dataValues);
+            //let destinations = await Destination.findAll();
+            //destinations = destinations.map(element => element.dataValues);
             res.render('pages/rideSearch',{
                 rides: rides,
-                destinations: destinations,
+                destinations: '',
                 loggedIn: loggedIn
             });
         }

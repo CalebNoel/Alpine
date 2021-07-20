@@ -2,7 +2,7 @@
     <title>Ride Search</title>
   </head>
   <body>
-    <div style="width: 55%; margin: 0 auto;">
+    <div style="width: 30%; margin: 0 auto;">
       <div id="search_ui">
         <h1 class="text-center" style="padding: 20px">Ride Search</h1>
         <div class="border border-primary rounded" style="padding: 1%;">
@@ -14,25 +14,13 @@
                 <div class="col">
                   Trip end date
                 </div>
-                <div class="col">
-                  Origin
-                </div>
-                <div class="col">
-                  Destination
-                </div>
             </div>
             <div class="row" id="fields">
               <div class="col">
-                <input type='date' name="start_date" class="form-control" id='start_date' style='width: 10vw;' required>
+                <input type='date' name="start_date" class="form-control" id='start_date' required>
               </div>
               <div class="col">
-                <input type='date' name="end_date" class="form-control" id='end_date' style='width: 10vw;' required>
-              </div>
-              <div class="col">
-                <input type='text' name="origin" class="form-control" style='width: 10vw;'>
-              </div>
-              <div class="col">
-                <input type='text' name="destination" class="form-control" style='width: 10vw;'>
+                <input type='date' name="end_date" class="form-control" id='end_date' required>
               </div>
             </div>
             <div class="row text-center">
@@ -43,6 +31,8 @@
           </form>
         </div>
       </div>
+    </div>
+    <div style="width: 55%; margin: 0 auto;">
         <% if(rides != null) { %>
           <div class="border border-secondary rounded" id="results" style="margin: 3% 0; padding: 1%;">
             <div class="row">

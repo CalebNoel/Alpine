@@ -138,8 +138,10 @@ router.get('/add',async(req,res) => {
 
 router.get('/:id',async(req,res) => {
   const location = await Destination.findByPk(parseInt(req.params.id));
-  res.render('pages/location',{
-    location: location.dataValues
+  res.render('pages/locations',{
+    location: location.dataValues,
+    loggedIn: true,
+    places: ''
   })
 });
 

@@ -75,26 +75,39 @@ router.post('/send_message', async (req, res) =>{
   console.log('Message submitted')
   const curr_user_id = req.user.id;
   var chat_id = req.body.chat_id_send;
-  var new_message = await ChatLine.create({user_id:curr_user_id, chat_id:chat_id, line_text:req.body.message});
-  var query = await ChatLine.findAll({
-    where: {
-      chat_id: chat_id
-    },
-    logging: false
-  });
-  var chats = await SharedChat.findAll({
-    where:{
-      user_id: curr_user_id
-    },
-    logging: false
-  });
-  res.render('pages/chat',{
-    chat_messages: query,
-    chats: chats,
-    chat_id: chat_id,
-    curr_user_id: curr_user_id,
-    loggedIn: true
-  })
+  if(chat_id == 0){
+    console.log("You must send message to a user");
+    res.render('pages/chat',{
+        chats: chats,
+        chat_messages: '',
+        chat_id: '',
+        curr_user_id: curr_user_id,
+        loggedIn: true
+    });
+  }
+  else{
+    var new_message = await ChatLine.create({user_id:curr_user_id, chat_id:chat_id, line_text:req.body.message});
+    var query = await ChatLine.findAll({
+      where: {
+        chat_id: chat_id
+      },
+      logging: false
+    });
+
+    var chats = await SharedChat.findAll({
+      where:{
+        user_id: curr_user_id
+      },
+      logging: false
+    });
+    res.render('pages/chat',{
+      chat_messages: query,
+      chats: chats,
+      chat_id: chat_id,
+      curr_user_id: curr_user_id,
+      loggedIn: true
+    })
+  }
 });
 
 

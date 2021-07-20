@@ -82,6 +82,9 @@
                     <div class="chat-input mt-auto mb-0">
                       <%
                         console.log("Chat_id in ejs: ", chat_id);
+                        if(!chat_id){
+                          chat_id = 0;
+                        }
                         chat_id_send = '<input name="chat_id_send" type="hidden" value=' + chat_id + '>';
                         %>
                       <%- chat_id_send %>

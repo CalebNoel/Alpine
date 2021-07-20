@@ -31,12 +31,10 @@
       if (places.length == 0) {
         return;
       }
-      // Clear out the old markers.
       markers.forEach((marker) => {
         marker.setMap(null);
       });
       markers = [];
-      // For each place, get the icon, name and location.
       const bounds = new google.maps.LatLngBounds();
       places.forEach((place) => {
         if (!place.geometry || !place.geometry.location) {
@@ -50,7 +48,6 @@
           anchor: new google.maps.Point(17, 34),
           scaledSize: new google.maps.Size(25, 25),
         };
-        // Create a marker for each place.
         markers.push(
           new google.maps.Marker({
             map,
@@ -61,7 +58,6 @@
         );
   
         if (place.geometry.viewport) {
-          // Only geocodes have viewport.
           bounds.union(place.geometry.viewport);
         } else {
           bounds.extend(place.geometry.location);
@@ -81,9 +77,6 @@
           <input class="form-control" type="text" id="pac-input" name="place" placeholder="Enter a place in Colorado">
         </div>
           <input type="hidden" id="submitted_place" name="submitted_place">
-        <div class="row">
-          <input class="btn btn-dark" type="submit" name="submit" value = "Submit">
-        </div>
       </form>
       <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPSOpMS_xDzRDg50J8ee34DTdmHQOkUj0&callback=initAutocomplete&libraries=places&v=weekly"

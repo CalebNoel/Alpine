@@ -172,8 +172,8 @@ router.post('/add',[
                 start_point: req.body.origin,
                 end_date: end_date.toDate(),
                 fare_share: req.body.fare_share != '' ? req.body.fare_share : null,
-                vehicle_make: req.body.vehicle_make != '' ? req.body.vehicle_make : null,
-                vehicle_model: req.body.vehicle_model != '' ? req.body.vehicle_model : null,
+                vehicle_make: req.body.car_make != '' ? req.body.car_make : null,
+                vehicle_model: req.body.car_model != '' ? req.body.car_model : null,
                 seats_available : parseInt(req.body.seats),
                 driver_id: 1, //replace with req.user.id
                 dest_id: parseInt(req.body.destination),

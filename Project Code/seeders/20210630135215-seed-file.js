@@ -338,4 +338,4 @@ module.exports = {
      await queryInterface.bulkDelete('Users', null, {});
      await queryInterface.bulkDelete('Destinations', null, {});
   }
-};
+}

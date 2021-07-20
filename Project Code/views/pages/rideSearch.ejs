@@ -37,23 +37,25 @@
           <div class="border border-secondary rounded" id="results" style="margin: 3% 0; padding: 1%;">
             <div class="row">
               <div class="col">
-                Departure Date
+                <h4>Departure</h4>
               </div>
               <div class="col">
-                Return Date
+                <h4>Return</h4>
               </div>
               <div class="col">
-                Origin
+                <h4>Origin</h4>
               </div>
               <div class="col">
-                Destination
+                <h4>Destination</h4>
               </div>
               <div class="col">
-                # Travellers
+                <h4>Travellers</h4>
               </div>
               <div class="col"></div>
             </div>
           <% rides.forEach(ride => { %>
+            &nbsp;
+            &nbsp;
             <div class="row">
               <div class="col" name="">
                 <%= ride.departure %>
@@ -65,7 +67,7 @@
                 <%= ride.start_point %>
               </div>
               <div class="col">
-                <%= ride.dest_id %>
+                <%= destinations[ride.dest_id].name %>
               </div>
               <div class="col">
                 <%= ride.seats_available %>

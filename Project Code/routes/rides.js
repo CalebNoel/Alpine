@@ -90,11 +90,11 @@ router.post('/search',[
             });
             rides = rides.map(element => element.dataValues);
             console.log("results:",rides);
-            //let destinations = await Destination.findAll();
+            let destinations = await Destination.findAll();
             //destinations = destinations.map(element => element.dataValues);
             res.render('pages/rideSearch',{
                 rides: rides,
-                destinations: '',
+                destinations: destinations,
                 loggedIn: loggedIn
             });
         }

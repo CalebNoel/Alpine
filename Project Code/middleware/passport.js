@@ -19,23 +19,23 @@ module.exports = function(passport){
             }
             // Match Password
             console.log('User found!');
-            // bcrypt.compare(password,user.dataValues.password).then((result)=>{
-            //     if (result) {
-            //         console.log('Correct pw!');
-            //         return done(null, user);
-            //     } else {
-            //         console.log('Wrong pw!');
-            //         return done(null, false, { message: 'Wrong password' });
-            //     }
-            // }).catch((err)=>console.error(err))
-            if(password==user.dataValues.password) {
-                console.log("plaintext password match!")
-                return done(null, user);
-            }
-            else {
-                console.log("plaintext password does not match!")
-                return done(null, false, { message: 'Wrong password' });
-            }
+            bcrypt.compare(password,user.dataValues.password).then((result)=>{
+                if (result) {
+                    console.log('Correct pw!');
+                    return done(null, user);
+                } else {
+                    console.log('Wrong pw!');
+                    return done(null, false, { message: 'Wrong password' });
+                }
+            }).catch((err)=>console.error(err))
+            // if(password==user.dataValues.password) {
+            //     console.log("plaintext password match!")
+            //     return done(null, user);
+            // }
+            // else {
+            //     console.log("plaintext password does not match!")
+            //     return done(null, false, { message: 'Wrong password' });
+            // }
             
         }).catch(err => {
             if(err) throw err;

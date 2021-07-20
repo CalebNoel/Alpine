@@ -21,7 +21,6 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Friends,{foreignKey: 'friend_id'})
       User.hasMany(models.GroupLine,{foreignKey: 'user_id'})
       User.hasMany(models.SharedChat,{foreignKey: 'user_id'})
-      User.hasMany(models.Chat,{foreignKey: 'user_id'})
     }
   };
   User.init({

@@ -9,10 +9,12 @@ TO DO:
 */
 var request = require('request');
 const express = require('express');
+const { check,query, validationResult } = require('express-validator');
 const router = express();
 const ensureAuthenticated = require("./auth")
 const path = require('path')
 const axios = require('axios');
+var Destination = require('../models').Destination;
 const qs = require('query-string');
 const { Op } = require("sequelize")
 
@@ -123,5 +125,22 @@ router.post('/get_locations', function(req, res) {
     }
   });
 
+router.get('/add',async(req,res) => {
+  const new_location = await Destination.create({
+    name: req.query.name,
+    lat: req.query.lat,
+    long: req.query.long,
+    address: req.query.address,
+  });
+  new_location.save();
+  res.redirect(`/locations/${new_location.id}`);
+});
+
+router.get('/:id',async(req,res) => {
+  const location = await Destination.findByPk(parseInt(req.params.id));
+  res.render('pages/location',{
+    location: location.dataValues
+  })
+});
 
   module.exports = router;

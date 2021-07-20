@@ -51,7 +51,7 @@ module.exports = {
     await queryInterface.bulkInsert('Destinations',[
       {
         name: 'Realization Point',
-        lang: 105.308889,
+        long: 105.308889,
         lat: 36.997222,
         address: 'Flagstaff Rd, Boulder, CO 80302, United States',
         createdAt: new Date(),
@@ -59,7 +59,7 @@ module.exports = {
       },
       {
         name: 'Boulder Canyon Trail',
-        lang: 105.308611,
+        long: 105.308611,
         lat: 40.013333,
         address: 'Boulder Creek Path, Boulder, CO 80302, United States',
         createdAt: new Date(),
@@ -317,7 +317,6 @@ module.exports = {
       { user_id: 2,group_id: 2,line_text: 'We need to talk',createdAt: new Date(),updatedAt: new Date()},
     ]);
 
-  },
 
   down: async (queryInterface, Sequelize) => {
     /**
@@ -326,6 +325,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+     await queryInterface.bulkDelete('SharedChats', null, {});
      await queryInterface.bulkDelete('GroupLines', null, {});
      await queryInterface.bulkDelete('ChatLines', null, {});
      await queryInterface.bulkDelete('RideRates', null, {});
@@ -337,6 +337,5 @@ module.exports = {
      await queryInterface.bulkDelete('Rides', null, {});
      await queryInterface.bulkDelete('Users', null, {});
      await queryInterface.bulkDelete('Destinations', null, {});
-     await queryInterface.bulkDelete('SharedChats', null, {});
   }
 };

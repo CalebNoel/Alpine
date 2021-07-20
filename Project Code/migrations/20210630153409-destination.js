@@ -20,7 +20,7 @@ module.exports = {
         unique: false,
         allowNull: false 
       },
-      lang:{
+      long:{
           type: Sequelize.FLOAT,
           allowNull: false,
       },

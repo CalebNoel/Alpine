@@ -1,2 +1,5 @@
 node_modules
 .env
+dev.sqlite
+.DS_Store
+.DS_Store0

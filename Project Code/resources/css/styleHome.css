@@ -1,11 +1,12 @@
 /* Contains all styling for pages*/
-
-body
-{
-    background-color: peachpuff;
+body {
+  background: url('/img/rockies.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
-
-#logIn
-{
-    border-color: black;
+.jumbotron{
+  margin-top: 50px;
+  text-align: center;
 }

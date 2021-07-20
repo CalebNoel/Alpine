@@ -13,13 +13,17 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Chat.hasMany(models.ChatLine,{foreignKey: 'chat_id'})
       Chat.hasMany(models.SharedChat,{foreignKey: 'chat_id'})
+      Chat.belongsTo(models.User,{foreignKey: 'created_by' });
 
     }
   };
   Chat.init({
-    temp: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4
+    created_by: {
+      type: DataTypes.INTEGER,
+      references:{
+        model: 'Users',
+        key: 'id'
+      }
     }
   }, {
     sequelize,

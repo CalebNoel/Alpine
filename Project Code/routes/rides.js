@@ -7,6 +7,8 @@ var Group = require('../models').Group;
 var GroupLine = require('../models').GroupLine;
 var User = require('../models').User;
 var Destination = require('../models').Destination;
+var Chat = require('../models').Chat;
+var SharedChat = require('../models').SharedChat;
 const { check, validationResult } = require('express-validator');
 const ensureAuthenticated = require("./auth")
 var path = require('path')
@@ -80,9 +82,9 @@ router.post('/search',[
             let rides = await Ride.findAll({
                 where: where_clause,
                 include: [
-                    {model: User}, 
+                    {model: User},
                     {model: Destination}
-                ], 
+                ],
             });
             rides = rides.map(element => element.dataValues);
             console.log("results:",rides);
@@ -125,7 +127,7 @@ router.get('/',async (req,res) => {
 // Add Ride
 router.get('/add',async (req,res) => {
     let destinations = await Destination.findAll();
-    
+
     destinations = destinations.map(element => element.dataValues);
     res.render('pages/add_ride',{
         destinations: destinations,
@@ -151,6 +153,7 @@ router.post('/add',[
 ],
     async (req,res) => {
         const errors = validationResult(req)
+        const curr_user_id = req.user.id;
         if(!errors.isEmpty()) {
             const alert = errors.array()
             console.log(alert);
@@ -177,8 +180,12 @@ router.post('/add',[
                 seats_available : parseInt(req.body.seats),
                 driver_id: 1, //replace with req.user.id
                 dest_id: parseInt(req.body.destination),
-                
+
             });
+            //Creates new chat for ride
+            var new_chat = await Chat.create({created_by:curr_user_id});
+            var new_group = await SharedChat.create({user_id:curr_user_id, chat_id:new_chat.id});
+
             console.log("Creating ride with following parameters: ",newRide);
             newRide.save();
             req.session.message = 'Added ride successfully';
@@ -351,7 +358,7 @@ router.get('/:id/group',async(req,res) => {
                 [Op.eq]: group.id
             }
         },
-        include: [{model: User}], 
+        include: [{model: User}],
         group: 'user_id'
     });
     group_members = group_members.map(element => element.dataValues);

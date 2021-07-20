@@ -15,9 +15,12 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      temp: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4
+      created_by: {
+        type: Sequelize.INTEGER,
+        references: {
+            model: 'Users',
+            key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,
@@ -26,8 +29,8 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      }  
-    
+      }
+
     });
   },
 

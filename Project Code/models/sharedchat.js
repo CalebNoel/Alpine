@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   SharedChat.init({
-    chat_id: {
+    user_id: {
       type: DataTypes.INTEGER,
       references:{
         model: 'Users',

@@ -47,7 +47,7 @@
                       if(chat_messages){
                         msg = '';
                         for(let i = 0; i < chat_messages.length; i++){
-                          if(chat_messages[i].user_id == 1){
+                          if(chat_messages[i].user_id == curr_user_id){
                             msg += '<div class="row"><li class="chat-sent"><div class="user-pic">' +
                               '<img src="/img/default_profile_pic.jpg" alt "Profile Pic" onclick="openProfile();"></div>' +
                               '<div class="chat-text">' + chat_messages[i].line_text + '</div>' +
@@ -80,18 +80,12 @@
 
                   <form name="message-submit" action="/chat/send_message" method="POST">
                     <div class="chat-input mt-auto mb-0">
-                      <textarea name="message" onkeydown="pressed(event)" class="form-control" rows="3" placeholder="Type your message here..."></textarea>
                       <%
-                      if(chat_messages){
-                        chat_id = '<input name="chat_id" type="hidden" value=' + chat_messages[0].chat_id + '>';
+                        console.log("Chat_id in ejs: ", chat_id);
+                        chat_id_send = '<input name="chat_id_send" type="hidden" value=' + chat_id + '>';
                         %>
-                      <%- chat_id %>
-                      <% }
-                      else{
-                        chat_id = '<input name="chat_id" type="hidden" value=0>';
-                        %>
-                      <%- chat_id %>
-                      <% } %>
+                      <%- chat_id_send %>
+                      <textarea name="message" onkeydown="pressed(event)" class="form-control" rows="3" placeholder="Type your message here..."></textarea>
                     </div>
                   </form>
                 </div>

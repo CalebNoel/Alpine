@@ -59,33 +59,49 @@ router.post('/search',[
                     [Op.lte] : end_date.toDate(),
                 },
             };
-            // console.log(req.body.origin);
-            // console.log(req.body.destination);
-            // if(req.body.origin != ''){
-            //     var searchTerm = req.body.origin;
-            //     // Tokenize the search terms and remove empty spaces
-            //     var tokens = searchTerm
-            //                 .toLowerCase()
-            //                 .split(' ')
-            //                 .filter(function(token){
-            //                     return token.trim() !== '';
-            //                 });
-            //     var searchTermRegex = null;
-            //     if(tokens.length) {
-            //         searchTermRegex = new RegExp(tokens.join('|'), 'gim');
-            //     }
-            // }
-            // if(req.body.destination != ''){
-            //     where_clause.dest_id = {[Op.eq] : parseInt(req.body.destination)};
-            // }
-            // if(req.body.origin != ''){
-            //     where_clause.start_point = {[Op.regexp] : searchTermRegex};
-            //}
+            var dest_include = {model: Destination};
+            console.log(req.body.origin);
+            console.log(req.body.destination);
+            if(req.body.origin != ''){
+                var searchTerm = req.body.origin;
+                // Tokenize the search terms and remove empty spaces
+                var tokens = searchTerm
+                            .toLowerCase()
+                            .split(' ')
+                            .filter(function(token){
+                                return token.trim() !== '';
+                            });
+                var searchTermRegex = null;
+                if(tokens.length) {
+                    searchTermRegex = new RegExp(tokens.join('|'), 'gim');
+                }
+                where_clause.start_point = {[Op.regexp] : searchTermRegex};
+            }
+            if(req.body.destination != ''){
+                var searchTerm_dest = req.body.origin;
+                // Tokenize the search terms and remove empty spaces
+                var tokens = searchTerm_dest
+                            .toLowerCase()
+                            .split(' ')
+                            .filter(function(token){
+                                return token.trim() !== '';
+                            });
+                var searchTermRegex_dest = null;
+                if(tokens.length) {
+                    searchTermRegex_dest = new RegExp(tokens.join('|'), 'gim');
+                }
+                dest_include.where = {
+                    name: {
+                        [Op.regexp] : searchTermRegex_dest
+                    }
+                }
+            }
+            console.log(where_clause);
             let rides = await Ride.findAll({
                 where: where_clause,
                 include: [
                     {model: User},
-                    {model: Destination}
+                    dest_include
                 ],
             });
             rides = rides.map(element => element.dataValues);
@@ -190,6 +206,8 @@ router.post('/add',[
 
             console.log("Creating ride with following parameters: ",newRide);
             newRide.save();
+            new_chat.save();
+            new_group.save();
             req.session.message = 'Added ride successfully';
             res.redirect(`/rides/${newRide.id}`);
         }

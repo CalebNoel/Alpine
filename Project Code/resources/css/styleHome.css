@@ -12,3 +12,18 @@ body {
   background: rgba(355, 355,355, 0.5);
 	box-shadow: 0 5px 15px rgba(0, 0,0, 0.5);
 }
+.box{
+	background-image: url("../../resources/img/Mountain.JPG");
+	padding : 100px;
+
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+				
+}
+.content{
+	margin-top: 50px;
+  	text-align: center;
+  	background: rgba(355, 355,355, 0.5);
+	box-shadow: 0 5px 15px rgba(0, 0,0, 0.5);
+}

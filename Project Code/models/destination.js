@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       unique: false,
       allowNull: false 
     },
-    lang:{
+    long:{
         type: DataTypes.FLOAT,
         allowNull: false,
     },

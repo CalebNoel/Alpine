@@ -79,6 +79,7 @@
                   <p class="card-text" id="temp" style="font-weight: bold;">Current Temperature: <%- weather_for_places[counter].current.temp %> (°F)</p>
                   <p class="card-text" id="temp" style="font-weight: bold;">Cloud Cover: <%- weather_for_places[counter].current.clouds %>%</p>
                   <img class="card-img-bottom" src="http://openweathermap.org/img/wn/<%- weather_for_places[counter].current.weather[0].icon%>@2x.png" alt="weatherIcon">
+                  <a class="btn btn-primary" href="<%= `/locations/add?name=${name}&long=${weather_for_places[counter].lon}&lat=${weather_for_places[counter].lat}&address=${address}` %>">Add Location</a>
                 </div>
                 <% counter++ %>
               </div>

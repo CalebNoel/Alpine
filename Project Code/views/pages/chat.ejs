@@ -54,10 +54,10 @@
                               '<div class="chat-text">' + chat_messages[i].line_text +'</div></li></div>';
                           }
                           else {
-                              msg += '<li class="chat-received"><div class="user-pic">' +
+                            msg += '<li class="chat-received"><div class="user-pic">' +
                                 '<img src="/img/default_profile_pic.jpg" alt "Profile Pic" onclick="openProfile();"></div>' +
-                                '</div><div class="chat-sender">Sender Id: ' + chat_messages[i].user_id + '</div><div class="chat-time">' + chat_messages[i].createdAt.toLocaleTimeString() + '</div>' +
-                                '<div class="chat-text">' + chat_messages[i].line_text +'</div></li>';
+                                '<div class="chat-text">' + chat_messages[i].line_text + '</div><br>' +
+                                '<div class="chat-sender">Sender Id: '+ chat_messages[i].user_id + '</div><span class="chat-time">' + chat_messages[i].createdAt.toLocaleTimeString() +'</span></li>';
                           }
                         }
                         %>

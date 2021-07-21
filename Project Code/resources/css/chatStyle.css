@@ -104,6 +104,25 @@ CHAT BOX ****************************************************
     padding: 0;
     padding-left: 10px;
 }
+.chat-box .chat-received .chat-sender{
+    text-align: left;
+    display:inline-block;
+    margin: 0;
+    padding: 0;
+    padding-left: 10px;
+    font-weight:bold;
+    font-size:18;
+}
+.chat-box .chat-received .chat-time{
+    text-align: left;
+    display:inline-block;
+    margin: 0;
+    padding: 0;
+    padding-left: 10px;
+    padding-top:25px;
+    font-size:12px;
+}
+
 .chat-box .chat-sent .chat-text{
     float:right;
     display:inline-block;

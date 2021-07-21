@@ -64,7 +64,7 @@ router.post('/register', [
       const newUser = await User.create({
         name: req.body.fullName,
         email: req.body.emailAddress,
-        password: req.body.passwordFirst,//await bcrypt.hash(req.body.passwordFirst, salt),
+        password: await bcrypt.hash(req.body.passwordFirst, salt),
         phone_no: req.body.PhoneNumber,
         dob : dob.format(),
         user_rating: 0.0,

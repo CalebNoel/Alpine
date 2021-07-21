@@ -21,7 +21,7 @@
                       {
                         chats_html += '<li class="chats"><div class="chat-pic">' +
                             '<input type="image" name="submit" src="/img/default_profile_pic.jpg" alt="Profile Pic"></input></div>' +
-                            '<p class="name"><button type="submit" name="submit" value="' + chats[i].chat_id +'">Chat with user: ' + chats[i].user_id + '</button></p></li>'
+                            '<p class="name"><button type="submit" name="submit" value="' + chats[i].chat_id +'">Chat Id: ' + chats[i].chat_id + '</button></p></li>'
                       }
                     %>
                     <%- chats_html %>
@@ -35,7 +35,7 @@
             <div class="col-8">
               <div class="row">
                 <div class="selected-chat">
-                  <span>To: <span class="name">Test User 1</span></span>
+                  <span>To: <span class="name"></span>Chat <%- chat_id %></span>
                 </div>
               </div>
               <div class="row">
@@ -50,14 +50,14 @@
                           if(chat_messages[i].user_id == curr_user_id){
                             msg += '<div class="row"><li class="chat-sent"><div class="user-pic">' +
                               '<img src="/img/default_profile_pic.jpg" alt "Profile Pic" onclick="openProfile();"></div>' +
-                              '<div class="chat-text">' + chat_messages[i].line_text + '</div>' +
-                              '<div class="chat-time">' + chat_messages[i].createdAt.toLocaleTimeString() +'</div></li></div>';
+                              '<div class="chat-time">' + chat_messages[i].createdAt.toLocaleTimeString() + '</div><div class="chat-sender">You</div>' +
+                              '<div class="chat-text">' + chat_messages[i].line_text +'</div></li></div>';
                           }
                           else {
                               msg += '<li class="chat-received"><div class="user-pic">' +
                                 '<img src="/img/default_profile_pic.jpg" alt "Profile Pic" onclick="openProfile();"></div>' +
-                                '<div class="chat-text">' + chat_messages[i].line_text + '</div>' +
-                                '<div class="chat-time">' + chat_messages[i].createdAt.toLocaleTimeString() +'</div></li>';
+                                '</div><div class="chat-sender">Sender Id: ' + chat_messages[i].user_id + '</div><div class="chat-time">' + chat_messages[i].createdAt.toLocaleTimeString() + '</div>' +
+                                '<div class="chat-text">' + chat_messages[i].line_text +'</div></li>';
                           }
                         }
                         %>

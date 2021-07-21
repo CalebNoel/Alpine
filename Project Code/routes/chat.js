@@ -16,11 +16,11 @@ router.get('/', async (req,res) => {
       },
       logging: false
     });
-    /*var all_chat_ids = [];
+    var all_chat_ids = [];
     for(let i = 0; i<chats.length; i++){
       all_chat_ids.push(chats[i].chat_id);
     }
-    var all_recievers = []
+    /*var all_recievers = []
     for(let i = 0; i<all_chat_ids.length; i++){
       var temp = await SharedChat.findAll({
         where:{

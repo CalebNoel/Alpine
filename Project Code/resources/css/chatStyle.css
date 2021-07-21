@@ -118,7 +118,19 @@ CHAT BOX ****************************************************
   margin: 0;
   padding: 0;
   padding-right: 10px;
+  padding-top:55px;
+  font-size:12px;
+}
+
+.chat-box .chat-sent .chat-sender{
+  float:right;
+  display:inline-block;
+  margin: 0;
+  padding: 0;
+  padding-right: 10px;
   padding-top:50px;
+  font-weight: bold;
+  font-size:18px;
 }
 
 .chat-input .textarea {

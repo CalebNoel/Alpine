@@ -10,3 +10,10 @@
 - The technologies to be used on the front-end include react, materialize-CSS, and HTML.
 - The front-end and back-end will communicate with each other using the handlebars API of Express.js.
 - React will be responsible for the behavioral and state storage part of the website, materialize-CSS for styling, MongoDB as the database, and Express.js as an API for communication between back-end and front-end.
+
+
+# TODO:
+Tag repo with "Final Submission"
+# How to build/run code
+
+# Orginization

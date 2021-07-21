@@ -82,8 +82,8 @@
                 <%= ride.seats_available %>
               </div>
               <div class="col">
-                <form action="/rides/join/<%= ride.dest_id %>" method="POST">
-                  <button class="btn btn-dark" type="submit" name="joinButton">Join</button>
+                <form action="/rides/join" method="POST">
+                  <%- "<button class='btn btn-dark' type='submit' name='joinButton' value=" + ride.driver_id + " >Join</button>" %>
                 </form>
               </div>
             </div>

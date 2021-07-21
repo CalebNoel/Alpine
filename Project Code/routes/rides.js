@@ -398,6 +398,29 @@ router.get('/:id/group',async(req,res) => {
     });
 });
 
+//Joing Chat
+router.post('/join', async(req, res) => {
+  var loggedIn = req.isAuthenticated();
+  const curr_user_id = req.user.id;
+  var chat_creator = req.body.joinButton;
+  var chat_id = await Chat.findAll({
+    where: {
+      created_by: chat_creator
+    }
+  });
+  var new_group = await SharedChat.create({user_id:curr_user_id, chat_id:chat_id[0].id});
+
+
+  let destinations = await Destination.findAll();
+  destinations = destinations.map(element => element.dataValues);
+  var loggedIn = req.isAuthenticated();
+  res.render('pages/rideSearch',{
+      rides: null,
+      destinations: destinations,
+      loggedIn: loggedIn
+  });
+});
+
 // Send Message
 
 module.exports = router;

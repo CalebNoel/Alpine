@@ -49,18 +49,24 @@ router.post('/select_chat', async (req, res) =>{
   console.log('Chat select success');
   var curr_user_id = req.user.id;
   var selected_chat = req.body.submit;
-  var query = await ChatLine.findAll({
-    where: {
-      chat_id: selected_chat
-    },
-    logging: false
-  });
-  var chats = await SharedChat.findAll({
-    where:{
-      user_id: curr_user_id,
-    },
-    logging: false
-  });
+  if(selected_chat != null){
+    var query = await ChatLine.findAll({
+      where: {
+        chat_id: selected_chat
+      },
+      logging: false
+    });
+    var chats = await SharedChat.findAll({
+      where:{
+        user_id: curr_user_id,
+      },
+      logging: false
+    });
+  }
+  else{
+    var query = '';
+    var chats = '';
+  }
 	res.render('pages/chat',{
     chats: chats,
 		chat_messages: query,

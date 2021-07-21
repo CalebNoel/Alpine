@@ -156,7 +156,7 @@ router.get('/add',async (req,res) => {
 router.post('/add',[
     // Validate ride data
     check('start_date').not().isEmpty(),
-    check('end_date').not().isEmpty().isAfter(), /*.custom((value, { req }) => {
+    check('end_date').not().isEmpty(), /*.custom((value, { req }) => {
         if (value <= moment(req.body.end_date).toDate()) {
           throw new Error('Return Date can\'t be before departure');
         }

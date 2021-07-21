@@ -73,12 +73,12 @@ router.post('/search',[
                             });
                 var searchTermRegex = null;
                 if(tokens.length) {
-                    searchTermRegex = new RegExp(tokens.join('|'), 'gim');
+                    searchTermRegex = tokens.join('|');
                 }
-                where_clause.start_point = {[Op.regexp] : searchTermRegex};
+                where_clause.start_point = {[Op.iRegexp] : searchTermRegex};
             }
             if(req.body.destination != ''){
-                var searchTerm_dest = req.body.origin;
+                var searchTerm_dest = req.body.destination;
                 // Tokenize the search terms and remove empty spaces
                 var tokens = searchTerm_dest
                             .toLowerCase()
@@ -88,11 +88,11 @@ router.post('/search',[
                             });
                 var searchTermRegex_dest = null;
                 if(tokens.length) {
-                    searchTermRegex_dest = new RegExp(tokens.join('|'), 'gim');
+                    searchTermRegex_dest = tokens.join('|');
                 }
                 dest_include.where = {
                     name: {
-                        [Op.regexp] : searchTermRegex_dest
+                        [Op.iRegexp] : `${searchTermRegex_dest}`
                     }
                 }
             }

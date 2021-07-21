@@ -114,8 +114,8 @@ router.post('/login', async (req, res, next) => {
 // logout
 router.get('/logout', ensureAuthenticated,async (req, res) => {
   req.logout();
-  res.redirect('/users/login',{
-    message : 'You are logged out',
+  res.render('pages/User_Login',{
+    loginError: 'You are logged out.',
     loggedIn: false
   });
 });

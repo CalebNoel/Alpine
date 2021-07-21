@@ -181,7 +181,6 @@ router.post('/profile',[
       const update_user = await User.update({
         name: req.body.fullName,
         email: req.body.emailAddress,
-        password: req.body.passwordFirst,// ? await bcrypt.hash(req.body.passwordFirst, salt) : '$2b$10$/VvxXqQiEMsNhLFNkVLebe2gBH9T2VnI0f8t9fjqiLGfGxMwhbpnq', //replace with req.user.password
         phone_no: req.body.PhoneNumber,
         dob : dob ? dob.format() : new Date('10 Jul 1999'), //replace with req.user.dob
       },{
@@ -189,6 +188,16 @@ router.post('/profile',[
           id: req.user.id
         }
       });
+      if(req.body.passwordFirst != '' && req.body.passwordConfirm != ''){
+        const update_user = await User.update({
+          password: await bcrypt.hash(req.body.passwordFirst, salt),
+        },{
+          where: {
+            id: req.user.id
+          }
+          }
+        );
+      }
       console.log('profile updated');
       req.session.message = 'Edited Successfully';
       res.redirect('/users/profile',);

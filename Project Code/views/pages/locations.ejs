@@ -20,13 +20,13 @@
         </div>
       </form>
     </div>
-    
+
     <div class="card-columns" id="locations-stack" style="width: 55%; margin: 1% auto;">
-      <% if(places) { 
+      <% if(places) {
         var counter = 0;
-          places.forEach(function(places){ 
+          places.forEach(function(places){
             var name= places.name
-            
+
             if(places.opening_hours != null)
             {
               var open = places.opening_hours.open_now
@@ -57,7 +57,7 @@
               <img class="card-img-top" src="<%- icon %>" alt="image icon" style="width: 75px;height: 100px;">
               <div class="card-body">
                 <h4 class="card-text"><%- name %></h4>
-                <% if(open != null){ 
+                <% if(open != null){
                   if(open == true) { %>
                 <h6 class="card-text" style="color: green;">Open Now!</h6>
                    <% } else{ %>
@@ -87,6 +87,5 @@
            <% }); %>
           <% } %>
     </div>
-    
-<%- include ('../partials/footer'); %>
 
+<%- include ('../partials/footer'); %>

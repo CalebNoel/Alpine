@@ -18,6 +18,9 @@
             </button>
             <div class="collapse navbar-collapse nav-fill w-100" id="navbarSupportedContent nav-fill w-100">
               <ul class="navbar-nav w-100">
+                <li class="nav-item">
+                  <img src="/img/alpine_logo_new.png" style="height:auto; width:auto; max-height:50px">
+                </li>
                 <li class="nav-item fs-4 fw-bold me">
                   <a id="Home" class="nav-link" href="/">Home</a>
                 </li>
@@ -30,7 +33,7 @@
                 <li class="nav-item fs-4 fw-bold">
                   <a id="Locations" class="nav-link" href="/locations" tabindex="-1" aria-disabled="true">Locations</a>
                 </li>
-                
+
                 <% if(loggedIn) { %>
                   <li class="nav-item dropdown fs-4 fw-bold">
                     <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -56,7 +59,7 @@
                     <a href="/users/login" class="btn btn-dark btn-lg active" role="button" aria-pressed="true">Log In</a>
                   </li>
                 <% } %>
-                
+
               </ul>
               <!-- <form class="d-flex">
                 <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search">

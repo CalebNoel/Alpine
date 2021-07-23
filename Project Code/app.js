@@ -44,7 +44,10 @@ app.use('/rides', rides);
 app.use('/chat', chat);
 app.use('/locations', locations);
 
-
+// app.get("/", (req, res) => {
+//     res.json({ status: "success", message: "Welcome!" });
+//   });
+  
 
 
 if(process.env.NODE_ENV === 'development'){

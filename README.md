@@ -15,9 +15,6 @@ https://alpine-ltd.herokuapp.com/
 - The front-end and back-end will communicate with each other using the handlebars API of Express.js.
 - React will be responsible for the behavioral and state storage part of the website, materialize-CSS for styling, PostGreSQL as the database, and Express.js as an API for communication between back-end and front-end.
 
-
-# TODO:
-Tag repo with "Final Submission"
 # How to build/run code
 Pull code fromr repository. 
 After navigating to the Project Code folder in you terminal, you will need to run these 4 commands:
@@ -30,6 +27,7 @@ npx sequelize-cli db:seed:all
 Then you should be able to get the server running with the command `npm run dev` after which the website should be accesible in your browser at local host on port 3000.
 
 # Orginization
+All of our code is stored in the Project Code folder. Our ejs files are in the views subfolder, the models and migrations folders help set up the tables in the database and the routes folder has most of our js. Overall the repo structure is not super complicated.
 
 # API'S
 

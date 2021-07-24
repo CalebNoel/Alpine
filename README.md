@@ -29,6 +29,8 @@ Then you should be able to get the server running with the command `npm run dev`
 # Orginization
 All of our code is stored in the Project Code folder. Our ejs files are in the views subfolder, the models and migrations folders help set up the tables in the database and the routes folder has most of our js. Overall the repo structure is not super complicated.
 
+- Repository is organized by Project Code, Meeting Logs, and Milestone Submissions. Project code contains all relevant source code for project. PostGreSQL database information contained under "config". Middleware authentication for users contained under "middleware". Migrations and models named accordingly. Client side logic(JavaScript, CSS) and image files contained under resources. Express functions contained in Node.js folder titled "routes". Seed database file contained under "seeders". Test folder contains structure for mocha/chai user implemented test cases. Simply use 'mocha app.js' to run test cases. All HTML files utilizing EJS templating engine are listed under "views" and "partials" contain the header and footer for each page. 
+
 # API'S
 
 - Google JavaScript Maps API, Locations API, and Places API all used under Google Cloud Platform Credentials. Site is able to host ~1000 request per day for free

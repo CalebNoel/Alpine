@@ -19,6 +19,15 @@ https://alpine-ltd.herokuapp.com/
 # TODO:
 Tag repo with "Final Submission"
 # How to build/run code
+Pull code fromr repository. 
+After navigating to the Project Code folder in you terminal, you will need to run these 4 commands:
+```
+npx sequelize-cli db:seed:undo:all
+npx sequelize-cli db:migrate:undo:all
+npx sequelize-cli db:migrate
+npx sequelize-cli db:seed:all
+```
+Then you should be able to get the server running with the command `npm run dev` after which the website should be accesible in your browser at local host on port 3000.
 
 # Orginization
 

@@ -2,17 +2,37 @@
     <link rel="stylesheet" href="/css/styleMap.css">
     <title>Map</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <style>
+      #map{
+        width: 90%; 
+        height: 800px; 
+        margin: auto; 
+        border:10px solid cadetblue"
+
+      }
+  </style>
   </head>
     <body>
       <br>
-      <script>
-        function initAutocomplete() {
-          const colo = { lat: 39.635757, lng:-106.362984 };
-    const map = new google.maps.Map(document.getElementById("map"), {
-      center: colo,
-      zoom: 9,
-      mapTypeId: "roadmap",
-    });
+     <script>
+        function initMap(){
+            var opt = {
+                zoom:8,
+                center: {lat:39.1911, lng: -106.8175}
+            }
+
+            var map = new google.maps.Map(document.getElementById('map'), opt);
+            var marker = new google.maps.Marker()
+        
+  //  function initAutocomplete() {
+  //         const colo = { lat: 39.635757, lng:-106.362984 };
+  //   const map = new google.maps.Map(document.getElementById("map"), {
+  //     center: colo,
+  //     zoom: 9,
+  //     mapTypeId: "roadmap",
+  //   }); 
+
+    
     // Create the search box and link it to the UI element.
     const input = document.getElementById("pac-input")
     const searchBox = new google.maps.places.SearchBox(input);
@@ -67,6 +87,7 @@
       map.fitBounds(bounds);
     });
   }
+  
       </script>
       <div id="map" style="width: 80%; height: 700px; margin: auto; border:10px solid cadetblue">
       </div>
@@ -79,8 +100,25 @@
         </div>
           <input type="hidden" id="submitted_place" name="submitted_place">
       </form>
-      <script
+      <!-- <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPSOpMS_xDzRDg50J8ee34DTdmHQOkUj0&callback=initAutocomplete&libraries=places&v=weekly"
       async
-    ></script>
+    ></script> 
+    <div id="map"> </div>
+    <script>
+        function initMap(){
+            var opt = {
+                zoom:8,
+                center: {lat:39.1911, lng: -106.8175}
+            }
+
+            var map = new google.maps.Map(document.getElementById('map'), opt);
+            var marker = new google.maps.Marker()
+        }
+        
+    </script>
+     -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmhmqCA8Rl7JO4dTID1Fj-d9eb-VVXtWA&callback=initMap&libraries=places,geometry&channel=GMPSB_locatorplus_v4_cABCDE" async defer></script>
+
         <%- include ('../partials/footer'); %>
+      
